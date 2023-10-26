@@ -24,6 +24,7 @@ public class LoadLevelState : IPayLoadState<string>
 
     private void OnLoaded()
     {
-        GameObject canvas = _uiFactory.CreatCanvas();
+        Transform rootCanvas = _uiFactory.CreatCanvas();
+        GameObject buildingListPanel = _uiFactory.CreatBuildingListPanel();
     }
 }

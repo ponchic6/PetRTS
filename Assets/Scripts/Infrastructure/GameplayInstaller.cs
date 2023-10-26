@@ -11,7 +11,7 @@ public class GameplayInstaller : MonoInstaller
         RegisterTickService();
         RegisterInputService();
         RegisterCameraMoveService();
-        RegisterUIFactory();
+        //RegisterUIFactory();
     }
 
     private void RegisterUIFactory()

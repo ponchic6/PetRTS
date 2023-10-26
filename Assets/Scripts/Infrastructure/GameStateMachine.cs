@@ -10,7 +10,7 @@ public class GameStateMachine
         _states = new Dictionary<Type, IExitableState>(); 
         
         _states[typeof(BootstrapState)] = new BootstrapState(this, sceneLoader);
-        _states[typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader);
+        _states[typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, new UIFactory());
         
     }
     
