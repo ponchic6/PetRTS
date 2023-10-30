@@ -11,8 +11,8 @@ public class BuildingButtonsHandler : MonoBehaviour
         _buildingService = buildingService;
     }
 
-    public void CreateBuilding()
+    public void CreateBuilding(int buildingNumber)
     {
-        _buildingService.CreateBuilding();
+        _buildingService.CreateBuilding(buildingNumber);
     }
 }

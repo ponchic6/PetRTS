@@ -21,9 +21,20 @@ public class BuildingService : IBuildingService
         _tickService.OnTick += SetCurrentBuildingPosToCursor;
     }
 
-    public void CreateBuilding()
+    public void CreateBuilding(int buldingNumber)
     {
-        _currentBuilding = _buildingFactory.CreateBuilding1();
+        switch (buldingNumber)
+        {
+            case 1:
+                _currentBuilding = _buildingFactory.CreateBuilding1();
+                break;
+            case 2:
+                _currentBuilding = _buildingFactory.CreateBuilding2();
+                break;
+            case 3:
+                _currentBuilding = _buildingFactory.CreateBuilding3();
+                break;
+        }
     }
 
     private void SetCurrentBuildingPosToCursor()

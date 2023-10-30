@@ -30,7 +30,7 @@ public class LoadLevelState : IPayLoadState<string>
     private void OnLoaded()
     {
         Transform rootCanvas = _uiFactory.CreatCanvas();
-        GameObject buildingListPanel = _uiFactory.CreatBuildingListPanel();
-        GameObject buildingButtons = _uiFactory.CreateBuildButtons();
+        Transform buildingListPanel = _uiFactory.CreatBuildingListPanel();
+        Transform buildingButtons = _uiFactory.CreateBuildButtons();
     }
 }

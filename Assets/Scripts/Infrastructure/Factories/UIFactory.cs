@@ -26,30 +26,46 @@ public class UIFactory
         return _rootCanvas;
     }
 
-    public GameObject CreatBuildingListPanel()
+    public Transform CreatBuildingListPanel()
     {
-        GameObject panel = Resources.Load<GameObject>(BuildingListPanelPath);
-        _buildingPannel = panel.transform;
-        
         if (_rootCanvas != null)
-            return Object.Instantiate(panel, _rootCanvas);
+        {
+            Transform panel = Resources.Load<GameObject>(BuildingListPanelPath).transform;
+            _buildingPannel = Object.Instantiate(panel, _rootCanvas);
+            return _buildingPannel;
+        }
+
         return null;
     }
 
-    public GameObject CreateBuildButtons()
+    public Transform CreateBuildButtons()
     {
         if (_buildingPannel != null)
         {
-            GameObject buildButtons = Object.Instantiate(Resources.Load<GameObject>(BuildbuttonsPath), _rootCanvas);
-            GameObject buildingButtonsHandler 
-                = _diContainer.InstantiatePrefabResource(BuildingButtonsHandlerPath);
+            Transform buildingButtons = Resources.Load<Transform>(BuildbuttonsPath);
+            _buildingButtons = Object.Instantiate(buildingButtons, _buildingPannel);
 
-            foreach (Transform button in buildButtons.transform)
-            {
-                button.gameObject.GetComponent<Button>().onClick.AddListener(buildingButtonsHandler.GetComponent<BuildingButtonsHandler>().CreateBuilding); 
-            }
-            _buildingButtons = buildButtons.transform;
+            BuildingButtonsHandler buildingButtonsHandler = _diContainer.
+                InstantiatePrefabResourceForComponent<BuildingButtonsHandler>(BuildingButtonsHandlerPath, _buildingPannel);
+
+            BindBuildingButtons(buildingButtonsHandler);
+
+            return _buildingButtons;
         }
+        
         return null;
+    }
+
+    private void BindBuildingButtons(BuildingButtonsHandler buildingButtonsHandler)
+    {
+        _buildingButtons.GetChild(0).gameObject.GetComponent<Button>().
+            onClick.AddListener(() => { buildingButtonsHandler.CreateBuilding(1); });
+            
+        _buildingButtons.GetChild(1).gameObject.GetComponent<Button>().
+            onClick.AddListener(() => { buildingButtonsHandler.CreateBuilding(2); });
+
+        _buildingButtons.GetChild(2).gameObject.GetComponent<Button>().
+            onClick.AddListener(() => { buildingButtonsHandler.CreateBuilding(3); });
+
     }
 }
