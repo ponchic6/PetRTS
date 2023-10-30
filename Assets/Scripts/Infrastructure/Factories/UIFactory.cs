@@ -43,10 +43,7 @@ public class UIFactory
             GameObject buildButtons = Object.Instantiate(Resources.Load<GameObject>(BuildbuttonsPath), _rootCanvas);
             GameObject buildingButtonsHandler 
                 = _diContainer.InstantiatePrefabResource(BuildingButtonsHandlerPath);
-            
-            // BuildingButtonsHandler buildingButtonsHandler 
-            //     = Object.Instantiate(Resources.Load<BuildingButtonsHandler>(BuildingButtonsHandlerPath));
-            
+
             foreach (Transform button in buildButtons.transform)
             {
                 button.gameObject.GetComponent<Button>().onClick.AddListener(buildingButtonsHandler.GetComponent<BuildingButtonsHandler>().CreateBuilding); 

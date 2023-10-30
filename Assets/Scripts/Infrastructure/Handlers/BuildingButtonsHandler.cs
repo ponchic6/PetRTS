@@ -3,10 +3,10 @@ using Zenject;
 
 public class BuildingButtonsHandler : MonoBehaviour
 {
-    private BuildingService _buildingService;
+    private IBuildingService _buildingService;
     
     [Inject]
-    public void Constructor(BuildingService buildingService)
+    public void Constructor(IBuildingService buildingService)
     {
         _buildingService = buildingService;
     }
