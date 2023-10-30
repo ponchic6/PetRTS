@@ -11,13 +11,20 @@ public class GameplayInstaller : MonoInstaller
         RegisterTickService();
         RegisterInputService();
         RegisterCameraMoveService();
-        //RegisterUIFactory();
+        RegisterBuildingFactory();
+        RegisterBuildingService();
     }
 
-    private void RegisterUIFactory()
+    private void RegisterBuildingService()
     {
-        UIFactory uiFactory = Container.Instantiate<UIFactory>();
-        Container.Bind<UIFactory>().FromInstance(uiFactory).AsSingle();
+        BuildingService buildingService = Container.Instantiate<BuildingService>();
+        Container.Bind<BuildingService>().FromInstance(buildingService).AsSingle();
+    }
+
+    private void RegisterBuildingFactory()
+    {
+        BuildingFactory buildingFactory = Container.Instantiate<BuildingFactory>();
+        Container.Bind<BuildingFactory>().FromInstance(buildingFactory).AsSingle();
     }
 
     private void RegisterInputService()

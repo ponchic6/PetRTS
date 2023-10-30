@@ -1,8 +1,10 @@
-﻿public class BootstrapState : IState
+﻿using Zenject;
+
+public class BootstrapState : IState
 {
     private const string Initial = "Initial";
     private readonly GameStateMachine _stateMachine;
-    private SceneLoader _sceneLoader;
+    private readonly SceneLoader _sceneLoader;
     public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader)
     {
         _stateMachine = stateMachine;

@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using Zenject;
 
 public class GameStateMachine
 {
     private readonly Dictionary<Type, IExitableState> _states;
     private IExitableState _activeState;
-    public GameStateMachine(SceneLoader sceneLoader)
+    public GameStateMachine(SceneLoader sceneLoader, DiContainer diContainer)
     {
         _states = new Dictionary<Type, IExitableState>(); 
         
         _states[typeof(BootstrapState)] = new BootstrapState(this, sceneLoader);
-        _states[typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, new UIFactory());
+        _states[typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, diContainer);
         
     }
     
