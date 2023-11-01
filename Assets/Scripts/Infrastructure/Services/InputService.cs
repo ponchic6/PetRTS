@@ -4,7 +4,8 @@ using UnityEngine;
 public class InputService : IInputService
 {
     public event Action<Vector2> OnCheckCursorPosition;
-    public event Action OnLeftClick;
+    public event Action OnLeftClickDown;
+    public event Action OnLeftClickUp;
 
     public InputService(ITickService tickService)
     {
@@ -19,10 +20,11 @@ public class InputService : IInputService
 
     private void CheckClickFire1()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            OnLeftClick?.Invoke();
-        }
+        if (Input.GetMouseButtonDown(0)) 
+            OnLeftClickDown?.Invoke();
+
+        if (Input.GetMouseButtonUp(0))
+            OnLeftClickUp?.Invoke();
     }
 
     private void CheckCursorPosition()

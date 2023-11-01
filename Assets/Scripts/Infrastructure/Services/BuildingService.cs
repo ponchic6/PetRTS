@@ -13,7 +13,7 @@ public class BuildingService : IBuildingService
     public BuildingService(IBuildingFactory buildingFactory, IInputService inputService, ITickService tickService)
     {
         _inputService = inputService;
-        _inputService.OnLeftClick += SetupCurrentBuilding;
+        _inputService.OnLeftClickDown += SetupCurrentBuilding;
         
         _buildingFactory = buildingFactory;
         

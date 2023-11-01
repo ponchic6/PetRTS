@@ -2,21 +2,23 @@
 using UnityEngine.UI;
 using Zenject;
 
-public class UIFactory
+public class UIFactory : IUIFactory
 {
     private const string CanvasPath = "UIEllements/Canvas";
     private const string BuildingListPanelPath = "UIEllements/BuilidngListPanel";
     private const string BuildbuttonsPath = "UIEllements/BuildButtons";
-    private const string BuildingButtonsHandlerPath = "UIEllements/UIHandlers/BuildingButtonsHandler";
 
     private readonly DiContainer _diContainer;
+    private readonly IUIHandlerFactory _uiHandlerFactory;
+    
     private Transform _rootCanvas;
     private Transform _buildingPannel;
     private Transform _buildingButtons;
 
-    public UIFactory(DiContainer diContainer)
+    public UIFactory(DiContainer diContainer, IUIHandlerFactory uiHandlerFactory)
     {
         _diContainer = diContainer;
+        _uiHandlerFactory = uiHandlerFactory;
     }
 
     public Transform CreatCanvas()
@@ -45,8 +47,8 @@ public class UIFactory
             Transform buildingButtons = Resources.Load<Transform>(BuildbuttonsPath);
             _buildingButtons = Object.Instantiate(buildingButtons, _buildingPannel);
 
-            BuildingButtonsHandler buildingButtonsHandler = _diContainer.
-                InstantiatePrefabResourceForComponent<BuildingButtonsHandler>(BuildingButtonsHandlerPath, _buildingPannel);
+            BuildingButtonsHandler buildingButtonsHandler =
+                _uiHandlerFactory.CreateBuildingButtonsHandler(_buildingPannel);
 
             BindBuildingButtons(buildingButtonsHandler);
 

@@ -8,8 +8,30 @@ public class GameplayInstaller : MonoInstaller
         RegisterTickService();
         RegisterInputService();
         RegisterCameraMoveService();
+        RegisterUIHandlerFactory();
+        RegisterUIFactory();
         RegisterBuildingFactory();
         RegisterBuildingService();
+        RegisterSelectorService();
+
+    }
+
+    private void RegisterUIHandlerFactory()
+    {
+        UIHandlerFactory uiHandlerFactory = Container.Instantiate<UIHandlerFactory>();
+        Container.Bind<IUIHandlerFactory>().FromInstance(uiHandlerFactory).AsSingle();
+    }
+
+    private void RegisterUIFactory()
+    {
+        UIFactory uiFactory = Container.Instantiate<UIFactory>();
+        Container.Bind<IUIFactory>().FromInstance(uiFactory).AsSingle();
+    }
+
+    private void RegisterSelectorService()
+    {
+        SelectorService selectorService = Container.Instantiate<SelectorService>();
+        Container.Bind<ISelectorService>().FromInstance(selectorService).AsSingle();
     }
 
     private void RegisterBuildingService()
@@ -43,4 +65,6 @@ public class GameplayInstaller : MonoInstaller
         ITickService tickService = tickObject.AddComponent<TickService>();
         Container.Bind<ITickService>().FromInstance(tickService).AsSingle();
     }
+    
+    
 }
