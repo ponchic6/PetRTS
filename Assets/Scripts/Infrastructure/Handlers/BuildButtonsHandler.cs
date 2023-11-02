@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class BuildingButtonsHandler : MonoBehaviour
+public class BuildButtonsHandler : MonoBehaviour
 {
     private IBuildingService _buildingService;
     

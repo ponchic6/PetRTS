@@ -4,8 +4,8 @@ using UnityEngine;
 public class SelectorService : ISelectorService 
 {
     public event Action<Rect> OnChangeSelectRect;
-    public event Action<bool> OnStartDraw;
-    public event Action<bool> OnFinishDraw;
+    public event Action<bool> OnChangeDrawStatus;
+
 
     private readonly IInputService _inputService;
     private readonly ITickService _tickService;
@@ -29,13 +29,13 @@ public class SelectorService : ISelectorService
     {
         _isCanDrawRect = true;
         _startCursorPos = _inputService.GetCursorPos();
-        OnStartDraw?.Invoke(_isCanDrawRect);
+        OnChangeDrawStatus?.Invoke(_isCanDrawRect);
     }
     
     private void FinishDrawRect()
     {
         _isCanDrawRect = false;
-        OnFinishDraw?.Invoke(_isCanDrawRect);
+        OnChangeDrawStatus?.Invoke(_isCanDrawRect);
     }
     
     private void CreateRectWithMouse()
@@ -51,5 +51,10 @@ public class SelectorService : ISelectorService
             
             OnChangeSelectRect?.Invoke(_currentSelectorRect);
         }
+    }
+
+    private void SelectObjectsInRect()
+    {
+        
     }
 }

@@ -4,9 +4,10 @@ using Zenject;
 
 public class UIFactory : IUIFactory
 {
-    private const string CanvasPath = "UIEllements/Canvas";
-    private const string BuildingListPanelPath = "UIEllements/BuilidngListPanel";
-    private const string BuildbuttonsPath = "UIEllements/BuildButtons";
+    private const string CanvasPath = "UIEllements/UIPrefasbs/Canvas";
+    private const string BuildingListPanelPath = "UIEllements/UIPrefasbs/BuilidngListPanel";
+    private const string BuildbuttonsPath = "UIEllements/UIPrefasbs/BuildButtons";
+    private const string PanelOfSelectedPath = "UIEllements/UIPrefasbs/PanelOfSelected";
 
     private readonly DiContainer _diContainer;
     private readonly IUIHandlerFactory _uiHandlerFactory;
@@ -14,6 +15,7 @@ public class UIFactory : IUIFactory
     private Transform _rootCanvas;
     private Transform _buildingPannel;
     private Transform _buildingButtons;
+    private Transform _panelOfSelected;
 
     public UIFactory(DiContainer diContainer, IUIHandlerFactory uiHandlerFactory)
     {
@@ -47,10 +49,10 @@ public class UIFactory : IUIFactory
             Transform buildingButtons = Resources.Load<Transform>(BuildbuttonsPath);
             _buildingButtons = Object.Instantiate(buildingButtons, _buildingPannel);
 
-            BuildingButtonsHandler buildingButtonsHandler =
+            BuildButtonsHandler buildButtonsHandler =
                 _uiHandlerFactory.CreateBuildingButtonsHandler(_buildingPannel);
 
-            BindBuildingButtons(buildingButtonsHandler);
+            BindBuildingButtons(buildButtonsHandler);
 
             return _buildingButtons;
         }
@@ -58,16 +60,28 @@ public class UIFactory : IUIFactory
         return null;
     }
 
-    private void BindBuildingButtons(BuildingButtonsHandler buildingButtonsHandler)
+    public Transform CreatePanelOfSelectedObjects()
+    {
+        if (_rootCanvas != null)
+        {
+            Transform panelOfSelected = Resources.Load<Transform>(PanelOfSelectedPath);
+            _panelOfSelected = Object.Instantiate(panelOfSelected, _rootCanvas);
+            return _panelOfSelected;
+        }
+
+        return null;
+    }
+
+    private void BindBuildingButtons(BuildButtonsHandler buildButtonsHandler)
     {
         _buildingButtons.GetChild(0).gameObject.GetComponent<Button>().
-            onClick.AddListener(() => { buildingButtonsHandler.CreateBuilding(1); });
+            onClick.AddListener(() => { buildButtonsHandler.CreateBuilding(1); });
             
         _buildingButtons.GetChild(1).gameObject.GetComponent<Button>().
-            onClick.AddListener(() => { buildingButtonsHandler.CreateBuilding(2); });
+            onClick.AddListener(() => { buildButtonsHandler.CreateBuilding(2); });
 
         _buildingButtons.GetChild(2).gameObject.GetComponent<Button>().
-            onClick.AddListener(() => { buildingButtonsHandler.CreateBuilding(3); });
+            onClick.AddListener(() => { buildButtonsHandler.CreateBuilding(3); });
 
     }
 }

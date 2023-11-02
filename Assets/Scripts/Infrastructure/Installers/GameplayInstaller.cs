@@ -8,12 +8,19 @@ public class GameplayInstaller : MonoInstaller
         RegisterTickService();
         RegisterInputService();
         RegisterCameraMoveService();
+        RegisterSelectableListService();
         RegisterUIHandlerFactory();
         RegisterUIFactory();
         RegisterBuildingFactory();
         RegisterBuildingService();
         RegisterSelectorService();
 
+    }
+
+    private void RegisterSelectableListService()
+    {
+        SelectableListService selectableListService = Container.Instantiate<SelectableListService>();
+        Container.Bind<SelectableListService>().FromInstance(selectableListService).AsSingle();
     }
 
     private void RegisterUIHandlerFactory()

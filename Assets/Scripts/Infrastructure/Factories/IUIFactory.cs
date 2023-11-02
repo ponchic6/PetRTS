@@ -5,4 +5,5 @@ public interface IUIFactory
     public Transform CreatCanvas();
     public Transform CreatBuildingListPanel();
     public Transform CreateBuildButtons();
+    public Transform CreatePanelOfSelectedObjects();
 }

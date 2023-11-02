@@ -10,12 +10,16 @@ public class SelectorView : MonoBehaviour
     
     [Inject]
     public void Constructor(ISelectorService selectorService)
-    {    
-        Debug.Log(1);
+    {
         _selectorService = selectorService;
         _selectorService.OnChangeSelectRect += SetSelectRect;
-        _selectorService.OnStartDraw += SetCanDrawTrue;
-        _selectorService.OnFinishDraw += SetCanDrawFalse;
+        _selectorService.OnChangeDrawStatus += SetCanDrawStatus;
+    }
+
+    private void OnGUI()
+    {    
+        if (_isCanDraw) 
+            GUI.Box(_rect, "");
     }
 
     private void SetSelectRect(Rect rect)
@@ -23,18 +27,7 @@ public class SelectorView : MonoBehaviour
         _rect = rect;
     }
 
-    private void OnGUI()
-    {    
-        if (_isCanDraw)
-            GUI.Box(_rect, "");
-    }
-
-    private void SetCanDrawFalse(bool isCanDraw)
-    {
-        _isCanDraw = isCanDraw;
-    }
-
-    private void SetCanDrawTrue(bool isCanDraw)
+    private void SetCanDrawStatus(bool isCanDraw)
     {
         _isCanDraw = isCanDraw;
     }

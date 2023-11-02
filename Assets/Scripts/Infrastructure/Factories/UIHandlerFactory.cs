@@ -13,12 +13,12 @@ public class UIHandlerFactory : IUIHandlerFactory
         _diContainer = diContainer;
     }
 
-    public BuildingButtonsHandler CreateBuildingButtonsHandler(Transform parent)
+    public BuildButtonsHandler CreateBuildingButtonsHandler(Transform parent)
     {
-        BuildingButtonsHandler buildingButtonsHandler = _diContainer.
-            InstantiatePrefabResourceForComponent<BuildingButtonsHandler>(BuildingButtonsHandlerPath, parent);
+        BuildButtonsHandler buildButtonsHandler = _diContainer.
+            InstantiatePrefabResourceForComponent<BuildButtonsHandler>(BuildingButtonsHandlerPath, parent);
         
-        return buildingButtonsHandler;
+        return buildButtonsHandler;
     }
 
     public SelectorView CreateSelectorView()
