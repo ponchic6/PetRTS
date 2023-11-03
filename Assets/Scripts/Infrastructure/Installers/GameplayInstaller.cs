@@ -5,12 +5,8 @@ public class GameplayInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        RegisterTickService();
-        RegisterInputService();
         RegisterCameraMoveService();
         RegisterSelectableListService();
-        RegisterUIHandlerFactory();
-        RegisterUIFactory();
         RegisterBuildingFactory();
         RegisterBuildingService();
         RegisterSelectorService();
@@ -21,18 +17,6 @@ public class GameplayInstaller : MonoInstaller
     {
         SelectableListService selectableListService = Container.Instantiate<SelectableListService>();
         Container.Bind<SelectableListService>().FromInstance(selectableListService).AsSingle();
-    }
-
-    private void RegisterUIHandlerFactory()
-    {
-        UIHandlerFactory uiHandlerFactory = Container.Instantiate<UIHandlerFactory>();
-        Container.Bind<IUIHandlerFactory>().FromInstance(uiHandlerFactory).AsSingle();
-    }
-
-    private void RegisterUIFactory()
-    {
-        UIFactory uiFactory = Container.Instantiate<UIFactory>();
-        Container.Bind<IUIFactory>().FromInstance(uiFactory).AsSingle();
     }
 
     private void RegisterSelectorService()
@@ -53,25 +37,10 @@ public class GameplayInstaller : MonoInstaller
         Container.Bind<IBuildingFactory>().FromInstance(buildingFactory).AsSingle();
     }
 
-    private void RegisterInputService()
-    {
-        IInputService inputService = Container.Instantiate<InputService>();
-        Container.Bind<IInputService>().FromInstance(inputService).AsSingle();
-    }
-
     private void RegisterCameraMoveService()
     {
         ICameraMoverService cameraMoverService = Container.Instantiate<CameraMoverService>();
         Container.Bind<ICameraMoverService>().FromInstance(cameraMoverService).AsSingle();
     }
 
-    private void RegisterTickService()
-    {    
-        GameObject tickObject = new GameObject("TickService");
-        DontDestroyOnLoad(tickObject);
-        ITickService tickService = tickObject.AddComponent<TickService>();
-        Container.Bind<ITickService>().FromInstance(tickService).AsSingle();
-    }
-    
-    
 }

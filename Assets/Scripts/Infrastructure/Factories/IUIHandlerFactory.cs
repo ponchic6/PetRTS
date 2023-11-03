@@ -3,5 +3,5 @@
 public interface IUIHandlerFactory
 {
     public BuildButtonsHandler CreateBuildingButtonsHandler(Transform parent);
-    public SelectorView CreateSelectorView();
+    public SelectorView CreateViewSelector();
 }

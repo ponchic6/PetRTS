@@ -1,19 +1,15 @@
-﻿using Zenject;
+﻿using UnityEngine;
+using Zenject;
 
 public class LoadLevelState : IPayLoadState<string>
 {
-    private readonly GameStateMachine _gameStateMachine;
-    private readonly DiContainer _diContainer;
     private readonly SceneLoader _sceneLoader;
-    
-    [Inject] private IUIFactory _uiFactory;
-    [Inject] private IUIHandlerFactory _uiHandlerFactory;
 
-    public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader,
-        DiContainer diContainer)
+    [Inject] private IUIHandlerFactory _uiHandlerFactory;
+    [Inject] private IUIFactory _uiFactory;
+
+    public LoadLevelState(SceneLoader sceneLoader)
     {
-        _diContainer = diContainer;
-        _gameStateMachine = gameStateMachine;
         _sceneLoader = sceneLoader;
     }
 
@@ -31,6 +27,6 @@ public class LoadLevelState : IPayLoadState<string>
         _uiFactory.CreatBuildingListPanel();
         _uiFactory.CreateBuildButtons();
         _uiFactory.CreatePanelOfSelectedObjects();
-        _uiHandlerFactory.CreateSelectorView();
+        _uiHandlerFactory.CreateViewSelector();
     }
 }
