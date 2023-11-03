@@ -2,18 +2,13 @@
 
 public class LoadLevelState : IPayLoadState<string>
 {
-    private readonly GameStateMachine _gameStateMachine;
-    private readonly DiContainer _diContainer;
     private readonly SceneLoader _sceneLoader;
     
     [Inject] private IUIFactory _uiFactory;
     [Inject] private IUIHandlerFactory _uiHandlerFactory;
 
-    public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader,
-        DiContainer diContainer)
+    public LoadLevelState(SceneLoader sceneLoader)
     {
-        _diContainer = diContainer;
-        _gameStateMachine = gameStateMachine;
         _sceneLoader = sceneLoader;
     }
 

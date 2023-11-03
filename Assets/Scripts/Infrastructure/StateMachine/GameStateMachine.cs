@@ -15,7 +15,7 @@ public class GameStateMachine
             Instantiate<BootstrapState>(new object[] {this, sceneLoader});
         
         _states[typeof(LoadLevelState)] = diContainer.
-            Instantiate<LoadLevelState>(new object[] {this, sceneLoader, diContainer});
+            Instantiate<LoadLevelState>(new object[] {sceneLoader});
     }
     
     public void Enter<TState>() where TState : class, IState

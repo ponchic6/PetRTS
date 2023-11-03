@@ -3,13 +3,20 @@ using UnityEngine;
 
 public class CameraMoverService : ICameraMoverService 
 {
-    private IInputService _inputService;
+    private readonly IInputService _inputService;
+
+    private Vector2 _pastCursorScreenPos;
+    private Vector2 _currentCursorScreenPos;
     public event Action<Vector3> OnReachCursorScreenBoundary;
+    public event Action<Vector3> OnChangeCursorPosWithHoldDownMidleButton; 
 
     public CameraMoverService(IInputService inputService)
     {
         _inputService = inputService;
         _inputService.OnCheckCursorPosition += CheckReachCursorScreenBoundary;
+        _inputService.OnHoldDownMiddleButton += CheckCursorDeltaPositionChange;
+        _inputService.OnMiddleClickDown += SetPastCursorPosToCurrentCursorPos;
+
     }
 
     private void CheckReachCursorScreenBoundary(Vector2 cursorPos)
@@ -18,5 +25,23 @@ public class CameraMoverService : ICameraMoverService
         
         if (cursorPos.x <= 0 || cursorPos.x >= Screen.width || cursorPos.y >= Screen.height || cursorPos.y <= 0) 
             OnReachCursorScreenBoundary?.Invoke(cameraMoveDirection);
+    }
+
+    private void CheckCursorDeltaPositionChange()
+    {
+        _currentCursorScreenPos = _inputService.GetCursorPos();
+        if (_pastCursorScreenPos != _currentCursorScreenPos)
+        {    
+            Vector3 delta = new Vector3(_currentCursorScreenPos.x - _pastCursorScreenPos.x, 0, _currentCursorScreenPos.y - _pastCursorScreenPos.y);
+            OnChangeCursorPosWithHoldDownMidleButton?.Invoke(-delta);
+        }
+
+        _pastCursorScreenPos = _currentCursorScreenPos;
+    }
+
+    private void SetPastCursorPosToCurrentCursorPos()
+    {
+        _currentCursorScreenPos = _inputService.GetCursorPos();
+        _pastCursorScreenPos = _currentCursorScreenPos;
     }
 }

@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using Zenject;
 
-public class BuildSelectHandler : MonoBehaviour, ISelectable
+public class BuildViewSelectStatusChanger : MonoBehaviour, ISelectable
 {
     [SerializeField] private Color _selectColor;
     [SerializeField] private Color _deselectColor;
