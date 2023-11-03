@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
@@ -9,22 +10,21 @@ public class UIFactory : IUIFactory
     private const string BuildbuttonsPath = "UIEllements/UIPrefasbs/BuildButtons";
     private const string PanelOfSelectedPath = "UIEllements/UIPrefasbs/PanelOfSelected";
 
-    private readonly DiContainer _diContainer;
     private readonly IUIHandlerFactory _uiHandlerFactory;
-    
+
     private Transform _rootCanvas;
     private Transform _buildingPannel;
     private Transform _buildingButtons;
     private Transform _panelOfSelected;
+    private Dictionary<ISelectable, Transform> _unitIconDictionary = new Dictionary<ISelectable, Transform>();
 
-    public UIFactory(DiContainer diContainer, IUIHandlerFactory uiHandlerFactory)
+    public UIFactory(IUIHandlerFactory uiHandlerFactory)
     {
-        _diContainer = diContainer;
         _uiHandlerFactory = uiHandlerFactory;
     }
 
     public Transform CreatCanvas()
-    {    
+    {
         Transform rootCanvas = Resources.Load<GameObject>(CanvasPath).transform;
         _rootCanvas = Object.Instantiate(rootCanvas);
         return _rootCanvas;
@@ -56,7 +56,7 @@ public class UIFactory : IUIFactory
 
             return _buildingButtons;
         }
-        
+
         return null;
     }
 
@@ -72,16 +72,51 @@ public class UIFactory : IUIFactory
         return null;
     }
 
+    public Transform CreateIconInSelectPanel(ISelectable unit)
+    {
+        if (_panelOfSelected != null && !_unitIconDictionary.ContainsKey(unit))
+        {
+            Transform icon = Object.Instantiate(unit.GetIcon().transform, _panelOfSelected);
+            _unitIconDictionary[unit] = icon;
+            UpdateIconPos();
+
+            return icon;
+        }
+
+        return null;
+    }
+
+    public void DestroyIconInSelectPanel(ISelectable unit)
+    {
+        if (_unitIconDictionary.ContainsKey(unit))
+        {
+            Object.Destroy(_unitIconDictionary[unit].gameObject);
+            _unitIconDictionary.Remove(unit);
+        }
+
+        UpdateIconPos();
+    }
+
+    private void UpdateIconPos()
+    {
+        int i = 0;
+
+        foreach (Transform _currentIcon in _unitIconDictionary.Values)
+        {
+            _currentIcon.localPosition = new Vector3(-200, 50, 0) + new Vector3(100, 0, 0) * i;
+            i++;
+        }
+    }
+
     private void BindBuildingButtons(BuildButtonsHandler buildButtonsHandler)
     {
-        _buildingButtons.GetChild(0).gameObject.GetComponent<Button>().
-            onClick.AddListener(() => { buildButtonsHandler.CreateBuilding(1); });
-            
-        _buildingButtons.GetChild(1).gameObject.GetComponent<Button>().
-            onClick.AddListener(() => { buildButtonsHandler.CreateBuilding(2); });
+        _buildingButtons.GetChild(0).gameObject.GetComponent<Button>().onClick
+            .AddListener(() => { buildButtonsHandler.CreateBuilding(1); });
 
-        _buildingButtons.GetChild(2).gameObject.GetComponent<Button>().
-            onClick.AddListener(() => { buildButtonsHandler.CreateBuilding(3); });
+        _buildingButtons.GetChild(1).gameObject.GetComponent<Button>().onClick
+            .AddListener(() => { buildButtonsHandler.CreateBuilding(2); });
 
+        _buildingButtons.GetChild(2).gameObject.GetComponent<Button>().onClick
+            .AddListener(() => { buildButtonsHandler.CreateBuilding(3); });
     }
 }

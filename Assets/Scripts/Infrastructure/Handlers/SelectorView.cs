@@ -12,7 +12,7 @@ public class SelectorView : MonoBehaviour
     public void Constructor(ISelectorService selectorService)
     {
         _selectorService = selectorService;
-        _selectorService.OnChangeSelectRect += SetSelectRect;
+        _selectorService.OnChangeRect += SetSelectRect;
         _selectorService.OnChangeDrawStatus += SetCanDrawStatus;
     }
 
