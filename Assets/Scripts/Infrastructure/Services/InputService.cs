@@ -9,13 +9,19 @@ public class InputService : IInputService
     public event Action OnLeftClickUp;
     public event Action OnHoldDownMiddleButton;
     public event Action OnMiddleClickDown;
+    public event Action OnMiddleClickUp;
+
+    private bool _isHoldDownMiddleButton;
 
     public InputService(ITickService tickService)
     {
         tickService.OnTick += CheckCursorPosition;
+        
         tickService.OnTick += CheckClickFire1;
-        tickService.OnTick += CheckHoldDownMiddleButton;
+        
         tickService.OnTick += CheckClickMiddleButtonDown;
+        tickService.OnTick += CheckClickMiddleButtonUp;
+        tickService.OnTick += CheckHoldDownMiddleButton;
     }
 
     public Vector2 GetCursorPos()
@@ -23,18 +29,26 @@ public class InputService : IInputService
         return new Vector2(Input.mousePosition.x, Input.mousePosition.y);
     }
 
+    private void CheckHoldDownMiddleButton()
+    {
+        if (_isHoldDownMiddleButton)
+            OnHoldDownMiddleButton?.Invoke();;
+    }
+    
+    private void CheckClickMiddleButtonUp()
+    {
+        if (Input.GetMouseButtonUp(2))
+        {
+            OnMiddleClickUp?.Invoke();
+            _isHoldDownMiddleButton = false;
+        }
+    }
     private void CheckClickMiddleButtonDown()
     {
         if (Input.GetMouseButtonDown(2))
         {
             OnMiddleClickDown?.Invoke();
-        }
-    }
-    private void CheckHoldDownMiddleButton()
-    {
-        if (Input.GetMouseButton(2))
-        {
-            OnHoldDownMiddleButton?.Invoke();
+            _isHoldDownMiddleButton = true;
         }
     }
 
