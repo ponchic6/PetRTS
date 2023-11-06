@@ -16,7 +16,7 @@ public class CameraMoverHandler : MonoBehaviour
     {
         _cameraMoverService = cameraMoverService;
         _cameraMoverService.OnReachCursorScreenBoundary += MoveCameraOnReachBoundaryCursor;
-        _cameraMoverService.OnChangeCursorPosWithHoldDownMidleButton += MoveCameraOnMidleButtonHold;
+        _cameraMoverService.OnChangeCursorPosWithHoldDownMiddleButton += MoveCameraOnMidleButtonHold;
     }
     
     private void MoveCameraOnReachBoundaryCursor(Vector3 direction)

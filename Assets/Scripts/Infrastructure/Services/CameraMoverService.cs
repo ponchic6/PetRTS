@@ -8,15 +8,14 @@ public class CameraMoverService : ICameraMoverService
     private Vector2 _pastCursorScreenPos;
     private Vector2 _currentCursorScreenPos;
     public event Action<Vector3> OnReachCursorScreenBoundary;
-    public event Action<Vector3> OnChangeCursorPosWithHoldDownMidleButton; 
+    public event Action<Vector3> OnChangeCursorPosWithHoldDownMiddleButton; 
 
     public CameraMoverService(IInputService inputService)
     {
         _inputService = inputService;
         _inputService.OnCheckCursorPosition += CheckReachCursorScreenBoundary;
-        _inputService.OnHoldDownMiddleButton += CheckCursorDeltaPositionChange;
         _inputService.OnMiddleClickDown += SetPastCursorPosToCurrentCursorPos;
-
+        _inputService.OnHoldDownMiddleButton += CheckCursorDeltaPositionChange;
     }
 
     private void CheckReachCursorScreenBoundary(Vector2 cursorPos)
@@ -33,7 +32,7 @@ public class CameraMoverService : ICameraMoverService
         if (_pastCursorScreenPos != _currentCursorScreenPos)
         {    
             Vector3 delta = new Vector3(_currentCursorScreenPos.x - _pastCursorScreenPos.x, 0, _currentCursorScreenPos.y - _pastCursorScreenPos.y);
-            OnChangeCursorPosWithHoldDownMidleButton?.Invoke(-delta);
+            OnChangeCursorPosWithHoldDownMiddleButton?.Invoke(-delta);
         }
 
         _pastCursorScreenPos = _currentCursorScreenPos;

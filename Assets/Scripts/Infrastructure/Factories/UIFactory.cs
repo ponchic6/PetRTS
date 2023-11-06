@@ -72,7 +72,7 @@ public class UIFactory : IUIFactory
         return null;
     }
 
-    public Transform CreateIconInSelectPanel(ISelectable unit)
+    public Transform CreateIconOnSelectPanel(ISelectable unit)
     {
         if (_panelOfSelected != null && !_unitIconDictionary.ContainsKey(unit))
         {
@@ -86,7 +86,7 @@ public class UIFactory : IUIFactory
         return null;
     }
 
-    public void DestroyIconInSelectPanel(ISelectable unit)
+    public void DestroyIconOnSelectPanel(ISelectable unit)
     {
         if (_unitIconDictionary.ContainsKey(unit))
         {

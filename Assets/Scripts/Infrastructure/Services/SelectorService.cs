@@ -67,7 +67,7 @@ public class SelectorService : ISelectorService
                         _selectableListService.CurrentSelectUnits.Add(currentUnit);
                     
                     currentUnit.Select();
-                    _uiFactory.CreateIconInSelectPanel(currentUnit);
+                    _uiFactory.CreateIconOnSelectPanel(currentUnit);
                 }
                 
                 else
@@ -75,8 +75,8 @@ public class SelectorService : ISelectorService
                     if (_selectableListService.CurrentSelectUnits.Contains(currentUnit))
                         _selectableListService.CurrentSelectUnits.Remove(currentUnit);
                     
-                    _selectableListService.AllSelectableUnits[i].Deselect();
-                    _uiFactory.DestroyIconInSelectPanel(currentUnit);
+                    currentUnit.Deselect();
+                    _uiFactory.DestroyIconOnSelectPanel(currentUnit);
                 }
             }
         }
