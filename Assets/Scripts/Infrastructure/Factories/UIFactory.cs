@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 public class UIFactory : IUIFactory
 {
@@ -16,7 +15,7 @@ public class UIFactory : IUIFactory
     private Transform _buildingPannel;
     private Transform _buildingButtons;
     private Transform _panelOfSelected;
-    private Dictionary<ISelectable, Transform> _unitIconDictionary = new Dictionary<ISelectable, Transform>();
+    private Dictionary<ViewSelectStatusChange, Transform> _unitIconDictionary = new Dictionary<ViewSelectStatusChange, Transform>();
 
     public UIFactory(IUIHandlerFactory uiHandlerFactory)
     {
@@ -72,7 +71,7 @@ public class UIFactory : IUIFactory
         return null;
     }
 
-    public Transform CreateIconOnSelectPanel(ISelectable unit)
+    public Transform CreateIconOnSelectPanel(ViewSelectStatusChange unit)
     {
         if (_panelOfSelected != null && !_unitIconDictionary.ContainsKey(unit))
         {
@@ -86,7 +85,7 @@ public class UIFactory : IUIFactory
         return null;
     }
 
-    public void DestroyIconOnSelectPanel(ISelectable unit)
+    public void DestroyIconOnSelectPanel(ViewSelectStatusChange unit)
     {
         if (_unitIconDictionary.ContainsKey(unit))
         {

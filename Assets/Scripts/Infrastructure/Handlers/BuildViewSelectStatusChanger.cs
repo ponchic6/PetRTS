@@ -1,47 +1,19 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using Zenject;
 
-public class BuildViewSelectStatusChanger : MonoBehaviour, ISelectable
+public class BuildViewSelectStatusChanger : ViewSelectStatusChange
 {
     [SerializeField] private Color _selectColor;
     [SerializeField] private Color _deselectColor;
-    [SerializeField] private Image _icon;
-    
-    private SelectableListService _selectableListService;
-    private bool _isSelect;
 
-    [Inject]
-    public void Constructor(SelectableListService selectableListService)
+    public override void Select()
     {
-        _selectableListService = selectableListService;
-        _selectableListService.AllSelectableUnits.Add(this);
-    }
-
-    public Transform GetTransform()
-    {
-        return transform;
-    }
-
-    public Image GetIcon()
-    {
-        return _icon;
-    }
-
-    public bool IsSelect()
-    {
-        return _isSelect;
-    }
-
-    public void Select()
-    {
-        _isSelect = true;
+        base.Select();
         GetComponent<MeshRenderer>().material.color = _selectColor;
     }
 
-    public void Deselect()
+    public override void Deselect()
     {
-        _isSelect = false;
+        base.Deselect();
         GetComponent<MeshRenderer>().material.color = _deselectColor;
     }
 }

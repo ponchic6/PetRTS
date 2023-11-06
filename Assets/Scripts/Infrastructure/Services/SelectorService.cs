@@ -54,7 +54,7 @@ public class SelectorService : ISelectorService
         {
             for (int i = 0; i < _selectableListService.AllSelectableUnits.Count; i++)
             {
-                ISelectable currentUnit = _selectableListService.AllSelectableUnits[i];
+                ViewSelectStatusChange currentUnit = _selectableListService.AllSelectableUnits[i];
             
                 Vector2 objectPosOnScreen =
                     Camera.main.WorldToScreenPoint(currentUnit.GetTransform().position);
