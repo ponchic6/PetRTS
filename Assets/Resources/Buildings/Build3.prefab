@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7584088076817719233}
   - component: {fileID: 1254539904866326203}
   - component: {fileID: -281352487421853817}
+  - component: {fileID: 7269602379947055799}
   m_Layer: 0
   m_Name: Build3
   m_TagString: Untagged
@@ -118,6 +119,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbe740441b447f5abbbd8a11212c10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _icon: {fileID: 6767477508616402419, guid: b71de032a4b84924d99e3d168656e806, type: 3}
   _selectColor: {r: 0, g: 1, b: 0.87058824, a: 0}
   _deselectColor: {r: 0, g: 0, b: 1, a: 0}
-  _icon: {fileID: 6767477508616402419, guid: b71de032a4b84924d99e3d168656e806, type: 3}
+--- !u!114 &7269602379947055799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626330265637584863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d4cd414cda435a8d69a72de14f8391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnCooldown: 2

@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using Zenject;
 
-public abstract class ViewSelectStatusChange : MonoBehaviour 
+public abstract class ViewSelectStatusChanger : MonoBehaviour 
 {
     [SerializeField] private Image _icon;
     

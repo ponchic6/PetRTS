@@ -15,7 +15,7 @@ public class UIFactory : IUIFactory
     private Transform _buildingPannel;
     private Transform _buildingButtons;
     private Transform _panelOfSelected;
-    private Dictionary<ViewSelectStatusChange, Transform> _unitIconDictionary = new Dictionary<ViewSelectStatusChange, Transform>();
+    private Dictionary<ViewSelectStatusChanger, Transform> _unitIconDictionary = new Dictionary<ViewSelectStatusChanger, Transform>();
 
     public UIFactory(IUIHandlerFactory uiHandlerFactory)
     {
@@ -71,7 +71,7 @@ public class UIFactory : IUIFactory
         return null;
     }
 
-    public Transform CreateIconOnSelectPanel(ViewSelectStatusChange unit)
+    public Transform CreateIconOnSelectPanel(ViewSelectStatusChanger unit)
     {
         if (_panelOfSelected != null && !_unitIconDictionary.ContainsKey(unit))
         {
@@ -85,7 +85,7 @@ public class UIFactory : IUIFactory
         return null;
     }
 
-    public void DestroyIconOnSelectPanel(ViewSelectStatusChange unit)
+    public void DestroyIconOnSelectPanel(ViewSelectStatusChanger unit)
     {
         if (_unitIconDictionary.ContainsKey(unit))
         {

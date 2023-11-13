@@ -9,14 +9,14 @@ public class BuildingService : IBuildingService
     
     private GameObject _currentBuilding;
     private Camera _camera;
-    
+
     public BuildingService(IBuildingFactory buildingFactory, IInputService inputService, ITickService tickService)
     {
         _inputService = inputService;
-        _inputService.OnLeftClickDown += SetupCurrentBuilding;
-        
+        _inputService.OnLeftClickDown += SetupBuildingFromCursor;
+
         _buildingFactory = buildingFactory;
-        
+
         _tickService = tickService;
         _tickService.OnTick += SetCurrentBuildingPosToCursor;
     }
@@ -44,15 +44,16 @@ public class BuildingService : IBuildingService
             Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
             
             if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity, 1 << 6))
-            {
                 _currentBuilding.transform.position = raycastHit.point;
-            }
         }
     }
 
-    private void SetupCurrentBuilding()
+    private void SetupBuildingFromCursor()
     {
         if (_currentBuilding != null)
+        {   
+            _currentBuilding.GetComponent<IUnitSpawner>().StartSpawner();
             _currentBuilding = null;
+        }
     }
 }

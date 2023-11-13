@@ -2,6 +2,6 @@
 
 public class SelectableListService
 {
-    public List<ViewSelectStatusChange> AllSelectableUnits = new List<ViewSelectStatusChange>();
-    public List<ViewSelectStatusChange> CurrentSelectUnits = new List<ViewSelectStatusChange>();
+    public List<ViewSelectStatusChanger> AllSelectableUnits = new List<ViewSelectStatusChanger>();
+    public List<ViewSelectStatusChanger> CurrentSelectUnits = new List<ViewSelectStatusChanger>();
 }

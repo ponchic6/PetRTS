@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BuildViewSelectStatusChanger : ViewSelectStatusChange
+public class BuildViewSelectStatusChanger : ViewSelectStatusChanger
 {
     [SerializeField] private Color _selectColor;
     [SerializeField] private Color _deselectColor;

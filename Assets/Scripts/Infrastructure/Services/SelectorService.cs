@@ -5,8 +5,7 @@ public class SelectorService : ISelectorService
 {
     public event Action<Rect> OnChangeRect;
     public event Action<bool> OnChangeDrawStatus;
-
-
+    
     private readonly IInputService _inputService;
     private readonly ITickService _tickService;
     private readonly SelectableListService _selectableListService;
@@ -54,7 +53,7 @@ public class SelectorService : ISelectorService
         {
             for (int i = 0; i < _selectableListService.AllSelectableUnits.Count; i++)
             {
-                ViewSelectStatusChange currentUnit = _selectableListService.AllSelectableUnits[i];
+                ViewSelectStatusChanger currentUnit = _selectableListService.AllSelectableUnits[i];
             
                 Vector2 objectPosOnScreen =
                     Camera.main.WorldToScreenPoint(currentUnit.GetTransform().position);

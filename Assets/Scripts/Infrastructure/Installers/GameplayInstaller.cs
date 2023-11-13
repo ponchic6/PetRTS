@@ -11,10 +11,17 @@ public class GameplayInstaller : MonoInstaller
         RegisterSelectableListService();
         RegisterUIHandlerFactory();
         RegisterUIFactory();
+        RegisterWarriorFactory();
         RegisterBuildingFactory();
         RegisterBuildingService();
         RegisterSelectorService();
 
+    }
+
+    private void RegisterWarriorFactory()
+    {
+        IWarriorFactory warriorFactory = Container.Instantiate<WarriorFactory>();
+        Container.Bind<IWarriorFactory>().FromInstance(warriorFactory).AsSingle();
     }
 
     private void RegisterSelectableListService()
