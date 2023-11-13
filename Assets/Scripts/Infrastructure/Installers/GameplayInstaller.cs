@@ -11,11 +11,18 @@ public class GameplayInstaller : MonoInstaller
         RegisterSelectableListService();
         RegisterUIHandlerFactory();
         RegisterUIFactory();
+        RegisterDestinationSetter();
         RegisterWarriorFactory();
         RegisterBuildingFactory();
         RegisterBuildingService();
         RegisterSelectorService();
 
+    }
+
+    private void RegisterDestinationSetter()
+    {
+        IDestinationUnitSetter destinationUnitSetter = Container.Instantiate<DestinationUnitSetter>();
+        Container.Bind<IDestinationUnitSetter>().FromInstance(destinationUnitSetter).AsSingle();
     }
 
     private void RegisterWarriorFactory()

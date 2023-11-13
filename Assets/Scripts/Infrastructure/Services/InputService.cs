@@ -7,6 +7,8 @@ public class InputService : IInputService
     public event Action<Vector2> OnCheckCursorPosition;
     public event Action OnLeftClickDown;
     public event Action OnLeftClickUp;
+    public event Action OnRightClickDown;
+    public event Action OnRightClickUp;
     public event Action OnHoldDownMiddleButton;
     public event Action OnMiddleClickDown;
     public event Action OnMiddleClickUp;
@@ -18,10 +20,20 @@ public class InputService : IInputService
         tickService.OnTick += CheckCursorPosition;
         
         tickService.OnTick += CheckClickFire1;
+        tickService.OnTick += CheckClickFire2;
         
         tickService.OnTick += CheckClickMiddleButtonDown;
         tickService.OnTick += CheckClickMiddleButtonUp;
         tickService.OnTick += CheckHoldDownMiddleButton;
+    }
+
+    private void CheckClickFire2()
+    {
+        if (Input.GetMouseButtonDown(1)) 
+            OnRightClickDown?.Invoke();
+
+        if (Input.GetMouseButtonUp(1))
+            OnRightClickUp?.Invoke();
     }
 
     public Vector2 GetCursorPos()
