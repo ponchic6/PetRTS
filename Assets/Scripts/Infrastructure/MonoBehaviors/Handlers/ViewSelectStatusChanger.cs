@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public abstract class ViewSelectStatusChanger : MonoBehaviour 
+public abstract class ViewSelectStatusChanger : MonoBehaviour
 {
+    public event Action OnSelected;
+    public event Action OnDecelected;
+
     [SerializeField] private Image _icon;
     
     private SelectableListService _selectableListService;
@@ -34,10 +38,12 @@ public abstract class ViewSelectStatusChanger : MonoBehaviour
     public virtual void Select()
     {
         _isSelect = true;
+        OnSelected?.Invoke();
     }
 
     public virtual void Deselect()
     {
         _isSelect = false;
+        OnDecelected?.Invoke();
     }
 }

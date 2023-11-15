@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UIFactory : IUIFactory
 {
     private const string CanvasPath = "UIEllements/UIPrefasbs/Canvas";
-    private const string BuildingListPanelPath = "UIEllements/UIPrefasbs/BuilidngListPanel";
+    private const string CreationPanelPath = "UIEllements/UIPrefasbs/CreateionPanel";
     private const string BuildbuttonsPath = "UIEllements/UIPrefasbs/BuildButtons";
     private const string PanelOfSelectedPath = "UIEllements/UIPrefasbs/PanelOfSelected";
     private const string UnitsButtonsPath = "UIEllements/UIPrefasbs/UnitsButtons";
@@ -36,7 +36,7 @@ public class UIFactory : IUIFactory
     {
         if (RootCanvas != null)
         {
-            Transform panel = Resources.Load<GameObject>(BuildingListPanelPath).transform;
+            Transform panel = Resources.Load<GameObject>(CreationPanelPath).transform;
             BuildingPannel = Object.Instantiate(panel, RootCanvas);
             return BuildingPannel;
         }
