@@ -5,7 +5,8 @@ public class UIHandlerFactory : IUIHandlerFactory
 {    
     private const string BuildingButtonsHandlerPath = "UIEllements/UIHandlers/BuildingButtonsHandler";
     private const string SelectorViewPath = "UIEllements/UIHandlers/SelectorView";
-    
+    private const string UnitbuttonsHandlerPath = "UIEllements/UIHandlers/UnitButtonsHandler";
+
     private DiContainer _diContainer;
 
     public UIHandlerFactory(DiContainer diContainer)
@@ -19,6 +20,15 @@ public class UIHandlerFactory : IUIHandlerFactory
             InstantiatePrefabResourceForComponent<BuildButtonsHandler>(BuildingButtonsHandlerPath, parent);
         
         return buildButtonsHandler;
+    }
+
+    public UnitButtonsHandler CreateUnitButtonsHandler(Transform parent)
+    {
+        UnitButtonsHandler unitButtonsHandler = _diContainer.
+            InstantiatePrefabResourceForComponent<UnitButtonsHandler>(UnitbuttonsHandlerPath, parent);
+        
+        return unitButtonsHandler;
+
     }
 
     public SelectorView CreateSelectorView()

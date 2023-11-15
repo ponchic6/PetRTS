@@ -22,6 +22,7 @@ public class SelectorService : ISelectorService
     {
         _inputService = inputService;
         _inputService.OnLeftClickDown += StartDrawRect;
+        _inputService.OnLeftClickDown += TrySelectByClick;
         _inputService.OnLeftClickUp += FinishDrawRect;
 
         _tickService = tickService;
@@ -32,13 +33,30 @@ public class SelectorService : ISelectorService
         _uiFactory = uiFactory;
     }
 
+    private void TrySelectByClick()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
+
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity) &&
+            raycastHit.collider.gameObject.TryGetComponent(out ViewSelectStatusChanger selectableObject))
+        {   
+            DeselectAll();
+            SelectObject(selectableObject);
+        }
+
+        else
+        {
+            DeselectAll();
+        }
+    }
+
     private void StartDrawRect()
     {
         _isCanDrawRect = true;
         _startCursorPos = _inputService.GetCursorPos();
         OnChangeDrawStatus?.Invoke(_isCanDrawRect);
     }
-    
+
     private void FinishDrawRect()
     {
         _isCanDrawRect = false;
@@ -49,34 +67,23 @@ public class SelectorService : ISelectorService
     {    
         CreateRectWithMouse();
         
-        if (_isCanDrawRect && _pastSelectorRect != _currentSelectorRect)
-        {
+        if (_isCanDrawRect && _pastSelectorRect != _currentSelectorRect && _currentSelectorRect.size.magnitude != 0)
+        {   
+            
             for (int i = 0; i < _selectableListService.AllSelectableUnits.Count; i++)
             {
-                ViewSelectStatusChanger currentUnit = _selectableListService.AllSelectableUnits[i];
+                ViewSelectStatusChanger currentSelectableObject = _selectableListService.AllSelectableUnits[i];
             
                 Vector2 objectPosOnScreen =
-                    Camera.main.WorldToScreenPoint(currentUnit.GetTransform().position);
+                    Camera.main.WorldToScreenPoint(currentSelectableObject.GetTransform().position);
                 objectPosOnScreen.y -= Screen.height;
                 objectPosOnScreen.y *= -1;
 
                 if (_currentSelectorRect.Contains(objectPosOnScreen))
-                {
-                    if (!_selectableListService.CurrentSelectUnits.Contains(currentUnit))
-                        _selectableListService.CurrentSelectUnits.Add(currentUnit);
-                    
-                    currentUnit.Select();
-                    _uiFactory.CreateIconOnSelectPanel(currentUnit);
-                }
-                
+                    SelectObject(currentSelectableObject);
+
                 else
-                {
-                    if (_selectableListService.CurrentSelectUnits.Contains(currentUnit))
-                        _selectableListService.CurrentSelectUnits.Remove(currentUnit);
-                    
-                    currentUnit.Deselect();
-                    _uiFactory.DestroyIconOnSelectPanel(currentUnit);
-                }
+                    DeselectObject(currentSelectableObject);
             }
         }
 
@@ -95,5 +102,33 @@ public class SelectorService : ISelectorService
                 Mathf.Max(_endCursorPos.y, _startCursorPos.y) - Mathf.Min(_endCursorPos.y, _startCursorPos.y));
             OnChangeRect?.Invoke(_currentSelectorRect);
         }
+    }
+
+    private void SelectObject(ViewSelectStatusChanger currentUnit)
+    {
+        if (!_selectableListService.CurrentSelectUnits.Contains(currentUnit))
+            _selectableListService.CurrentSelectUnits.Add(currentUnit);
+
+        currentUnit.Select();
+        _uiFactory.CreateIconOnSelectPanel(currentUnit);
+    }
+
+    private void DeselectObject(ViewSelectStatusChanger currentUnit)
+    {
+        if (_selectableListService.CurrentSelectUnits.Contains(currentUnit))
+            _selectableListService.CurrentSelectUnits.Remove(currentUnit);
+
+        currentUnit.Deselect();
+        _uiFactory.DestroyIconOnSelectPanel(currentUnit);
+    }
+
+    private void DeselectAll()
+    {
+        for (int i = 0; i < _selectableListService.AllSelectableUnits.Count; i++)
+        {
+            ViewSelectStatusChanger currentSelectableObject = _selectableListService.AllSelectableUnits[i];
+            DeselectObject(currentSelectableObject);
+        }
+
     }
 }

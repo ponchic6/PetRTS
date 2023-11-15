@@ -51,8 +51,7 @@ public class BuildingService : IBuildingService
     private void SetupBuildingFromCursor()
     {
         if (_currentBuilding != null)
-        {   
-            _currentBuilding.GetComponent<IUnitSpawner>().StartSpawner();
+        {
             _currentBuilding = null;
         }
     }

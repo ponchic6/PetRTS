@@ -8,13 +8,16 @@ public class UIFactory : IUIFactory
     private const string BuildingListPanelPath = "UIEllements/UIPrefasbs/BuilidngListPanel";
     private const string BuildbuttonsPath = "UIEllements/UIPrefasbs/BuildButtons";
     private const string PanelOfSelectedPath = "UIEllements/UIPrefasbs/PanelOfSelected";
+    private const string UnitsButtonsPath = "UIEllements/UIPrefasbs/UnitsButtons";
 
     private readonly IUIHandlerFactory _uiHandlerFactory;
 
-    private Transform _rootCanvas;
-    private Transform _buildingPannel;
-    private Transform _buildingButtons;
-    private Transform _panelOfSelected;
+    public Transform RootCanvas { get; private set; }
+    public Transform BuildingPannel { get; private set; }
+    public Transform BuildingButtons { get; private set; }
+    public Transform PanelOfSelected { get; private set; }
+    public Transform UnitsButtons { get; private set; }
+
     private Dictionary<ViewSelectStatusChanger, Transform> _unitIconDictionary = new Dictionary<ViewSelectStatusChanger, Transform>();
 
     public UIFactory(IUIHandlerFactory uiHandlerFactory)
@@ -25,17 +28,17 @@ public class UIFactory : IUIFactory
     public Transform CreatCanvas()
     {
         Transform rootCanvas = Resources.Load<GameObject>(CanvasPath).transform;
-        _rootCanvas = Object.Instantiate(rootCanvas);
-        return _rootCanvas;
+        RootCanvas = Object.Instantiate(rootCanvas);
+        return RootCanvas;
     }
 
     public Transform CreatBuildingListPanel()
     {
-        if (_rootCanvas != null)
+        if (RootCanvas != null)
         {
             Transform panel = Resources.Load<GameObject>(BuildingListPanelPath).transform;
-            _buildingPannel = Object.Instantiate(panel, _rootCanvas);
-            return _buildingPannel;
+            BuildingPannel = Object.Instantiate(panel, RootCanvas);
+            return BuildingPannel;
         }
 
         return null;
@@ -43,29 +46,48 @@ public class UIFactory : IUIFactory
 
     public Transform CreateBuildButtons()
     {
-        if (_buildingPannel != null)
+        if (BuildingPannel != null)
         {
             Transform buildingButtons = Resources.Load<Transform>(BuildbuttonsPath);
-            _buildingButtons = Object.Instantiate(buildingButtons, _buildingPannel);
+            BuildingButtons = Object.Instantiate(buildingButtons, BuildingPannel);
 
             BuildButtonsHandler buildButtonsHandler =
-                _uiHandlerFactory.CreateBuildingButtonsHandler(_buildingPannel);
+                _uiHandlerFactory.CreateBuildingButtonsHandler(BuildingPannel);
 
             BindBuildingButtons(buildButtonsHandler);
 
-            return _buildingButtons;
+            return BuildingButtons;
         }
 
         return null;
     }
 
+    public Transform CreateUnitsButtons()
+    {
+        if (BuildingPannel != null)
+        {
+            Transform unitsButtons = Resources.Load<Transform>(UnitsButtonsPath);
+            UnitsButtons = Object.Instantiate(unitsButtons, BuildingPannel);
+
+            UnitButtonsHandler unitButtonsHandler =
+                _uiHandlerFactory.CreateUnitButtonsHandler(BuildingPannel);
+
+            BindUnitsButtonHandler(unitButtonsHandler);
+
+            return UnitsButtons;
+        }
+
+        return null;
+
+    }
+
     public Transform CreatePanelOfSelectedObjects()
     {
-        if (_rootCanvas != null)
+        if (RootCanvas != null)
         {
             Transform panelOfSelected = Resources.Load<Transform>(PanelOfSelectedPath);
-            _panelOfSelected = Object.Instantiate(panelOfSelected, _rootCanvas);
-            return _panelOfSelected;
+            PanelOfSelected = Object.Instantiate(panelOfSelected, RootCanvas);
+            return PanelOfSelected;
         }
 
         return null;
@@ -73,9 +95,9 @@ public class UIFactory : IUIFactory
 
     public Transform CreateIconOnSelectPanel(ViewSelectStatusChanger unit)
     {
-        if (_panelOfSelected != null && !_unitIconDictionary.ContainsKey(unit))
+        if (PanelOfSelected != null && !_unitIconDictionary.ContainsKey(unit))
         {
-            Transform icon = Object.Instantiate(unit.GetIcon().transform, _panelOfSelected);
+            Transform icon = Object.Instantiate(unit.GetIcon().transform, PanelOfSelected);
             _unitIconDictionary[unit] = icon;
             UpdateIconPos();
 
@@ -107,15 +129,28 @@ public class UIFactory : IUIFactory
         }
     }
 
+    private void BindUnitsButtonHandler(UnitButtonsHandler unitButtonsHandler)
+    {
+        UnitsButtons.GetChild(0).gameObject.GetComponent<Button>().onClick
+            .AddListener(() => { unitButtonsHandler.CreateWarrior(); });
+
+        UnitsButtons.GetChild(1).gameObject.GetComponent<Button>().onClick
+            .AddListener(() => { unitButtonsHandler.CreateWarrior(); });
+
+        UnitsButtons.GetChild(2).gameObject.GetComponent<Button>().onClick
+            .AddListener(() => { unitButtonsHandler.CreateWarrior(); });
+
+    }
+
     private void BindBuildingButtons(BuildButtonsHandler buildButtonsHandler)
     {
-        _buildingButtons.GetChild(0).gameObject.GetComponent<Button>().onClick
+        BuildingButtons.GetChild(0).gameObject.GetComponent<Button>().onClick
             .AddListener(() => { buildButtonsHandler.CreateBuilding(1); });
 
-        _buildingButtons.GetChild(1).gameObject.GetComponent<Button>().onClick
+        BuildingButtons.GetChild(1).gameObject.GetComponent<Button>().onClick
             .AddListener(() => { buildButtonsHandler.CreateBuilding(2); });
 
-        _buildingButtons.GetChild(2).gameObject.GetComponent<Button>().onClick
+        BuildingButtons.GetChild(2).gameObject.GetComponent<Button>().onClick
             .AddListener(() => { buildButtonsHandler.CreateBuilding(3); });
     }
 }

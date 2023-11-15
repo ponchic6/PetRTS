@@ -2,18 +2,17 @@
 
 public class UnitViewSelectStatusChanger : ViewSelectStatusChanger
 {
-    [SerializeField] private Color _selectColor;
-    [SerializeField] private Color _deselectColor;
+    [SerializeField] private GameObject _selectRing;
 
     public override void Select()
     {
         base.Select();
-        GetComponent<MeshRenderer>().material.color = _selectColor;
+        _selectRing.SetActive(true);
     }
 
     public override void Deselect()
     {
         base.Deselect();
-        GetComponent<MeshRenderer>().material.color = _deselectColor;
+        _selectRing.SetActive(false);
     }
 }
