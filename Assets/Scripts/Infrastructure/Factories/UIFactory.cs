@@ -6,7 +6,7 @@ public class UIFactory : IUIFactory
 {
     private const string CanvasPath = "UIEllements/UIPrefasbs/Canvas";
     private const string CreationPanelPath = "UIEllements/UIPrefasbs/CreateionPanel";
-    private const string BuildbuttonsPath = "UIEllements/UIPrefasbs/BuildButtons";
+    private const string BuildButtonsPath = "UIEllements/UIPrefasbs/BuildButtons";
     private const string PanelOfSelectedPath = "UIEllements/UIPrefasbs/PanelOfSelected";
     private const string UnitsButtonsPath = "UIEllements/UIPrefasbs/UnitsButtons";
 
@@ -48,7 +48,7 @@ public class UIFactory : IUIFactory
     {
         if (BuildingPannel != null)
         {
-            Transform buildingButtons = Resources.Load<Transform>(BuildbuttonsPath);
+            Transform buildingButtons = Resources.Load<Transform>(BuildButtonsPath);
             BuildingButtons = Object.Instantiate(buildingButtons, BuildingPannel);
 
             BuildButtonsHandler buildButtonsHandler =
@@ -131,13 +131,13 @@ public class UIFactory : IUIFactory
 
     private void BindUnitsButtonHandler(UnitButtonsHandler unitButtonsHandler)
     {
-        UnitsButtons.GetChild(0).gameObject.GetComponent<Button>().onClick
+        UnitsButtons.Find("Warrior1Button").gameObject.GetComponent<Button>().onClick
             .AddListener(() => { unitButtonsHandler.CreateWarrior(); });
 
-        UnitsButtons.GetChild(1).gameObject.GetComponent<Button>().onClick
+        UnitsButtons.Find("Warrior2Button").gameObject.GetComponent<Button>().onClick
             .AddListener(() => { unitButtonsHandler.CreateWarrior(); });
 
-        UnitsButtons.GetChild(2).gameObject.GetComponent<Button>().onClick
+        UnitsButtons.Find("Warrior3Button").gameObject.GetComponent<Button>().onClick
             .AddListener(() => { unitButtonsHandler.CreateWarrior(); });
 
     }

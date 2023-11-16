@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SelectorService : ISelectorService 
 {
@@ -37,14 +39,20 @@ public class SelectorService : ISelectorService
     {
         Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
 
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity) &&
             raycastHit.collider.gameObject.TryGetComponent(out ViewSelectStatusChanger selectableObject))
         {   
             DeselectAll();
             SelectObject(selectableObject);
+            return;
         }
 
-        else
+        if (Physics.Raycast(ray, out RaycastHit raycastHit1, Mathf.Infinity, 1 << 6))
         {
             DeselectAll();
         }
@@ -79,10 +87,11 @@ public class SelectorService : ISelectorService
                 objectPosOnScreen.y -= Screen.height;
                 objectPosOnScreen.y *= -1;
 
-                if (_currentSelectorRect.Contains(objectPosOnScreen))
+                if (_currentSelectorRect.Contains(objectPosOnScreen) &&
+                    !currentSelectableObject.IsSelect())
                     SelectObject(currentSelectableObject);
 
-                else
+                else if (!_currentSelectorRect.Contains(objectPosOnScreen))
                     DeselectObject(currentSelectableObject);
             }
         }
@@ -108,7 +117,7 @@ public class SelectorService : ISelectorService
     {
         if (!_selectableListService.CurrentSelectUnits.Contains(currentUnit))
             _selectableListService.CurrentSelectUnits.Add(currentUnit);
-
+        
         currentUnit.Select();
         _uiFactory.CreateIconOnSelectPanel(currentUnit);
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class CreationPanelSwitcherToCurrentBuilding : MonoBehaviour
     private void CreationPanelToAllBuildings()
     {
         _uiFactory.BuildingButtons.gameObject.SetActive(true);
-        _uiFactory.UnitsButtons.GetChild(0).gameObject.SetActive(false);
+        _uiFactory.UnitsButtons.gameObject.SetActive(false);
     }
 
     private void CreationPanelToCurrentBuildings()
@@ -31,7 +32,7 @@ public class CreationPanelSwitcherToCurrentBuilding : MonoBehaviour
         if (_selectableListService.CurrentSelectUnits.Count == 1)
         {
             _uiFactory.BuildingButtons.gameObject.SetActive(false);
-            _uiFactory.UnitsButtons.GetChild(0).gameObject.SetActive(true);
+            _uiFactory.UnitsButtons.gameObject.SetActive(true);
         }
     }
 }

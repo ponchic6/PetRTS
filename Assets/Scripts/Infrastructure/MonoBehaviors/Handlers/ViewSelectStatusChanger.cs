@@ -37,13 +37,19 @@ public abstract class ViewSelectStatusChanger : MonoBehaviour
 
     public virtual void Select()
     {
-        _isSelect = true;
-        OnSelected?.Invoke();
+        if (!_isSelect)
+        {
+            _isSelect = true;
+            OnSelected?.Invoke();
+        }
     }
 
     public virtual void Deselect()
     {
-        _isSelect = false;
-        OnDecelected?.Invoke();
+        if (_isSelect)
+        {
+            _isSelect = false;
+            OnDecelected?.Invoke();
+        }
     }
 }
