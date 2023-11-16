@@ -2,7 +2,7 @@
 
 public interface IWarriorFactory
 {
-    public GameObject CreateWarrior1();
-    public GameObject CreateWarrior2();
-    public GameObject CreateWarrior3();
+    public GameObject CreateKnight();
+    public GameObject CreateBower();
+    public GameObject CreateWizard();
 }

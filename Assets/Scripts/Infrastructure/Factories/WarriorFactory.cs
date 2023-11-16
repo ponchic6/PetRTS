@@ -3,9 +3,9 @@ using Zenject;
 
 public class WarriorFactory : IWarriorFactory
 {
-    private const string Warrior1Path = "Units/Warrior1";
-    private const string Warrior2Path = "Units/Warrior2";
-    private const string Warrior3Path = "Units/Warrior3";
+    private const string Warrior1Path = "Units/Knight";
+    private const string Warrior2Path = "Units/Bower";
+    private const string Warrior3Path = "Units/Wizard";
 
     private readonly DiContainer _diContainer;
 
@@ -14,19 +14,19 @@ public class WarriorFactory : IWarriorFactory
         _diContainer = diContainer;
     }
 
-    public GameObject CreateWarrior1()
+    public GameObject CreateKnight()
     {
         GameObject warrior = Resources.Load<GameObject>(Warrior1Path);
         return _diContainer.InstantiatePrefab(warrior);
     }
 
-    public GameObject CreateWarrior2()
+    public GameObject CreateBower()
     {
         GameObject warrior = Resources.Load<GameObject>(Warrior2Path);
         return _diContainer.InstantiatePrefab(warrior);
     }
 
-    public GameObject CreateWarrior3()
+    public GameObject CreateWizard()
     {
         GameObject warrior = Resources.Load<GameObject>(Warrior3Path);
         return _diContainer.InstantiatePrefab(warrior);

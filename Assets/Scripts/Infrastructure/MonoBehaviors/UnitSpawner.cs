@@ -30,7 +30,7 @@ public class UnitSpawner : MonoBehaviour, IUnitSpawner
     {
         while (true)
         {
-            GameObject warrior = _warriorFactory.CreateWarrior1();
+            GameObject warrior = _warriorFactory.CreateKnight();
             SetWarriorPos(warrior);
 
             yield return new WaitForSeconds(_spawnCooldown);

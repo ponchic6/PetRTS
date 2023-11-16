@@ -25,8 +25,6 @@ public class LoadLevelState : IPayLoadState<string>
         _uiFactory.CreatCanvas();
         _uiFactory.CreatBuildingListPanel();
         _uiFactory.CreateBuildButtons();
-        _uiFactory.CreateUnitsButtons();
-        _uiFactory.UnitsButtons.gameObject.SetActive(false);
         _uiFactory.CreatePanelOfSelectedObjects();
         _uiHandlerFactory.CreateSelectorView();
     }

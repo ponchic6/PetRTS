@@ -11,8 +11,17 @@ public class UnitButtonsHandler : MonoBehaviour
         _warriorFactory = warriorFactory;
     }
 
-    public void CreateWarrior()
+    public void CreateKnight()
     {
-        _warriorFactory.CreateWarrior1();
+        _warriorFactory.CreateKnight();
+    }
+    
+    public void CreateBower()
+    {
+        _warriorFactory.CreateBower();
+    }
+    public void CreateWizard()
+    {
+        _warriorFactory.CreateWizard();
     }
 }
