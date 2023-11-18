@@ -15,17 +15,19 @@ public class BuildingFactory : IBuildingFactory
     }
 
     public GameObject CreateBuilding1()
-    {    
+    {
         GameObject build = Resources.Load<GameObject>(Build1Path);
         return _diContainer.InstantiatePrefab(build);
     }
+
     public GameObject CreateBuilding2()
-    {    
+    {
         GameObject build = Resources.Load<GameObject>(Build2Path);
         return _diContainer.InstantiatePrefab(build);
     }
+
     public GameObject CreateBuilding3()
-    {    
+    {
         GameObject build = Resources.Load<GameObject>(Build3Path);
         return _diContainer.InstantiatePrefab(build);
     }

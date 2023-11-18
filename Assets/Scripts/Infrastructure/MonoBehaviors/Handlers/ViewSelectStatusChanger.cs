@@ -9,7 +9,7 @@ public abstract class ViewSelectStatusChanger : MonoBehaviour
     public event Action OnDecelected;
 
     [SerializeField] private Image _icon;
-    
+
     private SelectableListService _selectableListService;
     private bool _isSelect;
 

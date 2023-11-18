@@ -32,4 +32,3 @@ public class WarriorFactory : IWarriorFactory
         return _diContainer.InstantiatePrefab(warrior);
     }
 }
-

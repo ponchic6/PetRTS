@@ -12,7 +12,9 @@ public class UIFactory : IUIFactory
 
     private readonly IUIHandlerFactory _uiHandlerFactory;
 
-    private Dictionary<ViewSelectStatusChanger, Transform> _unitSelectIconDictionary = new Dictionary<ViewSelectStatusChanger, Transform>();
+    private Dictionary<ViewSelectStatusChanger, Transform> _currentSelectIconDictionary =
+        new Dictionary<ViewSelectStatusChanger, Transform>();
+
     private UnitButtonsHandler _unitButtonsHandler;
     public Transform RootCanvas { get; private set; }
     public Transform CreationPannel { get; private set; }
@@ -62,15 +64,14 @@ public class UIFactory : IUIFactory
     }
 
     public Transform CreateUnitButton(UnitConfig unit)
-    {   
-        
+    {
         if (CreationPannel != null)
         {
             Transform unitButtonPrefab = Resources.Load<Transform>(UnitButtonPath);
-            
+
             Transform unitButton = Object.Instantiate(unitButtonPrefab, CreationPannel);
             unitButton.GetComponent<Image>().sprite = unit.CreationIcon;
-            
+
             if (_unitButtonsHandler == null)
                 _unitButtonsHandler = _uiHandlerFactory.CreateUnitButtonsHandler(CreationPannel);
 
@@ -80,7 +81,6 @@ public class UIFactory : IUIFactory
         }
 
         return null;
-
     }
 
     public Transform CreatePanelOfSelectedObjects()
@@ -97,10 +97,10 @@ public class UIFactory : IUIFactory
 
     public Transform CreateIconOnSelectPanel(ViewSelectStatusChanger unit)
     {
-        if (PanelOfSelected != null && !_unitSelectIconDictionary.ContainsKey(unit))
+        if (PanelOfSelected != null && !_currentSelectIconDictionary.ContainsKey(unit))
         {
             Transform icon = Object.Instantiate(unit.GetIcon().transform, PanelOfSelected);
-            _unitSelectIconDictionary[unit] = icon;
+            _currentSelectIconDictionary[unit] = icon;
             UpdateIconPos();
 
             return icon;
@@ -111,10 +111,10 @@ public class UIFactory : IUIFactory
 
     public void DestroyIconOnSelectPanel(ViewSelectStatusChanger unit)
     {
-        if (_unitSelectIconDictionary.ContainsKey(unit))
+        if (_currentSelectIconDictionary.ContainsKey(unit))
         {
-            Object.Destroy(_unitSelectIconDictionary[unit].gameObject);
-            _unitSelectIconDictionary.Remove(unit);
+            Object.Destroy(_currentSelectIconDictionary[unit].gameObject);
+            _currentSelectIconDictionary.Remove(unit);
         }
 
         UpdateIconPos();
@@ -124,7 +124,7 @@ public class UIFactory : IUIFactory
     {
         int i = 0;
 
-        foreach (Transform _currentIcon in _unitSelectIconDictionary.Values)
+        foreach (Transform _currentIcon in _currentSelectIconDictionary.Values)
         {
             _currentIcon.localPosition = new Vector3(-200, 50, 0) + new Vector3(100, 0, 0) * i;
             i++;
@@ -147,7 +147,7 @@ public class UIFactory : IUIFactory
                     .onClick
                     .AddListener(() => { unitButtonsHandler.CreateBower(); });
                 break;
-            
+
             case WarriorType.Wizard:
                 UnitButton
                     .GetComponent<Button>()

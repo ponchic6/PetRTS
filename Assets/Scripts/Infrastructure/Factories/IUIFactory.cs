@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public interface IUIFactory
-{   
+{
     public Transform RootCanvas { get; }
     public Transform CreationPannel { get; }
     public Transform BuildingButtons { get; }

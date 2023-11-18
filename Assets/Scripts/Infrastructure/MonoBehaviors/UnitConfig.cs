@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 public class UnitConfig : MonoBehaviour
 {
     [SerializeField] private Sprite _creationIcon;

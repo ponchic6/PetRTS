@@ -12,6 +12,6 @@ public interface IInputService
     public event Action OnHoldDownMiddleButton;
     public event Action OnMiddleClickDown;
     public event Action OnMiddleClickUp;
-    
+
     public Vector2 GetCursorPos();
 }

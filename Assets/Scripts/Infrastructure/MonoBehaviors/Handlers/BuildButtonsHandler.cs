@@ -4,7 +4,7 @@ using Zenject;
 public class BuildButtonsHandler : MonoBehaviour
 {
     private IBuildingService _buildingService;
-    
+
     [Inject]
     public void Constructor(IBuildingService buildingService)
     {

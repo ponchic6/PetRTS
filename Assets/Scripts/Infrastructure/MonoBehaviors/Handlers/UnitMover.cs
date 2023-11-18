@@ -14,7 +14,7 @@ public class UnitMover : MonoBehaviour, IMoveble
         _destinationUnitSetter = destinationUnitSetter;
         _destinationUnitSetter.OnSetDestination += MoveToDestination;
     }
-    
+
     public void MoveToDestination(Vector3 destination)
     {
         if (_selectStatusChanger.IsSelect())

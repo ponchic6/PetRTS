@@ -2,7 +2,7 @@
 using Zenject;
 
 public class UIHandlerFactory : IUIHandlerFactory
-{    
+{
     private const string BuildingButtonsHandlerPath = "UIEllements/UIHandlers/BuildingButtonsHandler";
     private const string SelectorViewPath = "UIEllements/UIHandlers/SelectorView";
     private const string UnitbuttonsHandlerPath = "UIEllements/UIHandlers/UnitButtonsHandler";
@@ -16,25 +16,23 @@ public class UIHandlerFactory : IUIHandlerFactory
 
     public BuildButtonsHandler CreateBuildingButtonsHandler(Transform parent)
     {
-        BuildButtonsHandler buildButtonsHandler = _diContainer.
-            InstantiatePrefabResourceForComponent<BuildButtonsHandler>(BuildingButtonsHandlerPath, parent);
-        
+        BuildButtonsHandler buildButtonsHandler =
+            _diContainer.InstantiatePrefabResourceForComponent<BuildButtonsHandler>(BuildingButtonsHandlerPath, parent);
+
         return buildButtonsHandler;
     }
 
     public UnitButtonsHandler CreateUnitButtonsHandler(Transform parent)
     {
-        UnitButtonsHandler unitButtonsHandler = _diContainer.
-            InstantiatePrefabResourceForComponent<UnitButtonsHandler>(UnitbuttonsHandlerPath, parent);
-        
-        return unitButtonsHandler;
+        UnitButtonsHandler unitButtonsHandler =
+            _diContainer.InstantiatePrefabResourceForComponent<UnitButtonsHandler>(UnitbuttonsHandlerPath, parent);
 
+        return unitButtonsHandler;
     }
 
     public SelectorView CreateSelectorView()
     {
-        SelectorView selectorView = _diContainer.
-            InstantiatePrefabResourceForComponent<SelectorView>(SelectorViewPath);
+        SelectorView selectorView = _diContainer.InstantiatePrefabResourceForComponent<SelectorView>(SelectorViewPath);
 
         return selectorView;
     }

@@ -18,10 +18,10 @@ public class InputService : IInputService
     public InputService(ITickService tickService)
     {
         tickService.OnTick += CheckCursorPosition;
-        
+
         tickService.OnTick += CheckClickFire1;
         tickService.OnTick += CheckClickFire2;
-        
+
         tickService.OnTick += CheckClickMiddleButtonDown;
         tickService.OnTick += CheckClickMiddleButtonUp;
         tickService.OnTick += CheckHoldDownMiddleButton;
@@ -29,7 +29,7 @@ public class InputService : IInputService
 
     private void CheckClickFire2()
     {
-        if (Input.GetMouseButtonDown(1)) 
+        if (Input.GetMouseButtonDown(1))
             OnRightClickDown?.Invoke();
 
         if (Input.GetMouseButtonUp(1))
@@ -44,9 +44,10 @@ public class InputService : IInputService
     private void CheckHoldDownMiddleButton()
     {
         if (_isHoldDownMiddleButton)
-            OnHoldDownMiddleButton?.Invoke();;
+            OnHoldDownMiddleButton?.Invoke();
+        ;
     }
-    
+
     private void CheckClickMiddleButtonUp()
     {
         if (Input.GetMouseButtonUp(2))
@@ -55,6 +56,7 @@ public class InputService : IInputService
             _isHoldDownMiddleButton = false;
         }
     }
+
     private void CheckClickMiddleButtonDown()
     {
         if (Input.GetMouseButtonDown(2))
@@ -66,7 +68,7 @@ public class InputService : IInputService
 
     private void CheckClickFire1()
     {
-        if (Input.GetMouseButtonDown(0)) 
+        if (Input.GetMouseButtonDown(0))
             OnLeftClickDown?.Invoke();
 
         if (Input.GetMouseButtonUp(0))

@@ -7,7 +7,7 @@ public class SelectorView : MonoBehaviour
     private ISelectorService _selectorService;
     private Rect _rect;
     private bool _isCanDraw;
-    
+
     [Inject]
     public void Constructor(ISelectorService selectorService)
     {
@@ -17,8 +17,8 @@ public class SelectorView : MonoBehaviour
     }
 
     private void OnGUI()
-    {    
-        if (_isCanDraw) 
+    {
+        if (_isCanDraw)
             GUI.Box(_rect, "");
     }
 

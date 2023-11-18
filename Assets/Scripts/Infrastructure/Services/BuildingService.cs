@@ -6,7 +6,7 @@ public class BuildingService : IBuildingService
     private readonly IBuildingFactory _buildingFactory;
     private readonly IInputService _inputService;
     private readonly ITickService _tickService;
-    
+
     private GameObject _currentBuilding;
     private Camera _camera;
 
@@ -42,7 +42,7 @@ public class BuildingService : IBuildingService
         if (_currentBuilding != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
-            
+
             if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity, 1 << 6))
                 _currentBuilding.transform.position = raycastHit.point;
         }

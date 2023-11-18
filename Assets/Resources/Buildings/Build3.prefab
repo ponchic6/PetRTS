@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1254539904866326203}
   - component: {fileID: -281352487421853817}
   - component: {fileID: 7269602379947055799}
+  - component: {fileID: 1169660164400546713}
   m_Layer: 7
   m_Name: Build3
   m_TagString: Untagged
@@ -135,3 +136,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnCooldown: 2
+--- !u!114 &1169660164400546713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626330265637584863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f46222e14a1f6374eac7e70f62025781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewSelectStatusChanger: {fileID: -281352487421853817}
+  _creatableUnits:
+  - {fileID: 3495418859469597985, guid: a50a0b8b39661e94c97c3de9bd727760, type: 3}
+  - {fileID: -6457947254907759526, guid: 5afb24dda485c6041aa599707e5335b3, type: 3}
+  - {fileID: 192967411878764909, guid: 1df3ec052929c6443aa1c037d8527910, type: 3}

@@ -5,9 +5,9 @@ public class CameraMoverHandler : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
     [SerializeField] private float _speed;
-    
+
     private ICameraMoverService _cameraMoverService;
-    
+
     [Inject]
     public void Constructor(ICameraMoverService cameraMoverService)
     {
@@ -15,7 +15,7 @@ public class CameraMoverHandler : MonoBehaviour
         _cameraMoverService.OnReachCursorScreenBoundary += MoveCameraOnReachBoundaryCursor;
         _cameraMoverService.OnChangeCursorPosWithHoldDownMiddleButton += MoveCameraOnMidleButtonHold;
     }
-    
+
     private void MoveCameraOnReachBoundaryCursor(Vector3 direction)
     {
         _camera.transform.position += direction * _speed * Time.deltaTime;

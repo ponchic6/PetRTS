@@ -3,11 +3,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SelectorService : ISelectorService 
+public class SelectorService : ISelectorService
 {
     public event Action<Rect> OnChangeRect;
     public event Action<bool> OnChangeDrawStatus;
-    
+
     private readonly IInputService _inputService;
     private readonly ITickService _tickService;
     private readonly SelectableListService _selectableListService;
@@ -31,7 +31,7 @@ public class SelectorService : ISelectorService
         _tickService.OnTick += SelectObjectsInRect;
 
         _selectableListService = selectableListService;
-        
+
         _uiFactory = uiFactory;
     }
 
@@ -46,7 +46,7 @@ public class SelectorService : ISelectorService
 
         if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity) &&
             raycastHit.collider.gameObject.TryGetComponent(out ViewSelectStatusChanger selectableObject))
-        {   
+        {
             DeselectAll();
             SelectObject(selectableObject);
             return;
@@ -72,16 +72,15 @@ public class SelectorService : ISelectorService
     }
 
     private void SelectObjectsInRect()
-    {    
+    {
         CreateRectWithMouse();
-        
+
         if (_isCanDrawRect && _pastSelectorRect != _currentSelectorRect && _currentSelectorRect.size.magnitude != 0)
-        {   
-            
+        {
             for (int i = 0; i < _selectableListService.AllSelectableUnits.Count; i++)
             {
                 ViewSelectStatusChanger currentSelectableObject = _selectableListService.AllSelectableUnits[i];
-            
+
                 Vector2 objectPosOnScreen =
                     Camera.main.WorldToScreenPoint(currentSelectableObject.GetTransform().position);
                 objectPosOnScreen.y -= Screen.height;
@@ -104,7 +103,7 @@ public class SelectorService : ISelectorService
         if (_isCanDrawRect)
         {
             _endCursorPos = _inputService.GetCursorPos();
-            
+
             _currentSelectorRect = new Rect(Mathf.Min(_endCursorPos.x, _startCursorPos.x),
                 Screen.height - Mathf.Max(_endCursorPos.y, _startCursorPos.y),
                 Mathf.Max(_endCursorPos.x, _startCursorPos.x) - Mathf.Min(_endCursorPos.x, _startCursorPos.x),
@@ -117,7 +116,7 @@ public class SelectorService : ISelectorService
     {
         if (!_selectableListService.CurrentSelectUnits.Contains(currentUnit))
             _selectableListService.CurrentSelectUnits.Add(currentUnit);
-        
+
         currentUnit.Select();
         _uiFactory.CreateIconOnSelectPanel(currentUnit);
     }
@@ -138,6 +137,5 @@ public class SelectorService : ISelectorService
             ViewSelectStatusChanger currentSelectableObject = _selectableListService.AllSelectableUnits[i];
             DeselectObject(currentSelectableObject);
         }
-
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class CreationPanelSwitcherToCurrentBuilding : MonoBehaviour
+public class BuildingsCreationPanel : MonoBehaviour
 {
     [SerializeField] private ViewSelectStatusChanger _viewSelectStatusChanger;
     [SerializeField] private List<UnitConfig> _creatableUnits;
