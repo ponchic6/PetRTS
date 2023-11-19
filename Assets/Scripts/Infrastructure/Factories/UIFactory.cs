@@ -122,6 +122,29 @@ public class UIFactory : IUIFactory
         return unitButtonsList;
     }
 
+    public List<Transform> CreateBuildingButtonsForUnit(List<BuildingConfig> buildingList, List<Transform> buildingButtonsList)
+    {
+        buildingButtonsList = new List<Transform>();
+
+        int i = 0;
+        int j = 0;
+
+        foreach (BuildingConfig config in buildingList)
+        {
+            Transform button = CreateBuildingButton(config);
+            button.position += new Vector3(0, -65, 0) * i + new Vector3(150, 0, 0) * j;
+            buildingButtonsList.Add(button);
+            i++;
+            if (i == 3)
+            {
+                i = 0;
+                j++;
+            }
+        }
+
+        return buildingButtonsList;
+    }
+
     public void CreateInitialBuildButtons()
     {
         InitialBuildingButtonsConfigSO buildingConfigsSo = Resources.Load<InitialBuildingButtonsConfigSO>(InitialBuildingButtonsConfig);

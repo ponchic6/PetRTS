@@ -86,12 +86,20 @@ public class SelectorService : ISelectorService
                 objectPosOnScreen.y -= Screen.height;
                 objectPosOnScreen.y *= -1;
 
-                if (_currentSelectorRect.Contains(objectPosOnScreen) &&
-                    !currentSelectableObject.IsSelect())
+                if (currentSelectableObject.IsSelect())
+                {
+                    
+                }
+                
+                else if (_currentSelectorRect.Contains(objectPosOnScreen))
+                {
                     SelectObject(currentSelectableObject);
+                }
 
-                else if (!_currentSelectorRect.Contains(objectPosOnScreen))
+                else
+                {
                     DeselectObject(currentSelectableObject);
+                }
             }
         }
 

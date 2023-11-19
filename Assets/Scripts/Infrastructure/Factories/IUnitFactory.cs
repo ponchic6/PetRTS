@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IWarriorFactory
+public interface IUnitFactory
 {
     public GameObject CreateKnight();
     public GameObject CreateBower();

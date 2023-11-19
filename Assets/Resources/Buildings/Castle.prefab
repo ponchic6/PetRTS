@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 7584088076817719233}
   - component: {fileID: 1254539904866326203}
   - component: {fileID: -7316650533384364130}
-  - component: {fileID: 3329351543436556557}
-  - component: {fileID: -8179969334773656693}
   - component: {fileID: -1577194115549085943}
+  - component: {fileID: 2102383845362751647}
   m_Layer: 7
   m_Name: Castle
   m_TagString: Untagged
@@ -36,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &581971880684185383
 MeshFilter:
@@ -124,35 +123,6 @@ MonoBehaviour:
   _selectionIcon: {fileID: 1634085680543166107, guid: 713eb2164fa4ca74eb2387b4d51f9ef4, type: 3}
   _selectColor: {r: 0, g: 1, b: 0.86911154, a: 0}
   _deselectColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!114 &3329351543436556557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7626330265637584863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1d4cd414cda435a8d69a72de14f8391, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spawnCooldown: 2
---- !u!114 &-8179969334773656693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7626330265637584863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f46222e14a1f6374eac7e70f62025781, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _viewSelectStatusChanger: {fileID: -7316650533384364130}
-  _creatableUnits:
-  - {fileID: 3495418859469597985, guid: a50a0b8b39661e94c97c3de9bd727760, type: 3}
-  - {fileID: 192967411878764909, guid: 1df3ec052929c6443aa1c037d8527910, type: 3}
 --- !u!114 &-1577194115549085943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,3 +136,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingType: 0
+--- !u!114 &2102383845362751647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626330265637584863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bc250d69de643cbb584371d71aea72e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewSelectStatusChanger: {fileID: -7316650533384364130}
+  _creatableUnits:
+  - {fileID: 3495418859469597985, guid: a50a0b8b39661e94c97c3de9bd727760, type: 3}
+  - {fileID: -6457947254907759526, guid: 5afb24dda485c6041aa599707e5335b3, type: 3}

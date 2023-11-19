@@ -3,26 +3,26 @@ using Zenject;
 
 public class UnitButtonsHandler : MonoBehaviour
 {
-    private IWarriorFactory _warriorFactory;
+    private IUnitFactory _unitFactory;
 
     [Inject]
-    public void Constructor(IWarriorFactory warriorFactory)
+    public void Constructor(IUnitFactory unitFactory)
     {
-        _warriorFactory = warriorFactory;
+        _unitFactory = unitFactory;
     }
     
     public void CreateKnight()
     {
-        _warriorFactory.CreateKnight();
+        _unitFactory.CreateKnight();
     }
 
     public void CreateBower()
     {
-        _warriorFactory.CreateBower();
+        _unitFactory.CreateBower();
     }
 
     public void CreateWizard()
     {
-        _warriorFactory.CreateWizard();
+        _unitFactory.CreateWizard();
     }
 }

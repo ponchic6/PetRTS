@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -4088403894138906928}
   - component: {fileID: -1361379326512185842}
   - component: {fileID: 192967411878764909}
+  - component: {fileID: 8760621091273556466}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Untagged
@@ -176,6 +177,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _creationIcon: {fileID: 21300000, guid: a0f897454bd02b747914cc6e5d231428, type: 3}
   _warriorType: 2
+--- !u!114 &8760621091273556466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5183117628154484906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9face02567bc4f12a1f3346c33ae87fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewSelectStatusChanger: {fileID: -589253146160171997}
+  _creatableBuildings: []
 --- !u!1 &6095097458599616219
 GameObject:
   m_ObjectHideFlags: 0

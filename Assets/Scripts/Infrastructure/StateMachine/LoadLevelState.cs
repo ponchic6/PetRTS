@@ -5,6 +5,7 @@ public class LoadLevelState : IPayLoadState<string>
     private readonly SceneLoader _sceneLoader;
     
     [Inject] private IUIFactory _uiFactory;
+    [Inject] private IUnitFactory _unitFactory;
     [Inject] private IUIHandlerFactory _uiHandlerFactory;
 
     public LoadLevelState(SceneLoader sceneLoader)
@@ -24,8 +25,8 @@ public class LoadLevelState : IPayLoadState<string>
     {
         _uiFactory.CreatCanvas();
         _uiFactory.CreatCreationPanel();
-        _uiFactory.CreateInitialBuildButtons();
         _uiFactory.CreatePanelOfSelectedObjects();
+        _unitFactory.CreateKnight();
         _uiHandlerFactory.CreateSelectorView();
     }
 }

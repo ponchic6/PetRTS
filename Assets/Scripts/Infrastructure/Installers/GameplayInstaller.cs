@@ -27,8 +27,8 @@ public class GameplayInstaller : MonoInstaller
 
     private void RegisterWarriorFactory()
     {
-        IWarriorFactory warriorFactory = Container.Instantiate<WarriorFactory>();
-        Container.Bind<IWarriorFactory>().FromInstance(warriorFactory).AsSingle();
+        IUnitFactory unitFactory = Container.Instantiate<UnitFactory>();
+        Container.Bind<IUnitFactory>().FromInstance(unitFactory).AsSingle();
     }
 
     private void RegisterSelectableListService()

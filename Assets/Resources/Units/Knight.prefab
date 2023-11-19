@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8261866062597245549}
   - component: {fileID: 7915281485107594517}
   - component: {fileID: 3495418859469597985}
+  - component: {fileID: -8950807119244555909}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -176,6 +177,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _creationIcon: {fileID: 21300000, guid: 6bb8b38abb01dd04fb767adbbe54c809, type: 3}
   _warriorType: 0
+--- !u!114 &-8950807119244555909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5183117628154484906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9face02567bc4f12a1f3346c33ae87fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewSelectStatusChanger: {fileID: 4266400648478966127}
+  _creatableBuildings:
+  - {fileID: -1577194115549085943, guid: c0e74009180a32548b0de934913c14b6, type: 3}
+  - {fileID: -420563337974725759, guid: c8de8b071d2f9a044a0473e540438542, type: 3}
 --- !u!1 &9060558114379178071
 GameObject:
   m_ObjectHideFlags: 0

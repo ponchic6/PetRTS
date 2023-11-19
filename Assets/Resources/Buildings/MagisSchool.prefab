@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 7584088076817719233}
   - component: {fileID: 1254539904866326203}
   - component: {fileID: -281352487421853817}
-  - component: {fileID: 7269602379947055799}
-  - component: {fileID: 1169660164400546713}
   - component: {fileID: -420563337974725759}
+  - component: {fileID: 6939692956366484658}
   m_Layer: 7
   m_Name: MagisSchool
   m_TagString: Untagged
@@ -36,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &581971880684185383
 MeshFilter:
@@ -124,36 +123,6 @@ MonoBehaviour:
   _selectionIcon: {fileID: 6767477508616402419, guid: b71de032a4b84924d99e3d168656e806, type: 3}
   _selectColor: {r: 0, g: 1, b: 0.87058824, a: 0}
   _deselectColor: {r: 0, g: 0, b: 1, a: 0}
---- !u!114 &7269602379947055799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7626330265637584863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1d4cd414cda435a8d69a72de14f8391, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spawnCooldown: 2
---- !u!114 &1169660164400546713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7626330265637584863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f46222e14a1f6374eac7e70f62025781, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _viewSelectStatusChanger: {fileID: -281352487421853817}
-  _creatableUnits:
-  - {fileID: 3495418859469597985, guid: a50a0b8b39661e94c97c3de9bd727760, type: 3}
-  - {fileID: -6457947254907759526, guid: 5afb24dda485c6041aa599707e5335b3, type: 3}
-  - {fileID: 192967411878764909, guid: 1df3ec052929c6443aa1c037d8527910, type: 3}
 --- !u!114 &-420563337974725759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,3 +136,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingType: 2
+--- !u!114 &6939692956366484658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626330265637584863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bc250d69de643cbb584371d71aea72e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewSelectStatusChanger: {fileID: -281352487421853817}
+  _creatableUnits:
+  - {fileID: 192967411878764909, guid: 1df3ec052929c6443aa1c037d8527910, type: 3}

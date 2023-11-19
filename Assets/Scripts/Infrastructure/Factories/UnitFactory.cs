@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class WarriorFactory : IWarriorFactory
+public class UnitFactory : IUnitFactory
 {
     private const string Warrior1Path = "Units/Knight";
     private const string Warrior2Path = "Units/Bower";
@@ -9,7 +9,7 @@ public class WarriorFactory : IWarriorFactory
 
     private readonly DiContainer _diContainer;
 
-    public WarriorFactory(DiContainer diContainer)
+    public UnitFactory(DiContainer diContainer)
     {
         _diContainer = diContainer;
     }
