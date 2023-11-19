@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -8,16 +9,13 @@ public abstract class CreationPanelOfSelectedObject : MonoBehaviour
     protected SelectableListService _selectableListService;
     protected IUIFactory _uiFactory;
 
-    [SerializeField] private ViewSelectStatusChanger _viewSelectStatusChanger;
+    private ViewSelectStatusChanger _viewSelectStatusChanger;
 
     [Inject]
     public void Constructor(IUIFactory uiFactory, SelectableListService selectableListService)
     {
         _uiFactory = uiFactory;
         _selectableListService = selectableListService;
-
-        _viewSelectStatusChanger.OnSelected += SwitchCreationPanelToCurrentObject;
-        _viewSelectStatusChanger.OnDecelected += SwitchCreationPanelToIdle;
     }
 
     protected abstract void SwitchCreationPanelToCurrentObject();
@@ -35,5 +33,13 @@ public abstract class CreationPanelOfSelectedObject : MonoBehaviour
         }
 
         _buttonsList = null;
+    }
+
+    private void Awake()
+    {
+        _viewSelectStatusChanger = GetComponent<ViewSelectStatusChanger>();
+        
+        _viewSelectStatusChanger.OnSelected += SwitchCreationPanelToCurrentObject;
+        _viewSelectStatusChanger.OnDecelected += SwitchCreationPanelToIdle;
     }
 }

@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 
 public class UnitMover : MonoBehaviour, IMoveble
 {
-    [SerializeField] private NavMeshAgent _navMeshAgent;
-    [SerializeField] private ViewSelectStatusChanger _selectStatusChanger;
+    private NavMeshAgent _navMeshAgent;
+    private ViewSelectStatusChanger _selectStatusChanger;
     private IDestinationUnitSetter _destinationUnitSetter;
 
     [Inject]
@@ -21,5 +22,11 @@ public class UnitMover : MonoBehaviour, IMoveble
         {
             _navMeshAgent.SetDestination(destination);
         }
+    }
+
+    private void Awake()
+    {
+        _selectStatusChanger = GetComponent<ViewSelectStatusChanger>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 }

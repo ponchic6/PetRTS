@@ -152,3 +152,4 @@ MonoBehaviour:
   _creatableUnits:
   - {fileID: 3495418859469597985, guid: a50a0b8b39661e94c97c3de9bd727760, type: 3}
   - {fileID: -6457947254907759526, guid: 5afb24dda485c6041aa599707e5335b3, type: 3}
+  - {fileID: 3495418859469597985, guid: 2238aa55b431c0f4f8d748d49763d28d, type: 3}

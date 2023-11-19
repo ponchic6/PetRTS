@@ -10,19 +10,9 @@ public class UnitButtonsHandler : MonoBehaviour
     {
         _unitFactory = unitFactory;
     }
-    
-    public void CreateKnight()
-    {
-        _unitFactory.CreateKnight();
-    }
 
-    public void CreateBower()
+    public void CreateUnit(Unit unit)
     {
-        _unitFactory.CreateBower();
-    }
-
-    public void CreateWizard()
-    {
-        _unitFactory.CreateWizard();
+        _unitFactory.CreateUnit(unit);
     }
 }

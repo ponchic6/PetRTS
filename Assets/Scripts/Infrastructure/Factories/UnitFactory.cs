@@ -3,9 +3,10 @@ using Zenject;
 
 public class UnitFactory : IUnitFactory
 {
-    private const string Warrior1Path = "Units/Knight";
-    private const string Warrior2Path = "Units/Bower";
-    private const string Warrior3Path = "Units/Wizard";
+    private const string KnightPath = "Units/Knight";
+    private const string BowerPath = "Units/Bower";
+    private const string WizardPath = "Units/Wizard";
+    private const string WorkerPath = "Units/Worker";
 
     private readonly DiContainer _diContainer;
 
@@ -14,21 +15,28 @@ public class UnitFactory : IUnitFactory
         _diContainer = diContainer;
     }
 
-    public GameObject CreateKnight()
+    public GameObject CreateUnit(Unit unit)
     {
-        GameObject warrior = Resources.Load<GameObject>(Warrior1Path);
-        return _diContainer.InstantiatePrefab(warrior);
-    }
+        GameObject unitGameObject;
+        switch (unit)
+        {
+            case Knight:
+                unitGameObject = Resources.Load<GameObject>(KnightPath);
+                return _diContainer.InstantiatePrefab(unitGameObject);
+                
+            case Bower:
+                unitGameObject = Resources.Load<GameObject>(BowerPath);
+                return _diContainer.InstantiatePrefab(unitGameObject);
+                
+            case Wizard:
+                unitGameObject = Resources.Load<GameObject>(WizardPath);
+                return _diContainer.InstantiatePrefab(unitGameObject);
+            
+            case Worker:
+                unitGameObject = Resources.Load<GameObject>(WorkerPath);
+                return _diContainer.InstantiatePrefab(unitGameObject);
 
-    public GameObject CreateBower()
-    {
-        GameObject warrior = Resources.Load<GameObject>(Warrior2Path);
-        return _diContainer.InstantiatePrefab(warrior);
-    }
-
-    public GameObject CreateWizard()
-    {
-        GameObject warrior = Resources.Load<GameObject>(Warrior3Path);
-        return _diContainer.InstantiatePrefab(warrior);
+        }
+        return null;
     }
 }

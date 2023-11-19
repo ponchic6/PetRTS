@@ -35,68 +35,22 @@ public class UIFactory : IUIFactory
         _uiHandlerFactory = uiHandlerFactory;
     }
 
-    public Transform CreatCanvas()
+    public void CreatCanvas()
     {
         Transform rootCanvas = Resources.Load<GameObject>(CanvasPath).transform;
         _rootCanvas = Object.Instantiate(rootCanvas);
-        return _rootCanvas;
     }
 
-    public Transform CreatCreationPanel()
-    {   
-        
+    public void CreatCreationPanel()
+    {
         Transform panel = Resources.Load<GameObject>(CreationPanelPath).transform;
         _creationPannel = Object.Instantiate(panel, _rootCanvas);
-        return _creationPannel;
     }
 
-    public Transform CreatePanelOfSelectedObjects()
+    public void CreatePanelOfSelectedObjects()
     {
         Transform panelOfSelected = Resources.Load<Transform>(PanelOfSelectedPath);
         _panelOfSelected = Object.Instantiate(panelOfSelected, _rootCanvas);
-        return _panelOfSelected;
-    }
-
-    public Transform CreateBuildingButton(BuildingConfig buildingConfig)
-    {
-        if (_buildingButtonsRoot == null)
-        {
-            _buildingButtonsRoot = CreateBuildingButtonsRoot();
-        }
-
-        Transform buildingButtonPrefab = Resources.Load<Transform>(BuildingButtonPath);
-        
-        Transform buildingButton = Object.Instantiate(buildingButtonPrefab, _buildingButtonsRoot);
-        buildingButton.GetChild(0).GetComponent<TMP_Text>().text = buildingConfig.GetBuildName();
-
-        if (_buildButtonsHandler == null)
-        {
-            _buildButtonsHandler = _uiHandlerFactory.CreateBuildingButtonsHandler(_buildingButtonsRoot);
-        }
-        
-        BindBuildingButton(buildingButton, buildingConfig);
-        
-        return buildingButton;
-    }
-
-    public Transform CreateUnitButton(UnitConfig unit)
-    {   
-        if (_unitButtonsRoot == null)
-        {
-            _unitButtonsRoot = CreateUnitButtonsRoot();
-        }
-
-        Transform unitButtonPrefab = Resources.Load<Transform>(UnitButtonPath);
-
-        Transform unitButton = Object.Instantiate(unitButtonPrefab, _unitButtonsRoot);
-        unitButton.GetComponent<Image>().sprite = unit.CreationIcon;
-
-        if (_unitButtonsHandler == null)
-            _unitButtonsHandler = _uiHandlerFactory.CreateUnitButtonsHandler(_unitButtonsRoot);
-
-        BindUnitButton(_unitButtonsHandler, unit, unitButton);
-
-        return unitButton;
     }
 
     public List<Transform> CreateUnitButtonsForBuilding(List<UnitConfig> unitList, List<Transform> unitButtonsList)
@@ -154,18 +108,14 @@ public class UIFactory : IUIFactory
         CreateBuildingButton(buildingConfigsSo.BuildingConfigs[2]).position += new Vector3(0, -65, 0) * 2;
     }
 
-    public Transform CreateIconOnSelectPanel(ViewSelectStatusChanger unit)
+    public void CreateIconOnSelectPanel(ViewSelectStatusChanger unit)
     {
         if (_panelOfSelected != null && !_currentSelectIconDictionary.ContainsKey(unit))
         {
             Transform icon = Object.Instantiate(unit.GetSelectionIcon().transform, _panelOfSelected);
             _currentSelectIconDictionary[unit] = icon;
             UpdateSelectIconPos();
-
-            return icon;
         }
-
-        return null;
     }
 
     public void DestroyIconOnSelectPanel(ViewSelectStatusChanger unit)
@@ -177,6 +127,48 @@ public class UIFactory : IUIFactory
         }
 
         UpdateSelectIconPos();
+    }
+
+    private Transform CreateBuildingButton(BuildingConfig buildingConfig)
+    {
+        if (_buildingButtonsRoot == null)
+        {
+            _buildingButtonsRoot = CreateBuildingButtonsRoot();
+        }
+
+        Transform buildingButtonPrefab = Resources.Load<Transform>(BuildingButtonPath);
+        
+        Transform buildingButton = Object.Instantiate(buildingButtonPrefab, _buildingButtonsRoot);
+        buildingButton.GetChild(0).GetComponent<TMP_Text>().text = buildingConfig.GetBuildName();
+
+        if (_buildButtonsHandler == null)
+        {
+            _buildButtonsHandler = _uiHandlerFactory.CreateBuildingButtonsHandler(_buildingButtonsRoot);
+        }
+        
+        BindBuildingButton(buildingButton, buildingConfig);
+        
+        return buildingButton;
+    }
+
+    private Transform CreateUnitButton(UnitConfig unit)
+    {   
+        if (_unitButtonsRoot == null)
+        {
+            _unitButtonsRoot = CreateUnitButtonsRoot();
+        }
+
+        Transform unitButtonPrefab = Resources.Load<Transform>(UnitButtonPath);
+
+        Transform unitButton = Object.Instantiate(unitButtonPrefab, _unitButtonsRoot);
+        unitButton.GetComponent<Image>().sprite = unit.CreationIcon;
+
+        if (_unitButtonsHandler == null)
+            _unitButtonsHandler = _uiHandlerFactory.CreateUnitButtonsHandler(_unitButtonsRoot);
+
+        BindUnitButton(_unitButtonsHandler, unit, unitButton);
+
+        return unitButton;
     }
 
     private void UpdateSelectIconPos()
@@ -217,28 +209,10 @@ public class UIFactory : IUIFactory
 
     private void BindUnitButton(UnitButtonsHandler unitButtonsHandler, UnitConfig unit, Transform unitButton)
     {
-        switch (unit.Type)
-        {
-            case WarriorType.Knight:
-                unitButton
-                    .GetComponent<Button>()
-                    .onClick
-                    .AddListener(() => { unitButtonsHandler.CreateKnight(); });
-                break;
-            case WarriorType.Bower:
-                unitButton
-                    .GetComponent<Button>()
-                    .onClick
-                    .AddListener(() => { unitButtonsHandler.CreateBower(); });
-                break;
-
-            case WarriorType.Wizard:
-                unitButton
-                    .GetComponent<Button>()
-                    .onClick
-                    .AddListener(() => { unitButtonsHandler.CreateWizard(); });
-                break;
-        }
+        unitButton
+            .GetComponent<Button>()
+            .onClick
+            .AddListener(() => { unitButtonsHandler.CreateUnit(unit.UnitType); });
     }
 
     private Transform CreateBuildingButtonsRoot()
