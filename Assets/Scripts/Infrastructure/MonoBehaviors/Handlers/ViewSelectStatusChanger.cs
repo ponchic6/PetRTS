@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
@@ -8,7 +9,7 @@ public abstract class ViewSelectStatusChanger : MonoBehaviour
     public event Action OnSelected;
     public event Action OnDecelected;
 
-    [SerializeField] private Image _icon;
+    [SerializeField] private Image _selectionIcon;
 
     private SelectableListService _selectableListService;
     private bool _isSelect;
@@ -25,9 +26,9 @@ public abstract class ViewSelectStatusChanger : MonoBehaviour
         return transform;
     }
 
-    public Image GetIcon()
+    public Image GetSelectionIcon()
     {
-        return _icon;
+        return _selectionIcon;
     }
 
     public bool IsSelect()

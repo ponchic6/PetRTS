@@ -16,25 +16,15 @@ public class BuildingService : IBuildingService
         _inputService.OnLeftClickDown += SetupBuildingFromCursor;
 
         _buildingFactory = buildingFactory;
+        _buildingFactory.OnCreateBuilding += SetCreatedBuilding;
 
         _tickService = tickService;
         _tickService.OnTick += SetCurrentBuildingPosToCursor;
     }
 
-    public void CreateBuilding(int buldingNumber)
+    private void SetCreatedBuilding(GameObject building)
     {
-        switch (buldingNumber)
-        {
-            case 1:
-                _currentBuilding = _buildingFactory.CreateBuilding1();
-                break;
-            case 2:
-                _currentBuilding = _buildingFactory.CreateBuilding2();
-                break;
-            case 3:
-                _currentBuilding = _buildingFactory.CreateBuilding3();
-                break;
-        }
+        _currentBuilding = building;
     }
 
     private void SetCurrentBuildingPosToCursor()

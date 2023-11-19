@@ -1,34 +1,44 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Zenject;
 
 public class BuildingFactory : IBuildingFactory
 {
-    private const string Build1Path = "Buildings/Build1";
-    private const string Build2Path = "Buildings/Build2";
-    private const string Build3Path = "Buildings/Build3";
+    public event Action<GameObject> OnCreateBuilding;
+    
+    private const string CastlePath = "Buildings/Castle";
+    private const string TowerPath = "Buildings/Tower";
+    private const string MagicSchoolPath = "Buildings/MagisSchool";
 
     private readonly DiContainer _diContainer;
+
 
     public BuildingFactory(DiContainer diContainer)
     {
         _diContainer = diContainer;
     }
 
-    public GameObject CreateBuilding1()
+    public GameObject CreateCastle()
     {
-        GameObject build = Resources.Load<GameObject>(Build1Path);
-        return _diContainer.InstantiatePrefab(build);
+        GameObject buildPrefab = Resources.Load<GameObject>(CastlePath);
+        GameObject build = _diContainer.InstantiatePrefab(buildPrefab); 
+        OnCreateBuilding?.Invoke(build);
+        return build;
     }
 
-    public GameObject CreateBuilding2()
+    public GameObject CreateTower()
     {
-        GameObject build = Resources.Load<GameObject>(Build2Path);
-        return _diContainer.InstantiatePrefab(build);
+        GameObject buildPrefab = Resources.Load<GameObject>(TowerPath);
+        GameObject build = _diContainer.InstantiatePrefab(buildPrefab); 
+        OnCreateBuilding?.Invoke(build);
+        return build;
     }
 
-    public GameObject CreateBuilding3()
+    public GameObject CreateMagicSchool()
     {
-        GameObject build = Resources.Load<GameObject>(Build3Path);
-        return _diContainer.InstantiatePrefab(build);
+        GameObject buildPrefab = Resources.Load<GameObject>(MagicSchoolPath);
+        GameObject build = _diContainer.InstantiatePrefab(buildPrefab); 
+        OnCreateBuilding?.Invoke(build);
+        return build;
     }
 }

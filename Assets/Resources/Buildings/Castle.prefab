@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: -7316650533384364130}
   - component: {fileID: 3329351543436556557}
   - component: {fileID: -8179969334773656693}
+  - component: {fileID: -1577194115549085943}
   m_Layer: 7
-  m_Name: Build1
+  m_Name: Castle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbe740441b447f5abbbd8a11212c10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 1634085680543166107, guid: 713eb2164fa4ca74eb2387b4d51f9ef4, type: 3}
+  _selectionIcon: {fileID: 1634085680543166107, guid: 713eb2164fa4ca74eb2387b4d51f9ef4, type: 3}
   _selectColor: {r: 0, g: 1, b: 0.86911154, a: 0}
   _deselectColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &3329351543436556557
@@ -152,3 +153,16 @@ MonoBehaviour:
   _creatableUnits:
   - {fileID: 3495418859469597985, guid: a50a0b8b39661e94c97c3de9bd727760, type: 3}
   - {fileID: 192967411878764909, guid: 1df3ec052929c6443aa1c037d8527910, type: 3}
+--- !u!114 &-1577194115549085943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626330265637584863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 150c0f2461e943158d552ef75cc88eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buildingType: 0

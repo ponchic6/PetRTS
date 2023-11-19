@@ -23,8 +23,8 @@ public class LoadLevelState : IPayLoadState<string>
     private void OnLoaded()
     {
         _uiFactory.CreatCanvas();
-        _uiFactory.CreatBuildingListPanel();
-        _uiFactory.CreateBuildButtons();
+        _uiFactory.CreatCreationPanel();
+        _uiFactory.CreateInitialBuildButtons();
         _uiFactory.CreatePanelOfSelectedObjects();
         _uiHandlerFactory.CreateSelectorView();
     }

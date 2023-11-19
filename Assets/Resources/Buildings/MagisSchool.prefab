@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: -281352487421853817}
   - component: {fileID: 7269602379947055799}
   - component: {fileID: 1169660164400546713}
+  - component: {fileID: -420563337974725759}
   m_Layer: 7
-  m_Name: Build3
+  m_Name: MagisSchool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbe740441b447f5abbbd8a11212c10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 6767477508616402419, guid: b71de032a4b84924d99e3d168656e806, type: 3}
+  _selectionIcon: {fileID: 6767477508616402419, guid: b71de032a4b84924d99e3d168656e806, type: 3}
   _selectColor: {r: 0, g: 1, b: 0.87058824, a: 0}
   _deselectColor: {r: 0, g: 0, b: 1, a: 0}
 --- !u!114 &7269602379947055799
@@ -153,3 +154,16 @@ MonoBehaviour:
   - {fileID: 3495418859469597985, guid: a50a0b8b39661e94c97c3de9bd727760, type: 3}
   - {fileID: -6457947254907759526, guid: 5afb24dda485c6041aa599707e5335b3, type: 3}
   - {fileID: 192967411878764909, guid: 1df3ec052929c6443aa1c037d8527910, type: 3}
+--- !u!114 &-420563337974725759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626330265637584863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 150c0f2461e943158d552ef75cc88eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buildingType: 2

@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: -4065587076494182010}
   - component: {fileID: -3362952893496971797}
   - component: {fileID: -6607577885559806553}
+  - component: {fileID: -3011357628002876154}
   m_Layer: 7
-  m_Name: Build2
+  m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbe740441b447f5abbbd8a11212c10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 1985034333224708963, guid: c24dda462b6510042a0bb662d6ab29e8, type: 3}
+  _selectionIcon: {fileID: 1985034333224708963, guid: c24dda462b6510042a0bb662d6ab29e8, type: 3}
   _selectColor: {r: 0, g: 1, b: 0.87058824, a: 0}
   _deselectColor: {r: 0, g: 1, b: 0, a: 0}
 --- !u!114 &-3362952893496971797
@@ -151,3 +152,16 @@ MonoBehaviour:
   _viewSelectStatusChanger: {fileID: -4065587076494182010}
   _creatableUnits:
   - {fileID: -6457947254907759526, guid: 5afb24dda485c6041aa599707e5335b3, type: 3}
+--- !u!114 &-3011357628002876154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626330265637584863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 150c0f2461e943158d552ef75cc88eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buildingType: 1

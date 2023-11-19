@@ -3,16 +3,28 @@ using Zenject;
 
 public class BuildButtonsHandler : MonoBehaviour
 {
-    private IBuildingService _buildingService;
+    private IBuildingFactory _buildingFactory;
 
     [Inject]
-    public void Constructor(IBuildingService buildingService)
+    public void Constructor(IBuildingFactory buildingFactory)
     {
-        _buildingService = buildingService;
+        _buildingFactory = buildingFactory;
     }
 
-    public void CreateBuilding(int buildingNumber)
+    public void CreateCastle()
     {
-        _buildingService.CreateBuilding(buildingNumber);
+        _buildingFactory.CreateCastle();
     }
+
+    public void CreateTower()
+    {
+        _buildingFactory.CreateTower();
+    }
+
+    public void CreateMagicSchool()
+    {
+        _buildingFactory.CreateMagicSchool();
+    }
+    
+
 }

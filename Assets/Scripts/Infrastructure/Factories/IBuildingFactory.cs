@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public interface IBuildingFactory
 {
-    public GameObject CreateBuilding1();
-    public GameObject CreateBuilding2();
-    public GameObject CreateBuilding3();
+    public event Action<GameObject> OnCreateBuilding; 
+    public GameObject CreateCastle();
+    public GameObject CreateTower();
+    public GameObject CreateMagicSchool();
 }

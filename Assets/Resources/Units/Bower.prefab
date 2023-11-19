@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1975234f7061422ba3ff175c5e3267cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 1634085680543166107, guid: c736a92f7fc95e248a875a8c8dfd888e, type: 3}
+  _selectionIcon: {fileID: 1634085680543166107, guid: c736a92f7fc95e248a875a8c8dfd888e, type: 3}
   _selectRing: {fileID: 5061488216740422977}
 --- !u!114 &3157874942664481711
 MonoBehaviour:
@@ -234,7 +234,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 10000
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
