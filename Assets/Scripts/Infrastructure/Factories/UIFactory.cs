@@ -53,10 +53,10 @@ public class UIFactory : IUIFactory
         _panelOfSelected = Object.Instantiate(panelOfSelected, _rootCanvas);
     }
 
-    public List<Transform> CreateUnitButtonsForBuilding(List<UnitConfig> unitList, List<Transform> unitButtonsList)
+    public List<Transform> CreateUnitCreationButtons(List<UnitConfig> unitList, List<Transform> unitButtonsList)
     {
         unitButtonsList = new List<Transform>();
-
+        
         int i = 0;
         int j = 0;
 
@@ -76,7 +76,7 @@ public class UIFactory : IUIFactory
         return unitButtonsList;
     }
 
-    public List<Transform> CreateBuildingButtonsForUnit(List<BuildingConfig> buildingList, List<Transform> buildingButtonsList)
+    public List<Transform> CreateBuildingCreationButtons(List<BuildingConfig> buildingList, List<Transform> buildingButtonsList)
     {
         buildingButtonsList = new List<Transform>();
 
@@ -152,7 +152,7 @@ public class UIFactory : IUIFactory
     }
 
     private Transform CreateUnitButton(UnitConfig unit)
-    {   
+    {
         if (_unitButtonsRoot == null)
         {
             _unitButtonsRoot = CreateUnitButtonsRoot();

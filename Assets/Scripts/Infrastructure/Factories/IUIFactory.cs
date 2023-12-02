@@ -8,8 +8,8 @@ public interface IUIFactory
     public void CreatCanvas();
     public void CreatCreationPanel();
     public void CreatePanelOfSelectedObjects();
-    public List<Transform> CreateUnitButtonsForBuilding(List<UnitConfig> unitList, List<Transform> buttonsList);
-    public List<Transform> CreateBuildingButtonsForUnit(List<BuildingConfig> buildingList, List<Transform> buttonList);
+    public List<Transform> CreateUnitCreationButtons(List<UnitConfig> unitList, List<Transform> buttonsList);
+    public List<Transform> CreateBuildingCreationButtons(List<BuildingConfig> buildingList, List<Transform> buttonList);
     public void CreateIconOnSelectPanel(ViewSelectStatusChanger unit);
     public void DestroyIconOnSelectPanel(ViewSelectStatusChanger unit);
 }

@@ -148,8 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc250d69de643cbb584371d71aea72e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewSelectStatusChanger: {fileID: -7316650533384364130}
   _creatableUnits:
   - {fileID: 3495418859469597985, guid: a50a0b8b39661e94c97c3de9bd727760, type: 3}
-  - {fileID: -6457947254907759526, guid: 5afb24dda485c6041aa599707e5335b3, type: 3}
-  - {fileID: 3495418859469597985, guid: 2238aa55b431c0f4f8d748d49763d28d, type: 3}
+  - {fileID: 3495418859469597985, guid: a50a0b8b39661e94c97c3de9bd727760, type: 3}
+  - {fileID: 192967411878764909, guid: 1df3ec052929c6443aa1c037d8527910, type: 3}

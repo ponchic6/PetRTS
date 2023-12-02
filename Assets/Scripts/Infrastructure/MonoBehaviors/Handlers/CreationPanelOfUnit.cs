@@ -9,7 +9,7 @@ public class CreationPanelOfUnit : CreationPanelOfSelectedObject
     {
         if (_buttonsList == null && _selectableListService.CurrentSelectUnits.Count == 1)
         {
-            _buttonsList = _uiFactory.CreateBuildingButtonsForUnit(_creatableBuildings, _buttonsList);
+            _buttonsList = _uiFactory.CreateBuildingCreationButtons(_creatableBuildings, _buttonsList);
         }
     }
 }
