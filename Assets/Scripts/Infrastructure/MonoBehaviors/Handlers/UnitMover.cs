@@ -16,17 +16,17 @@ public class UnitMover : MonoBehaviour, IMoveble
         _destinationUnitSetter.OnSetDestination += MoveToDestination;
     }
 
+    private void Awake()
+    {
+        _selectStatusChanger = GetComponent<ViewSelectStatusChanger>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+    }
+    
     public void MoveToDestination(Vector3 destination)
     {
         if (_selectStatusChanger.IsSelect())
         {
             _navMeshAgent.SetDestination(destination);
         }
-    }
-
-    private void Awake()
-    {
-        _selectStatusChanger = GetComponent<ViewSelectStatusChanger>();
-        _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 }

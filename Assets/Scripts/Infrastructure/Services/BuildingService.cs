@@ -41,7 +41,8 @@ public class BuildingService : IBuildingService
     private void SetupBuildingFromCursor()
     {
         if (_currentBuilding != null)
-        {
+        {   
+            _currentBuilding.GetComponent<BuildingColiderActivator>().ActiveCollider();
             _currentBuilding = null;
         }
     }

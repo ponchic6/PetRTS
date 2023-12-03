@@ -26,7 +26,7 @@ public class LoadLevelState : IPayLoadState<string>
         _uiFactory.CreatCanvas();
         _uiFactory.CreatCreationPanel();
         _uiFactory.CreatePanelOfSelectedObjects();
-        _unitFactory.CreateUnit(new Knight());
+        _unitFactory.CreateUnit(new Worker());
         _uiHandlerFactory.CreateSelectorView();
     }
 }

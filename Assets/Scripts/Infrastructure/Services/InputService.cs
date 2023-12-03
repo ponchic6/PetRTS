@@ -45,7 +45,6 @@ public class InputService : IInputService
     {
         if (_isHoldDownMiddleButton)
             OnHoldDownMiddleButton?.Invoke();
-        ;
     }
 
     private void CheckClickMiddleButtonUp()
