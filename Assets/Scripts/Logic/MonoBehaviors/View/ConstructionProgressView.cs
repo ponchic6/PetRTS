@@ -10,6 +10,8 @@ public class ConstructionProgressView : MonoBehaviour, IConstructionProgressView
     [SerializeField] private Image _healthBar;
     private float _constructionProgress;
 
+    public bool IsBuilded { get; private set; }
+
     private void Awake()
     {
         _constructionProgress = 0f;
@@ -31,6 +33,7 @@ public class ConstructionProgressView : MonoBehaviour, IConstructionProgressView
         else 
         {
             _constructionProgress = _maxHealth;
+            IsBuilded = true;
         }
     }
 

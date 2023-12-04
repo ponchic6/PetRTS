@@ -12,6 +12,8 @@ public class WorkHandler : MonoBehaviour
     private IMoveble _unitMover;
     private IInputService _inputService;
     private IConstructionProgressView _constructionProgressOfCurrentObject;
+    
+    public bool IsWorking { get; private set; }
 
     private void Awake()
     {
@@ -20,19 +22,8 @@ public class WorkHandler : MonoBehaviour
 
     private void Update()
     {
-        if (CanIncreaseBuildingProgress())
-        {
-            if (_currentCooldown <= 0)
-            {
-                _constructionProgressOfCurrentObject.IncreaseBuildingProgress(_efficiency);
-                _currentCooldown = _cooldown;
-            }
-        }
-
-        if (_currentCooldown > 0)
-        {
-            _currentCooldown -= Time.deltaTime;
-        }
+        TryWork();
+        ReduceCooldown();
     }
 
     [Inject]
@@ -68,9 +59,37 @@ public class WorkHandler : MonoBehaviour
         }
     }
 
+    private void ReduceCooldown()
+    {
+        if (_currentCooldown > 0)
+        {
+            _currentCooldown -= Time.deltaTime;
+        }
+    }
+
+    private void TryWork()
+    {
+        if (CanIncreaseBuildingProgress())
+        {
+            IsWorking = true;
+
+            if (_currentCooldown <= 0)
+            {
+                _constructionProgressOfCurrentObject.IncreaseBuildingProgress(_efficiency);
+                _currentCooldown = _cooldown;
+            }
+        }
+
+        else
+        {
+            IsWorking = false;
+        }
+    }
+
     private bool CanIncreaseBuildingProgress()
     {
         return _constructionProgressOfCurrentObject != null && 
-               Vector3.Distance(transform.position, _constructionProgressOfCurrentObject.GetTransform().position) <= _distanceForWork;
+               Vector3.Distance(transform.position, _constructionProgressOfCurrentObject.GetTransform().position) <= _distanceForWork &&
+               !_constructionProgressOfCurrentObject.IsBuilded;
     }
 }

@@ -6,7 +6,7 @@ public class UnitFactory : IUnitFactory
     private const string KnightPath = "Units/Knight";
     private const string BowerPath = "Units/Bower";
     private const string WizardPath = "Units/Wizard";
-    private const string WorkerPath = "Units/Worker";
+    private const string WorkerPath = "Units/WK_worker";
 
     private readonly DiContainer _diContainer;
 

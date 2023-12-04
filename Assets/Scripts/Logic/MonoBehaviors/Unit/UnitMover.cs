@@ -19,6 +19,7 @@ public class UnitMover : MonoBehaviour, IMoveble
     private void Awake()
     {
         _selectStatusChanger = GetComponent<ViewSelectStatusChanger>();
+        
         _navMeshAgent = GetComponent<NavMeshAgent>();
     }
     
@@ -28,5 +29,10 @@ public class UnitMover : MonoBehaviour, IMoveble
         {
             _navMeshAgent.SetDestination(destination);
         }
+    }
+
+    public Vector3 GetCurrentSpeed()
+    {
+        return _navMeshAgent.velocity;
     }
 }

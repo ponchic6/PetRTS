@@ -11,7 +11,6 @@ public class UIFactory : IUIFactory
     private const string PanelOfSelectedPath = "UIEllements/UIPrefasbs/PanelOfSelected";
     private const string UnitButtonPath = "UIEllements/UIPrefasbs/UnitButton";
     private const string BuildingButtonsRootPath = "UIEllements/UIPrefasbs/BuildingButtonsRoot";
-    private const string InitialBuildingButtonsConfig = "UIEllements/InitialBuildingButtonsConfig";
     private const string UnitButtonsRootPath = "UIEllements/UIPrefasbs/UnitButtonsRoot";
 
     private readonly IUIHandlerFactory _uiHandlerFactory;
@@ -98,16 +97,7 @@ public class UIFactory : IUIFactory
 
         return buildingButtonsList;
     }
-
-    public void CreateInitialBuildButtons()
-    {
-        InitialBuildingButtonsConfigSO buildingConfigsSo = Resources.Load<InitialBuildingButtonsConfigSO>(InitialBuildingButtonsConfig);
-        
-        CreateBuildingButton(buildingConfigsSo.BuildingConfigs[0]);
-        CreateBuildingButton(buildingConfigsSo.BuildingConfigs[1]).position += new Vector3(0, -65, 0);
-        CreateBuildingButton(buildingConfigsSo.BuildingConfigs[2]).position += new Vector3(0, -65, 0) * 2;
-    }
-
+    
     public void CreateIconOnSelectPanel(ViewSelectStatusChanger unit)
     {
         if (_panelOfSelected != null && !_currentSelectIconDictionary.ContainsKey(unit))
@@ -174,11 +164,19 @@ public class UIFactory : IUIFactory
     private void UpdateSelectIconPos()
     {
         int i = 0;
-
+        int j = 0;
+        
         foreach (Transform _currentIcon in _currentSelectIconDictionary.Values)
         {
-            _currentIcon.localPosition = new Vector3(-200, 50, 0) + new Vector3(100, 0, 0) * i;
+            _currentIcon.localPosition = new Vector3(-200, 50, 0) + 
+                                         new Vector3(100, 0, 0) * i +
+                                         new Vector3(0, -100, 0) * j;
             i++;
+            if (i == 5)
+            {
+                i = 0;
+                j++;
+            }
         }
     }
 

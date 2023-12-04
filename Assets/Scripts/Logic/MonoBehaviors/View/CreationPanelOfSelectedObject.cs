@@ -11,14 +11,22 @@ public abstract class CreationPanelOfSelectedObject : MonoBehaviour
 
     private ViewSelectStatusChanger _viewSelectStatusChanger;
 
+    protected virtual void Awake()
+    {
+        _viewSelectStatusChanger = GetComponent<ViewSelectStatusChanger>();
+        
+        _viewSelectStatusChanger.OnSelected += SwitchCreationPanelToCurrentObject;
+        _viewSelectStatusChanger.OnDecelected += SwitchCreationPanelToIdle;
+    }
+
+    protected abstract void SwitchCreationPanelToCurrentObject();
+
     [Inject]
     public void Constructor(IUIFactory uiFactory, SelectableListService selectableListService)
     {
         _uiFactory = uiFactory;
         _selectableListService = selectableListService;
     }
-
-    protected abstract void SwitchCreationPanelToCurrentObject();
 
     private void SwitchCreationPanelToIdle()
     {
@@ -33,13 +41,5 @@ public abstract class CreationPanelOfSelectedObject : MonoBehaviour
         }
 
         _buttonsList = null;
-    }
-
-    private void Awake()
-    {
-        _viewSelectStatusChanger = GetComponent<ViewSelectStatusChanger>();
-        
-        _viewSelectStatusChanger.OnSelected += SwitchCreationPanelToCurrentObject;
-        _viewSelectStatusChanger.OnDecelected += SwitchCreationPanelToIdle;
     }
 }
