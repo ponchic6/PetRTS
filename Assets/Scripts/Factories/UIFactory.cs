@@ -52,7 +52,8 @@ public class UIFactory : IUIFactory
         _panelOfSelected = Object.Instantiate(panelOfSelected, _rootCanvas);
     }
 
-    public List<Transform> CreateUnitCreationButtons(List<UnitConfig> unitList, List<Transform> unitButtonsList)
+    public List<Transform> CreateUnitCreationButtons(List<UnitConfig> unitList, List<Transform> unitButtonsList,
+        Transform building)
     {
         unitButtonsList = new List<Transform>();
         
@@ -61,7 +62,7 @@ public class UIFactory : IUIFactory
 
         foreach (UnitConfig config in unitList)
         {
-            Transform button = CreateUnitButton(config);
+            Transform button = CreateUnitButton(config, building);
             button.position += new Vector3(0, -65, 0) * i + new Vector3(150, 0, 0) * j;
             unitButtonsList.Add(button);
             i++;
@@ -141,7 +142,7 @@ public class UIFactory : IUIFactory
         return buildingButton;
     }
 
-    private Transform CreateUnitButton(UnitConfig unit)
+    private Transform CreateUnitButton(UnitConfig unit, Transform building)
     {
         if (_unitButtonsRoot == null)
         {
@@ -156,7 +157,7 @@ public class UIFactory : IUIFactory
         if (_unitButtonsHandler == null)
             _unitButtonsHandler = _uiHandlerFactory.CreateUnitButtonsHandler(_unitButtonsRoot);
 
-        BindUnitButton(_unitButtonsHandler, unit, unitButton);
+        BindUnitButton(_unitButtonsHandler, unit, unitButton, building);
 
         return unitButton;
     }
@@ -205,12 +206,13 @@ public class UIFactory : IUIFactory
         }
     }
 
-    private void BindUnitButton(UnitButtonsHandler unitButtonsHandler, UnitConfig unit, Transform unitButton)
+    private void BindUnitButton(UnitButtonsHandler unitButtonsHandler, UnitConfig unit,
+        Transform unitButton, Transform building)
     {
         unitButton
             .GetComponent<Button>()
             .onClick
-            .AddListener(() => { unitButtonsHandler.CreateUnit(unit.UnitType); });
+            .AddListener(() => { unitButtonsHandler.CreateUnit(unit.UnitType, building); });
     }
 
     private Transform CreateBuildingButtonsRoot()

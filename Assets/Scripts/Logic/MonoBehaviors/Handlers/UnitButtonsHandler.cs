@@ -11,8 +11,8 @@ public class UnitButtonsHandler : MonoBehaviour
         _unitFactory = unitFactory;
     }
 
-    public void CreateUnit(Unit unit)
+    public void CreateUnit(Unit unit, Transform building)
     {
-        _unitFactory.CreateUnit(unit);
+        _unitFactory.CreateUnit(unit, building);
     }
 }

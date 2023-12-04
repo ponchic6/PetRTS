@@ -18,7 +18,7 @@ public class CreationPanelOfBuilding : CreationPanelOfSelectedObject
             _selectableListService.CurrentSelectUnits.Count == 1 &&
             _constructionProgressView.IsBuilded)
         {
-            _buttonsList = _uiFactory.CreateUnitCreationButtons(_creatableUnits, _buttonsList);
+            _buttonsList = _uiFactory.CreateUnitCreationButtons(_creatableUnits, _buttonsList, transform);
         }
     }
 }
