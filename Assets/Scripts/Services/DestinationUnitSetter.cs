@@ -6,13 +6,16 @@ public class DestinationUnitSetter : IDestinationUnitSetter
     public event Action<Vector3> OnSetDestination;
 
     private readonly IInputService _inputService;
+    private readonly SelectableListService _selectableListService;
 
     private Vector3 _destination;
 
-    public DestinationUnitSetter(IInputService inputService)
+    public DestinationUnitSetter(IInputService inputService, SelectableListService selectableListService)
     {
         _inputService = inputService;
         _inputService.OnRightClickDown += SetDestinationForSelectedUnits;
+        
+        _selectableListService = selectableListService;
     }
 
     private void SetDestinationForSelectedUnits()

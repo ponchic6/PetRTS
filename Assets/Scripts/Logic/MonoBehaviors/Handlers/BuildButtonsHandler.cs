@@ -11,20 +11,8 @@ public class BuildButtonsHandler : MonoBehaviour
         _buildingFactory = buildingFactory;
     }
 
-    public void CreateCastle()
+    public void CreateBuilding(Building building)
     {
-        _buildingFactory.CreateCastle();
+        _buildingFactory.CreateBuilding(building);
     }
-
-    public void CreateTower()
-    {
-        _buildingFactory.CreateTower();
-    }
-
-    public void CreateMagicSchool()
-    {
-        _buildingFactory.CreateMagicSchool();
-    }
-    
-
 }

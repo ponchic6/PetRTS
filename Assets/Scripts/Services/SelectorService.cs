@@ -85,13 +85,8 @@ public class SelectorService : ISelectorService
                     Camera.main.WorldToScreenPoint(currentSelectableObject.GetTransform().position);
                 objectPosOnScreen.y -= Screen.height;
                 objectPosOnScreen.y *= -1;
-
-                if (currentSelectableObject.IsSelect())
-                {
-                    
-                }
                 
-                else if (_currentSelectorRect.Contains(objectPosOnScreen))
+                if (_currentSelectorRect.Contains(objectPosOnScreen))
                 {
                     SelectObject(currentSelectableObject);
                 }

@@ -95,12 +95,12 @@ GameObject:
   - component: {fileID: 6408628343405347340}
   - component: {fileID: 5562825284234356254}
   - component: {fileID: 758283609086314173}
-  - component: {fileID: 1237059558641385169}
   - component: {fileID: 3157874942664481711}
   - component: {fileID: 341385078786976479}
   - component: {fileID: -6457947254907759526}
   - component: {fileID: -3523665738280189847}
   - component: {fileID: 540030944861305837}
+  - component: {fileID: 6080207326551824186}
   m_Layer: 0
   m_Name: Bower
   m_TagString: Untagged
@@ -197,20 +197,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1237059558641385169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5183117628154484906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1975234f7061422ba3ff175c5e3267cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selectionIcon: {fileID: 1634085680543166107, guid: c736a92f7fc95e248a875a8c8dfd888e, type: 3}
-  _selectRing: {fileID: 5061488216740422977}
 --- !u!114 &3157874942664481711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,8 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d971f09fcd8a485c842aae26970e5bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _navMeshAgent: {fileID: 341385078786976479}
-  _selectStatusChanger: {fileID: 1237059558641385169}
 --- !u!195 &341385078786976479
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -273,7 +257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9face02567bc4f12a1f3346c33ae87fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewSelectStatusChanger: {fileID: 1237059558641385169}
   _creatableBuildings: []
 --- !u!114 &540030944861305837
 MonoBehaviour:
@@ -287,3 +270,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288301bf522740eeae4380d21b3d5b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6080207326551824186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5183117628154484906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c018607f62f459185d50422f1847f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectionIcon: {fileID: 1634085680543166107, guid: c736a92f7fc95e248a875a8c8dfd888e, type: 3}
+  _selectRing: {fileID: 5061488216740422977}

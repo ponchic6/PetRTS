@@ -9,7 +9,9 @@ public class CreationPanelOfBuilding : CreationPanelOfSelectedObject
     protected override void Awake()
     {
         base.Awake();
+        
         _constructionProgressView = GetComponent<IConstructionProgressView>();
+        _constructionProgressView.OnBuilded += SwitchCreationPanelToCurrentObject;
     }
 
     protected override void SwitchCreationPanelToCurrentObject()

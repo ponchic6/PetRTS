@@ -3,8 +3,6 @@ using UnityEngine;
 
 public interface IBuildingFactory
 {
-    public event Action<GameObject> OnCreateBuilding; 
-    public GameObject CreateCastle();
-    public GameObject CreateTower();
-    public GameObject CreateMagicSchool();
+    public event Action<GameObject> OnCreateBuilding;
+    public GameObject CreateBuilding(Building building);
 }

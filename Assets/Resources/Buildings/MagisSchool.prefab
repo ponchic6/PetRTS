@@ -204,11 +204,11 @@ GameObject:
   - component: {fileID: 581971880684185383}
   - component: {fileID: 7584088076817719233}
   - component: {fileID: 1254539904866326203}
-  - component: {fileID: -281352487421853817}
-  - component: {fileID: -420563337974725759}
   - component: {fileID: 6939692956366484658}
   - component: {fileID: -3026968208976336333}
   - component: {fileID: -8358468188011152812}
+  - component: {fileID: 1281500378307815491}
+  - component: {fileID: 4431364182000888017}
   m_Layer: 7
   m_Name: MagisSchool
   m_TagString: Untagged
@@ -229,6 +229,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8313182285522384980}
+  - {fileID: 6106255336783580173}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -303,34 +304,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-281352487421853817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7626330265637584863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddbe740441b447f5abbbd8a11212c10f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selectionIcon: {fileID: 6767477508616402419, guid: b71de032a4b84924d99e3d168656e806, type: 3}
-  _selectColor: {r: 0, g: 1, b: 0.87058824, a: 0}
-  _deselectColor: {r: 0, g: 0, b: 1, a: 0}
---- !u!114 &-420563337974725759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7626330265637584863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 150c0f2461e943158d552ef75cc88eb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _buildingType: 2
 --- !u!114 &6939692956366484658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc250d69de643cbb584371d71aea72e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _viewSelectStatusChanger: {fileID: 4431364182000888017}
   _creatableUnits:
   - {fileID: 192967411878764909, guid: 1df3ec052929c6443aa1c037d8527910, type: 3}
 --- !u!114 &-3026968208976336333
@@ -372,3 +346,113 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 1254539904866326203}
+--- !u!114 &1281500378307815491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626330265637584863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a8e818c16146a9a56ebe78f53ccd9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buildingName: Magic School
+--- !u!114 &4431364182000888017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626330265637584863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c018607f62f459185d50422f1847f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectionIcon: {fileID: 0}
+  _selectRing: {fileID: 7630305409853823803, guid: b71de032a4b84924d99e3d168656e806, type: 3}
+--- !u!1 &8364819013749418517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6106255336783580173}
+  - component: {fileID: 4245407713534940568}
+  - component: {fileID: 4126504248988470017}
+  m_Layer: 0
+  m_Name: SelectRing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6106255336783580173
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8364819013749418517}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.02, z: 0}
+  m_LocalScale: {x: 0.8523, y: 0.00474, z: 0.8523}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 370749838554595404}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4245407713534940568
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8364819013749418517}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &4126504248988470017
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8364819013749418517}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: fa11185ac6b40884897574524a4f7a04, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}

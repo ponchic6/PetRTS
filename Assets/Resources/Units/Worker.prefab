@@ -3208,7 +3208,6 @@ GameObject:
   - component: {fileID: 9583782}
   - component: {fileID: -4197344558835131150}
   - component: {fileID: 8132663781054141235}
-  - component: {fileID: 3391937810598843597}
   - component: {fileID: 6154434157721974844}
   - component: {fileID: -789043204807373048}
   - component: {fileID: 1025443636790612245}
@@ -3216,6 +3215,7 @@ GameObject:
   - component: {fileID: -4259196110113953167}
   - component: {fileID: 1849496600322383387}
   - component: {fileID: 7594072987671146997}
+  - component: {fileID: 2893437162056930838}
   m_Layer: 0
   m_Name: Worker
   m_TagString: Untagged
@@ -3320,7 +3320,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 1e+9
   avoidancePriority: 50
-  m_AngularSpeed: 2e+9
+  m_AngularSpeed: 1e+9
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -3329,20 +3329,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3391937810598843597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 169886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1975234f7061422ba3ff175c5e3267cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selectionIcon: {fileID: 1634085680543166107, guid: 3de2b87571836f547b3e337020f51fc0, type: 3}
-  _selectRing: {fileID: 3183892448826287806}
 --- !u!114 &6154434157721974844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3381,9 +3367,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9face02567bc4f12a1f3346c33ae87fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _viewSelectStatusChanger: {fileID: 2893437162056930838}
   _creatableBuildings:
-  - {fileID: -1577194115549085943, guid: c0e74009180a32548b0de934913c14b6, type: 3}
-  - {fileID: -420563337974725759, guid: c8de8b071d2f9a044a0473e540438542, type: 3}
+  - {fileID: -8250684003885192182, guid: c0e74009180a32548b0de934913c14b6, type: 3}
+  - {fileID: 1281500378307815491, guid: c8de8b071d2f9a044a0473e540438542, type: 3}
 --- !u!114 &-2401323369833480981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3409,7 +3396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _distanceForWork: 1
-  _unitViewSelectStatusChanger: {fileID: 3391937810598843597}
+  _viewSelectStatusChanger: {fileID: 2893437162056930838}
   _cooldown: 0.2
   _efficiency: 5
 --- !u!114 &1849496600322383387
@@ -3439,6 +3426,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _workerAnimator: {fileID: 1849496600322383387}
   _workHandler: {fileID: -4259196110113953167}
+--- !u!114 &2893437162056930838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c018607f62f459185d50422f1847f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectionIcon: {fileID: 1634085680543166107, guid: 3de2b87571836f547b3e337020f51fc0, type: 3}
+  _selectRing: {fileID: 3183892448826287806}
 --- !u!1 &169966
 GameObject:
   m_ObjectHideFlags: 0

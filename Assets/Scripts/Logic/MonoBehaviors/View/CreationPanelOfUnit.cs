@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CreationPanelOfUnit : CreationPanelOfSelectedObject
 {
-    [SerializeField] private List<BuildingConfig> _creatableBuildings;
+    [SerializeField] private List<Building> _creatableBuildings;
 
     protected override void SwitchCreationPanelToCurrentObject()
     {

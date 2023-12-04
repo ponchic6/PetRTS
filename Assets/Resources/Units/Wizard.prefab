@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 6408628343405347340}
   - component: {fileID: 5562825284234356254}
   - component: {fileID: 758283609086314173}
-  - component: {fileID: -589253146160171997}
   - component: {fileID: -4088403894138906928}
   - component: {fileID: -1361379326512185842}
   - component: {fileID: 192967411878764909}
   - component: {fileID: 8760621091273556466}
   - component: {fileID: -6158724136478978644}
+  - component: {fileID: 5424889994043409518}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Untagged
@@ -114,20 +114,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-589253146160171997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5183117628154484906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1975234f7061422ba3ff175c5e3267cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selectionIcon: {fileID: 1634085680543166107, guid: 1bb9ffe79e529e7409b287cdf023a133, type: 3}
-  _selectRing: {fileID: 6095097458599616219}
 --- !u!114 &-4088403894138906928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,8 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d971f09fcd8a485c842aae26970e5bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _navMeshAgent: {fileID: -1361379326512185842}
-  _selectStatusChanger: {fileID: -589253146160171997}
 --- !u!195 &-1361379326512185842
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -190,7 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9face02567bc4f12a1f3346c33ae87fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewSelectStatusChanger: {fileID: -589253146160171997}
   _creatableBuildings: []
 --- !u!114 &-6158724136478978644
 MonoBehaviour:
@@ -204,6 +187,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3115f17353546559f00daf7b9b835d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5424889994043409518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5183117628154484906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c018607f62f459185d50422f1847f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectionIcon: {fileID: 1634085680543166107, guid: 1bb9ffe79e529e7409b287cdf023a133, type: 3}
+  _selectRing: {fileID: 6095097458599616219}
 --- !u!1 &6095097458599616219
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,11 +6,14 @@ using UnityEngine.UI;
 
 public class ConstructionProgressView : MonoBehaviour, IConstructionProgressView
 {
+    public event Action OnBuilded;
+    
     [SerializeField] private float _maxHealth;
     [SerializeField] private Image _healthBar;
     private float _constructionProgress;
 
     public bool IsBuilded { get; private set; }
+
 
     private void Awake()
     {
@@ -34,6 +37,7 @@ public class ConstructionProgressView : MonoBehaviour, IConstructionProgressView
         {
             _constructionProgress = _maxHealth;
             IsBuilded = true;
+            OnBuilded?.Invoke();
         }
     }
 

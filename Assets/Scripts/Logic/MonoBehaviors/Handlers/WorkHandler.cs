@@ -5,7 +5,7 @@ using Zenject;
 public class WorkHandler : MonoBehaviour
 {
     [SerializeField] private float _distanceForWork;
-    [SerializeField] private UnitViewSelectStatusChanger _unitViewSelectStatusChanger;
+    [SerializeField] private ViewSelectStatusChanger _viewSelectStatusChanger;
     [SerializeField] private float _cooldown;
     [SerializeField] private float _efficiency;
     private float _currentCooldown;
@@ -35,7 +35,7 @@ public class WorkHandler : MonoBehaviour
 
     private void TrySendToWorkPoint()
     {
-        if (_unitViewSelectStatusChanger.IsSelect())
+        if (_viewSelectStatusChanger.IsSelect())
         {
             Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
             

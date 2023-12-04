@@ -10,7 +10,7 @@ public interface IUIFactory
     public void CreatePanelOfSelectedObjects();
     public List<Transform> CreateUnitCreationButtons(List<UnitConfig> unitList, List<Transform> buttonsList,
         Transform building);
-    public List<Transform> CreateBuildingCreationButtons(List<BuildingConfig> buildingList, List<Transform> buttonList);
+    public List<Transform> CreateBuildingCreationButtons(List<Building> buildingList, List<Transform> buttonList);
     public void CreateIconOnSelectPanel(ViewSelectStatusChanger unit);
     public void DestroyIconOnSelectPanel(ViewSelectStatusChanger unit);
 }

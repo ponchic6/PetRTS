@@ -4,13 +4,14 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
-public abstract class ViewSelectStatusChanger : MonoBehaviour
+public class ViewSelectStatusChanger : MonoBehaviour
 {
     public event Action OnSelected;
     public event Action OnDecelected;
 
     [SerializeField] private Image _selectionIcon;
-
+    [SerializeField] private GameObject _selectRing;
+    
     private SelectableListService _selectableListService;
     private bool _isSelect;
 
@@ -36,21 +37,23 @@ public abstract class ViewSelectStatusChanger : MonoBehaviour
         return _isSelect;
     }
 
-    public virtual void Select()
+    public void Select()
     {
         if (!_isSelect)
         {
             _isSelect = true;
             OnSelected?.Invoke();
         }
+        _selectRing.SetActive(true);
     }
 
-    public virtual void Deselect()
+    public void Deselect()
     {
         if (_isSelect)
         {
             _isSelect = false;
             OnDecelected?.Invoke();
         }
+        _selectRing.SetActive(false);
     }
 }

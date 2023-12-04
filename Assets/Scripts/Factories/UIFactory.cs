@@ -76,16 +76,16 @@ public class UIFactory : IUIFactory
         return unitButtonsList;
     }
 
-    public List<Transform> CreateBuildingCreationButtons(List<BuildingConfig> buildingList, List<Transform> buildingButtonsList)
+    public List<Transform> CreateBuildingCreationButtons(List<Building> buildingList, List<Transform> buildingButtonsList)
     {
         buildingButtonsList = new List<Transform>();
 
         int i = 0;
         int j = 0;
 
-        foreach (BuildingConfig config in buildingList)
+        foreach (Building building in buildingList)
         {
-            Transform button = CreateBuildingButton(config);
+            Transform button = CreateBuildingButton(building);
             button.position += new Vector3(0, -65, 0) * i + new Vector3(150, 0, 0) * j;
             buildingButtonsList.Add(button);
             i++;
@@ -120,7 +120,7 @@ public class UIFactory : IUIFactory
         UpdateSelectIconPos();
     }
 
-    private Transform CreateBuildingButton(BuildingConfig buildingConfig)
+    private Transform CreateBuildingButton(Building building)
     {
         if (_buildingButtonsRoot == null)
         {
@@ -130,14 +130,14 @@ public class UIFactory : IUIFactory
         Transform buildingButtonPrefab = Resources.Load<Transform>(BuildingButtonPath);
         
         Transform buildingButton = Object.Instantiate(buildingButtonPrefab, _buildingButtonsRoot);
-        buildingButton.GetChild(0).GetComponent<TMP_Text>().text = buildingConfig.GetBuildName();
+        buildingButton.GetChild(0).GetComponent<TMP_Text>().text = building.GetBuildingName();
 
         if (_buildButtonsHandler == null)
         {
             _buildButtonsHandler = _uiHandlerFactory.CreateBuildingButtonsHandler(_buildingButtonsRoot);
         }
         
-        BindBuildingButton(buildingButton, buildingConfig);
+        BindBuildingButton(buildingButton, building);
         
         return buildingButton;
     }
@@ -181,29 +181,12 @@ public class UIFactory : IUIFactory
         }
     }
 
-    private void BindBuildingButton(Transform buildButton, BuildingConfig buildingConfig)
+    private void BindBuildingButton(Transform buildButton, Building building)
     {
-        switch (buildingConfig.Type)
-        {
-            case BuildingType.Castle:
-                buildButton
-                    .GetComponent<Button>()
-                    .onClick
-                    .AddListener(() => { _buildButtonsHandler.CreateCastle(); });
-                break;
-            case BuildingType.Tower:
-                buildButton
-                    .GetComponent<Button>()
-                    .onClick
-                    .AddListener(() => { _buildButtonsHandler.CreateTower(); });
-                break;
-            case BuildingType.MagicSchool:
-                buildButton
-                    .GetComponent<Button>()
-                    .onClick
-                    .AddListener(() => { _buildButtonsHandler.CreateMagicSchool(); });
-                break;
-        }
+        buildButton
+            .GetComponent<Button>()
+            .onClick
+            .AddListener(() => { _buildButtonsHandler.CreateBuilding(building); });
     }
 
     private void BindUnitButton(UnitButtonsHandler unitButtonsHandler, UnitConfig unit,

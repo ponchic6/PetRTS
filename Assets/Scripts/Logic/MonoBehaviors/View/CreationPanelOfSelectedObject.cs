@@ -9,12 +9,10 @@ public abstract class CreationPanelOfSelectedObject : MonoBehaviour
     protected SelectableListService _selectableListService;
     protected IUIFactory _uiFactory;
 
-    private ViewSelectStatusChanger _viewSelectStatusChanger;
+    [SerializeField] private ViewSelectStatusChanger _viewSelectStatusChanger;
 
     protected virtual void Awake()
     {
-        _viewSelectStatusChanger = GetComponent<ViewSelectStatusChanger>();
-        
         _viewSelectStatusChanger.OnSelected += SwitchCreationPanelToCurrentObject;
         _viewSelectStatusChanger.OnDecelected += SwitchCreationPanelToIdle;
     }

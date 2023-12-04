@@ -12,33 +12,36 @@ public class BuildingFactory : IBuildingFactory
 
     private readonly DiContainer _diContainer;
 
-
     public BuildingFactory(DiContainer diContainer)
     {
         _diContainer = diContainer;
     }
 
-    public GameObject CreateCastle()
+    public GameObject CreateBuilding(Building building)
     {
-        GameObject buildPrefab = Resources.Load<GameObject>(CastlePath);
-        GameObject build = _diContainer.InstantiatePrefab(buildPrefab); 
-        OnCreateBuilding?.Invoke(build);
-        return build;
-    }
-
-    public GameObject CreateTower()
-    {
-        GameObject buildPrefab = Resources.Load<GameObject>(TowerPath);
-        GameObject build = _diContainer.InstantiatePrefab(buildPrefab); 
-        OnCreateBuilding?.Invoke(build);
-        return build;
-    }
-
-    public GameObject CreateMagicSchool()
-    {
-        GameObject buildPrefab = Resources.Load<GameObject>(MagicSchoolPath);
-        GameObject build = _diContainer.InstantiatePrefab(buildPrefab); 
-        OnCreateBuilding?.Invoke(build);
-        return build;
+        GameObject currentBuilding;
+        GameObject builingPrefab;
+        
+        switch (building)
+        {
+            case Castle:
+                builingPrefab = Resources.Load<GameObject>(CastlePath);
+                currentBuilding = _diContainer.InstantiatePrefab(builingPrefab);
+                OnCreateBuilding?.Invoke(currentBuilding);
+                return currentBuilding;
+                
+            case Tower:
+                builingPrefab = Resources.Load<GameObject>(TowerPath);
+                currentBuilding = _diContainer.InstantiatePrefab(builingPrefab);
+                OnCreateBuilding?.Invoke(currentBuilding);
+                return currentBuilding;
+                
+            case WizardSchool:
+                builingPrefab = Resources.Load<GameObject>(MagicSchoolPath);
+                currentBuilding = _diContainer.InstantiatePrefab(builingPrefab);
+                OnCreateBuilding?.Invoke(currentBuilding);
+                return currentBuilding;
+        }
+        return null;
     }
 }
