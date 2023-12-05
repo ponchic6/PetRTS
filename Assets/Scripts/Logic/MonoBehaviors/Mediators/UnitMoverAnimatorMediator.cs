@@ -4,12 +4,13 @@ using UnityEngine;
 public class AnimatorMediator : MonoBehaviour
 {
     [SerializeField] private WorkerAnimator _workerAnimator;
-    [SerializeField] private WorkHandler _workHandler;
+    private IWorkHandler _workHandler;
     private IMoveble _unitMover;
 
     private void Awake()
     {
         _unitMover = GetComponent<IMoveble>();
+        _workHandler = GetComponent<IWorkHandler>();
     }
 
     private void Update()

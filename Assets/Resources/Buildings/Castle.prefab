@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: -4960035551876098754}
   - component: {fileID: -8250684003885192182}
   - component: {fileID: 9164029722284370982}
+  - component: {fileID: 5311569637171209154}
   m_Layer: 7
   m_Name: Castle
   m_TagString: Untagged
@@ -257,8 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcdf314c36f6c6e47a521656abcc30c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _healthBar: {fileID: 7299764961135708482}
+  _progressData: {fileID: 5311569637171209154}
+  _progressBar: {fileID: 7299764961135708482}
 --- !u!114 &-4960035551876098754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +300,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selectionIcon: {fileID: 1634085680543166107, guid: 713eb2164fa4ca74eb2387b4d51f9ef4, type: 3}
   _selectRing: {fileID: 8516726600477087478}
+--- !u!114 &5311569637171209154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626330265637584863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5aa81fa2e9f4de69ccbc39c69c6c990, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxProgress: 100
 --- !u!1 &7767569523506983724
 GameObject:
   m_ObjectHideFlags: 0

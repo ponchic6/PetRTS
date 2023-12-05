@@ -3216,6 +3216,7 @@ GameObject:
   - component: {fileID: 1849496600322383387}
   - component: {fileID: 7594072987671146997}
   - component: {fileID: 2893437162056930838}
+  - component: {fileID: 7331620529393166314}
   m_Layer: 0
   m_Name: Worker
   m_TagString: Untagged
@@ -3440,6 +3441,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selectionIcon: {fileID: 1634085680543166107, guid: 3de2b87571836f547b3e337020f51fc0, type: 3}
   _selectRing: {fileID: 3183892448826287806}
+--- !u!114 &7331620529393166314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b250ea5a93227814983d62e8f3539f8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxResourceOnUnit: 50
+  _workHandler: {fileID: -4259196110113953167}
 --- !u!1 &169966
 GameObject:
   m_ObjectHideFlags: 0

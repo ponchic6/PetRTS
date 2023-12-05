@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
 
-public class WorkHandler : MonoBehaviour
+public class UnitWorkGiver : MonoBehaviour, IWorkHandler
 {
     [SerializeField] private float _distanceForWork;
     [SerializeField] private ViewSelectStatusChanger _viewSelectStatusChanger;
@@ -11,7 +12,7 @@ public class WorkHandler : MonoBehaviour
     private float _currentCooldown;
     private IMoveble _unitMover;
     private IInputService _inputService;
-    private IConstructionProgressView _constructionProgressOfCurrentObject;
+    private ProgressData _currentProgressData;
     
     public bool IsWorking { get; private set; }
 
@@ -33,6 +34,11 @@ public class WorkHandler : MonoBehaviour
         _inputService.OnRightClickDown += TrySendToWorkPoint;
     }
 
+    public ProgressData GetProgressData()
+    {
+        return _currentProgressData;
+    }
+
     private void TrySendToWorkPoint()
     {
         if (_viewSelectStatusChanger.IsSelect())
@@ -40,13 +46,13 @@ public class WorkHandler : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
             
             if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity) &&
-                raycastHit.collider.gameObject.TryGetComponent(out IConstructionProgressView constructionProgressView))
+                raycastHit.collider.gameObject.TryGetComponent(out ProgressData workableObject))
             {
-                _constructionProgressOfCurrentObject = constructionProgressView;
-                
-                Vector3 directionToWorkPoint = (_constructionProgressOfCurrentObject.GetTransform().position -
+                _currentProgressData = workableObject;
+
+                Vector3 directionToWorkPoint = (_currentProgressData.GetTransform().position -
                                                 transform.position).normalized;
-                Vector3 destination = _constructionProgressOfCurrentObject.GetTransform().position - 
+                Vector3 destination = _currentProgressData.GetTransform().position - 
                                       directionToWorkPoint * (_distanceForWork - 0.1f); 
                 
                 _unitMover.MoveToDestination(destination);
@@ -54,8 +60,27 @@ public class WorkHandler : MonoBehaviour
 
             else
             {
-                _constructionProgressOfCurrentObject = null;
+                _currentProgressData = null;
             }
+        }
+    }
+
+    private void TryWork()
+    {
+        if (CanUpdateBuildingProgress())
+        {
+            IsWorking = true;
+            
+            if (_currentCooldown <= 0)
+            {
+                _currentProgressData.UpdateProgress(_efficiency);
+                _currentCooldown = _cooldown;
+            }
+        }
+
+        else
+        {
+            IsWorking = false;
         }
     }
 
@@ -67,29 +92,10 @@ public class WorkHandler : MonoBehaviour
         }
     }
 
-    private void TryWork()
+    private bool CanUpdateBuildingProgress()
     {
-        if (CanIncreaseBuildingProgress())
-        {
-            IsWorking = true;
-
-            if (_currentCooldown <= 0)
-            {
-                _constructionProgressOfCurrentObject.IncreaseBuildingProgress(_efficiency);
-                _currentCooldown = _cooldown;
-            }
-        }
-
-        else
-        {
-            IsWorking = false;
-        }
-    }
-
-    private bool CanIncreaseBuildingProgress()
-    {
-        return _constructionProgressOfCurrentObject != null && 
-               Vector3.Distance(transform.position, _constructionProgressOfCurrentObject.GetTransform().position) <= _distanceForWork &&
-               !_constructionProgressOfCurrentObject.IsBuilded;
+        return _currentProgressData != null && 
+               Vector3.Distance(transform.position, _currentProgressData.GetTransform().position) <= _distanceForWork &&
+               _currentProgressData.HasObjectJob;
     }
 }
