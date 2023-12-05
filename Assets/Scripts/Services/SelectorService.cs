@@ -39,10 +39,7 @@ public class SelectorService : ISelectorService
     {
         Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
 
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
+        if (IsCursorOnUI()) return;
 
         if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity) &&
             raycastHit.collider.gameObject.TryGetComponent(out ViewSelectStatusChanger selectableObject))
@@ -74,12 +71,13 @@ public class SelectorService : ISelectorService
     private void SelectObjectsInRect()
     {
         CreateRectWithMouse();
-
+        if (IsCursorOnUI()) return;
+        
         if (_isCanDrawRect && _pastSelectorRect != _currentSelectorRect && _currentSelectorRect.size.magnitude != 0)
         {
-            for (int i = 0; i < _selectableListService.AllSelectableUnits.Count; i++)
+            for (int i = 0; i < _selectableListService.AllSelectableObjects.Count; i++)
             {
-                ViewSelectStatusChanger currentSelectableObject = _selectableListService.AllSelectableUnits[i];
+                ViewSelectStatusChanger currentSelectableObject = _selectableListService.AllSelectableObjects[i];
 
                 Vector2 objectPosOnScreen =
                     Camera.main.WorldToScreenPoint(currentSelectableObject.GetTransform().position);
@@ -117,8 +115,8 @@ public class SelectorService : ISelectorService
 
     private void SelectObject(ViewSelectStatusChanger currentUnit)
     {
-        if (!_selectableListService.CurrentSelectUnits.Contains(currentUnit))
-            _selectableListService.CurrentSelectUnits.Add(currentUnit);
+        if (!_selectableListService.CurrentSelectObjects.Contains(currentUnit))
+            _selectableListService.CurrentSelectObjects.Add(currentUnit);
 
         currentUnit.Select();
         _uiFactory.CreateIconOnSelectPanel(currentUnit);
@@ -126,8 +124,8 @@ public class SelectorService : ISelectorService
 
     private void DeselectObject(ViewSelectStatusChanger currentUnit)
     {
-        if (_selectableListService.CurrentSelectUnits.Contains(currentUnit))
-            _selectableListService.CurrentSelectUnits.Remove(currentUnit);
+        if (_selectableListService.CurrentSelectObjects.Contains(currentUnit))
+            _selectableListService.CurrentSelectObjects.Remove(currentUnit);
 
         currentUnit.Deselect();
         _uiFactory.DestroyIconOnSelectPanel(currentUnit);
@@ -135,10 +133,20 @@ public class SelectorService : ISelectorService
 
     private void DeselectAll()
     {
-        for (int i = 0; i < _selectableListService.AllSelectableUnits.Count; i++)
+        for (int i = 0; i < _selectableListService.AllSelectableObjects.Count; i++)
         {
-            ViewSelectStatusChanger currentSelectableObject = _selectableListService.AllSelectableUnits[i];
+            ViewSelectStatusChanger currentSelectableObject = _selectableListService.AllSelectableObjects[i];
             DeselectObject(currentSelectableObject);
         }
+    }
+
+    private bool IsCursorOnUI()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+
+        return false;
     }
 }

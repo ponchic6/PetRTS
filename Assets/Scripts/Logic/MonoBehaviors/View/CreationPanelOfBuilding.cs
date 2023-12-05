@@ -16,11 +16,12 @@ public class CreationPanelOfBuilding : CreationPanelOfSelectedObject
 
     protected override void SwitchCreationPanelToCurrentObject()
     {
-        if (_buttonsList == null &&
-            _selectableListService.CurrentSelectUnits.Count == 1 &&
-            _constructionProgressView.IsBuilded)
+        if (_buttonsListOfSelected == null &&
+            _selectableListService.CurrentSelectObjects.Count == 1 &&
+            _constructionProgressView.IsBuilded &&
+            _viewSelectStatusChanger.IsSelect())
         {
-            _buttonsList = _uiFactory.CreateUnitCreationButtons(_creatableUnits, _buttonsList, transform);
+            _buttonsListOfSelected = _uiFactory.CreateUnitCreationButtons(_creatableUnits, _buttonsListOfSelected, transform);
         }
     }
 }

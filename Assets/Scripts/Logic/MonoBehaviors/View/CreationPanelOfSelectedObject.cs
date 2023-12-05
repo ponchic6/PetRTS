@@ -5,11 +5,11 @@ using Zenject;
 
 public abstract class CreationPanelOfSelectedObject : MonoBehaviour
 {
-    protected List<Transform> _buttonsList;
+    [SerializeField] protected ViewSelectStatusChanger _viewSelectStatusChanger;
+    protected List<Transform> _buttonsListOfSelected;
     protected SelectableListService _selectableListService;
     protected IUIFactory _uiFactory;
 
-    [SerializeField] private ViewSelectStatusChanger _viewSelectStatusChanger;
 
     protected virtual void Awake()
     {
@@ -28,16 +28,16 @@ public abstract class CreationPanelOfSelectedObject : MonoBehaviour
 
     private void SwitchCreationPanelToIdle()
     {
-        if (_buttonsList == null)
+        if (_buttonsListOfSelected == null)
         {
             return;
         }
 
-        foreach (Transform button in _buttonsList)
+        foreach (Transform button in _buttonsListOfSelected)
         {
             Destroy(button.gameObject);
         }
 
-        _buttonsList = null;
+        _buttonsListOfSelected = null;
     }
 }

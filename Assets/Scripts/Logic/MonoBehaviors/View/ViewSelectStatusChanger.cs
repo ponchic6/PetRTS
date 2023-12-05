@@ -19,7 +19,7 @@ public class ViewSelectStatusChanger : MonoBehaviour
     public void Constructor(SelectableListService selectableListService)
     {
         _selectableListService = selectableListService;
-        _selectableListService.AllSelectableUnits.Add(this);
+        _selectableListService.AllSelectableObjects.Add(this);
     }
 
     public Transform GetTransform()

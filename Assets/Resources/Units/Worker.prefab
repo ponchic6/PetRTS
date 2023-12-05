@@ -3316,9 +3316,9 @@ NavMeshAgent:
   m_GameObject: {fileID: 169886}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Speed: 3.5
-  m_Acceleration: 1e+9
+  m_Acceleration: 1e+20
   avoidancePriority: 50
   m_AngularSpeed: 1e+9
   m_StoppingDistance: 0
@@ -3398,7 +3398,7 @@ MonoBehaviour:
   _distanceForWork: 1
   _viewSelectStatusChanger: {fileID: 2893437162056930838}
   _cooldown: 0.2
-  _efficiency: 5
+  _efficiency: 20
 --- !u!114 &1849496600322383387
 MonoBehaviour:
   m_ObjectHideFlags: 0

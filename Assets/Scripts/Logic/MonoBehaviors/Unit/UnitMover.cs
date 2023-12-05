@@ -7,14 +7,6 @@ public class UnitMover : MonoBehaviour, IMoveble
 {
     private NavMeshAgent _navMeshAgent;
     private ViewSelectStatusChanger _selectStatusChanger;
-    private IDestinationUnitSetter _destinationUnitSetter;
-
-    [Inject]
-    public void Constructor(IDestinationUnitSetter destinationUnitSetter)
-    {
-        _destinationUnitSetter = destinationUnitSetter;
-        _destinationUnitSetter.OnSetDestination += MoveToDestination;
-    }
 
     private void Awake()
     {
@@ -33,5 +25,10 @@ public class UnitMover : MonoBehaviour, IMoveble
     public Vector3 GetCurrentSpeed()
     {
         return _navMeshAgent.velocity;
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
     }
 }

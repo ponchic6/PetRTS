@@ -7,9 +7,9 @@ public class CreationPanelOfUnit : CreationPanelOfSelectedObject
 
     protected override void SwitchCreationPanelToCurrentObject()
     {
-        if (_buttonsList == null && _selectableListService.CurrentSelectUnits.Count == 1)
+        if (_buttonsListOfSelected == null && _selectableListService.CurrentSelectObjects.Count == 1)
         {
-            _buttonsList = _uiFactory.CreateBuildingCreationButtons(_creatableBuildings, _buttonsList);
+            _buttonsListOfSelected = _uiFactory.CreateBuildingCreationButtons(_creatableBuildings, _buttonsListOfSelected);
         }
     }
 }
