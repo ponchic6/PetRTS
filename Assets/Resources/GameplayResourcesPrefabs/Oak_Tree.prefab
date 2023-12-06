@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcdf314c36f6c6e47a521656abcc30c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _progressData: {fileID: 4965069032542387193}
+  _jobProgressData: {fileID: 4965069032542387193}
   _progressBar: {fileID: 6228987268619576369}
 --- !u!1 &4105527956704745215
 GameObject:

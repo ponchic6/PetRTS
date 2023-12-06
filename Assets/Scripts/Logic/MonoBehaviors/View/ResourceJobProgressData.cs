@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class ResourceProgressData : ProgressData
+public class ResourceJobProgressData : JobProgressData
 {
     private void Awake()
     {
@@ -10,14 +10,12 @@ public class ResourceProgressData : ProgressData
     public override void UpdateProgress(float delta)
     {
         if (_currentProgress - delta > 0)
-        {   
-            InvokeOnChangeProgress(delta);
+        {
             _currentProgress -= delta;
         }
         
         else
-        {   
-            InvokeOnChangeProgress(_currentProgress);
+        {
             _currentProgress = 0;
             HasObjectJob = false;
             InvokeOnFinishedWorking();

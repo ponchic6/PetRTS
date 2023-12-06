@@ -5,25 +5,14 @@ using Zenject;
 
 public class UnitWorkGiver : MonoBehaviour, IUnitWorkerGiver
 {
-    public event Action<ProgressData> OnAvailabilityProgressData;
-
     [SerializeField] private UnitConfig _unitConfig;
     [SerializeField] private ViewSelectStatusChanger _viewSelectStatusChanger;
     private IMoveble _unitMover;
     private IInputService _inputService;
-    private ProgressData _currentProgressData;
+    private JobProgressData _currentJobProgressData;
+    private ResourceCollector _currentResourceCollector;
 
     public bool IsWorking { get; set; }
-
-    private void Awake()
-    {
-        _unitMover = GetComponent<IMoveble>();
-    }
-
-    private void Update()
-    {
-        TryWork();
-    }
 
     [Inject]
     public void Constructor(IInputService inputService)
@@ -32,54 +21,117 @@ public class UnitWorkGiver : MonoBehaviour, IUnitWorkerGiver
         _inputService.OnRightClickDown += TrySendToWorkPoint;
     }
 
+    private void Awake()
+    {
+        _unitMover = GetComponent<IMoveble>();
+    }
+
+    private void Update()
+    {
+        NotifyAboutCurrentProgressData();
+        NotifyAboutCurrentResourceCollector();
+    }
+
+    public JobProgressData GetCurrentJopProgressData()
+    {
+        return _currentJobProgressData;
+    }
+
+    public ResourceCollector GetCurrentResourcesCollector()
+    {
+        return _currentResourceCollector;
+    }
+
+    private void NotifyAboutCurrentProgressData()
+    {
+        if (HasConditionForWork())
+        {
+            OnAvailabilityToProgressData?.Invoke(_currentJobProgressData);
+        }
+
+        else
+        {
+            OnAvailabilityToProgressData?.Invoke(null);
+        }
+    }
+
+    private void NotifyAboutCurrentResourceCollector()
+    {
+        if (HasConditionForResourceCollecting())
+        {
+            OnAvailabilidtyToResourceCollector?.Invoke(_currentResourceCollector);
+        }
+
+        else
+        {
+            OnAvailabilidtyToResourceCollector?.Invoke(null);
+        }
+    }
+
     private void TrySendToWorkPoint()
     {
         if (_viewSelectStatusChanger.IsSelect())
         {
             Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
-            
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity) &&
-                raycastHit.collider.gameObject.TryGetComponent(out ProgressData workableObject))
-            {
-                _currentProgressData = workableObject;
+            Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity);
 
-                SetWorkDestination();
-            }
+            TrySetJobProgressData(raycastHit);
+            TrySetDestinationToJob();
 
-            else
-            {
-                _currentProgressData = null;
-            }
+            TrySetResourceCollector(raycastHit);
         }
     }
 
-    private void TryWork()
+    private bool HasConditionForWork()
     {
-        if (CanUpdateWorkProgress())
+        return _currentJobProgressData != null && 
+               Vector3.Distance(transform.position, _currentJobProgressData.GetTransform().position) <= _unitConfig.DistanceForWork &&
+               _currentJobProgressData.HasObjectJob;
+    }
+
+    private bool HasConditionForResourceCollecting()
+    {
+        return _currentResourceCollector != null &&
+               Vector3.Distance(transform.position, _currentResourceCollector.GetTransform().position) <=
+               _unitConfig.DistanceForWork;
+    }
+
+    private void TrySetDestinationToJob()
+    {
+        if (_currentJobProgressData != null)
         {
-            OnAvailabilityProgressData?.Invoke(_currentProgressData);
+            Vector3 directionToWorkPoint = (_currentJobProgressData.GetTransform().position -
+                                            transform.position).normalized;
+            Vector3 destination = _currentJobProgressData.GetTransform().position -
+                                  directionToWorkPoint * (_unitConfig.DistanceForWork - 0.1f);
+
+            _unitMover.MoveToDestination(destination);
+        }
+    }
+
+    private void TrySetJobProgressData(RaycastHit raycastHit)
+    {
+        if (raycastHit.collider.gameObject.TryGetComponent(out JobProgressData workableObject))
+        {
+            _currentJobProgressData = workableObject;
         }
 
         else
         {
-            OnAvailabilityProgressData?.Invoke(null);
+            _currentJobProgressData = null;
         }
     }
-    
-    private bool CanUpdateWorkProgress()
-    {
-        return _currentProgressData != null && 
-               Vector3.Distance(transform.position, _currentProgressData.GetTransform().position) <= _unitConfig.DistanceForWork &&
-               _currentProgressData.HasObjectJob;
-    }
 
-    private void SetWorkDestination()
+    private void TrySetResourceCollector(RaycastHit raycastHit)
     {
-        Vector3 directionToWorkPoint = (_currentProgressData.GetTransform().position -
-                                        transform.position).normalized;
-        Vector3 destination = _currentProgressData.GetTransform().position -
-                              directionToWorkPoint * (_unitConfig.DistanceForWork - 0.1f);
+        if (raycastHit.collider.gameObject.TryGetComponent(out ResourceCollector resourceCollector))
+        {
+            _currentResourceCollector = resourceCollector;
+        }
 
-        _unitMover.MoveToDestination(destination);
+        else
+        {
+            _currentResourceCollector = null;
+        }
     }
 }

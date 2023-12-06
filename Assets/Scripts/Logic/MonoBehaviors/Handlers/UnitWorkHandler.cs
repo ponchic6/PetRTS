@@ -4,24 +4,18 @@ public abstract class UnitWorkHandler : MonoBehaviour
 {
     [SerializeField] protected UnitConfig _unitConfig;
     protected IUnitWorkerGiver _unitWorkerGiver;
-    protected ProgressData _progressData;
+    protected JobProgressData _jobProgressData;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _unitWorkerGiver = GetComponent<IUnitWorkerGiver>();
-        _unitWorkerGiver.OnAvailabilityProgressData += SetCurrentProgressData;
+        _unitWorkerGiver.OnAvailabilityToProgressData += SetCurrentToProgressData;
     }
 
     protected abstract void TryWork();
 
-    private void Update()
+    private void SetCurrentToProgressData(JobProgressData jobProgressData)
     {
-        TryWork();
+        _jobProgressData = jobProgressData;
     }
-
-    private void SetCurrentProgressData(ProgressData progressData)
-    {
-        _progressData = progressData;
-    } 
-    
 }

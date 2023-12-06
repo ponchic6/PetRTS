@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class BuildingProgressData : ProgressData
+public class BuildingJobProgressData : JobProgressData
 {
     private void Awake()
     {

@@ -10,7 +10,6 @@ public abstract class CreationPanelOfSelectedObject : MonoBehaviour
     protected SelectableListService _selectableListService;
     protected IUIFactory _uiFactory;
 
-
     protected virtual void Awake()
     {
         _viewSelectStatusChanger.OnSelected += SwitchCreationPanelToCurrentObject;

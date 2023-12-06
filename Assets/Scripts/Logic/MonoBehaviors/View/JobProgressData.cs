@@ -3,10 +3,9 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public abstract class ProgressData : MonoBehaviour
+public abstract class JobProgressData : MonoBehaviour
 {   
     public event Action OnFinishedWorking;
-    public event Action<float> OnChangeProgress;
 
     [SerializeField] protected float _maxProgress;
     protected float _currentProgress;
@@ -33,10 +32,5 @@ public abstract class ProgressData : MonoBehaviour
     protected void InvokeOnFinishedWorking()
     {
         OnFinishedWorking?.Invoke();
-    }
-
-    protected void InvokeOnChangeProgress(float delta)
-    {
-        OnChangeProgress?.Invoke(delta);
     }
 }

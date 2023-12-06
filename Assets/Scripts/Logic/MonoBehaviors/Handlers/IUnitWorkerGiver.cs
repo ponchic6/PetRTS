@@ -2,6 +2,7 @@
 
 public interface IUnitWorkerGiver
 {
-    public event Action<ProgressData> OnAvailabilityProgressData;
+    public JobProgressData GetCurrentJopProgressData();
+    public ResourceCollector GetCurrentResourcesCollector();
     public bool IsWorking { get; set; }
 }

@@ -9,12 +9,14 @@ public class UIFactory : IUIFactory
     private const string CreationPanelPath = "UIEllements/UIPrefasbs/CreateionPanel";
     private const string BuildingButtonPath = "UIEllements/UIPrefasbs/BuildingButton";
     private const string PanelOfSelectedPath = "UIEllements/UIPrefasbs/PanelOfSelected";
+    private const string ResourceCountPanelPath = "UIEllements/UIPrefasbs/ResourceCountPanel";
     private const string UnitButtonPath = "UIEllements/UIPrefasbs/UnitButton";
     private const string BuildingButtonsRootPath = "UIEllements/UIPrefasbs/BuildingButtonsRoot";
     private const string UnitButtonsRootPath = "UIEllements/UIPrefasbs/UnitButtonsRoot";
 
     private readonly IUIHandlerFactory _uiHandlerFactory;
-    
+
+
     private Dictionary<ViewSelectStatusChanger, Transform> _currentSelectIconDictionary =
         new Dictionary<ViewSelectStatusChanger, Transform>();
 
@@ -25,10 +27,10 @@ public class UIFactory : IUIFactory
     private Transform _panelOfSelected;
     private Transform _buildingButtonsRoot;
     private Transform _unitButtonsRoot;
+    private Transform _recourceCountPanel;
 
-    public Transform BuildingButtonsRoot => _buildingButtonsRoot;
-    public Transform UnitButtonsRoot => _unitButtonsRoot;
-    
+    public Transform ResourceCountPanel => _recourceCountPanel; 
+
     public UIFactory(IUIHandlerFactory uiHandlerFactory)
     {
         _uiHandlerFactory = uiHandlerFactory;
@@ -42,14 +44,20 @@ public class UIFactory : IUIFactory
 
     public void CreatCreationPanel()
     {
-        Transform panel = Resources.Load<GameObject>(CreationPanelPath).transform;
-        _creationPannel = Object.Instantiate(panel, _rootCanvas);
+        Transform creationPanel = Resources.Load<GameObject>(CreationPanelPath).transform;
+        _creationPannel = Object.Instantiate(creationPanel, _rootCanvas);
     }
 
     public void CreatePanelOfSelectedObjects()
     {
         Transform panelOfSelected = Resources.Load<Transform>(PanelOfSelectedPath);
         _panelOfSelected = Object.Instantiate(panelOfSelected, _rootCanvas);
+    }
+
+    public void CreateResourceCountPanel()
+    {
+        Transform recourceCountPanel = Resources.Load<Transform>(ResourceCountPanelPath);
+        _recourceCountPanel = Object.Instantiate(recourceCountPanel, _rootCanvas);
     }
 
     public List<Transform> CreateUnitCreationButtons(List<UnitConfig> unitList, List<Transform> unitButtonsList,

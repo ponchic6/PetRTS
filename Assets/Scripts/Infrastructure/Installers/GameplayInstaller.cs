@@ -16,7 +16,14 @@ public class GameplayInstaller : MonoInstaller
         RegisterBuildingFactory();
         RegisterBuildingService();
         RegisterSelectorService();
+        RegisterGlobalResourceStorageService();
+    }
 
+    private void RegisterGlobalResourceStorageService()
+    {
+        IGlobalResourcessStorageService globalResourcessStorageService =
+            Container.Instantiate<GlobalResourcessStorageService>();
+        Container.Bind<IGlobalResourcessStorageService>().FromInstance(globalResourcessStorageService).AsSingle();
     }
 
     private void RegisterDestinationSetter()
