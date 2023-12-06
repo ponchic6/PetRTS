@@ -25,49 +25,27 @@ public class UnitWorkGiver : MonoBehaviour, IUnitWorkerGiver
     {
         _unitMover = GetComponent<IMoveble>();
     }
-
-    private void Update()
-    {
-        NotifyAboutCurrentProgressData();
-        NotifyAboutCurrentResourceCollector();
-    }
-
+    
     public JobProgressData GetCurrentJopProgressData()
     {
-        return _currentJobProgressData;
+        if (HasConditionForWork())
+        {
+            return _currentJobProgressData;
+        }
+
+        return null;
     }
 
     public ResourceCollector GetCurrentResourcesCollector()
     {
-        return _currentResourceCollector;
-    }
-
-    private void NotifyAboutCurrentProgressData()
-    {
-        if (HasConditionForWork())
-        {
-            OnAvailabilityToProgressData?.Invoke(_currentJobProgressData);
-        }
-
-        else
-        {
-            OnAvailabilityToProgressData?.Invoke(null);
-        }
-    }
-
-    private void NotifyAboutCurrentResourceCollector()
-    {
         if (HasConditionForResourceCollecting())
         {
-            OnAvailabilidtyToResourceCollector?.Invoke(_currentResourceCollector);
+            return _currentResourceCollector;            
         }
 
-        else
-        {
-            OnAvailabilidtyToResourceCollector?.Invoke(null);
-        }
+        return null;
     }
-
+    
     private void TrySendToWorkPoint()
     {
         if (_viewSelectStatusChanger.IsSelect())

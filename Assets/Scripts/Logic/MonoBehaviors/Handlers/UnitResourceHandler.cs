@@ -9,16 +9,12 @@ public class UnitResourceHandler : UnitWorkHandler
     private float _currentCooldown;
     private ResourceCollector _resourceCollector;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        _unitWorkerGiver.OnAvailabilidtyToResourceCollector += SetResourceCollector;
-    }
-
     private void Update()
-    {
+    {   
+        SetResourceCollector();
+        SetJobProgressData();
         TryWork();
-        PutResourcesInStorage();
+        TryPutResourcesInCollector();
     }
 
     protected override void TryWork()
@@ -43,6 +39,16 @@ public class UnitResourceHandler : UnitWorkHandler
             _unitWorkerGiver.IsWorking = false;
         }
 
+    }
+
+    private void SetResourceCollector()
+    {
+        _resourceCollector = _unitWorkerGiver.GetCurrentResourcesCollector();
+    }
+
+    private void SetJobProgressData()
+    {
+        _jobProgressData = _unitWorkerGiver.GetCurrentJopProgressData();
     }
 
     private void UpdateProgress()
@@ -71,17 +77,12 @@ public class UnitResourceHandler : UnitWorkHandler
         }
     }
 
-    private void PutResourcesInStorage()
+    private void TryPutResourcesInCollector()
     {
         if (_resourceCollector != null && _currentResourceCount != 0)
         {
             _resourceCollector.AddResource(_currentResourceCount);
             _currentResourceCount = 0;
         }
-    }
-
-    private void SetResourceCollector(ResourceCollector resourceCollector)
-    {
-        _resourceCollector = resourceCollector;
     }
 }

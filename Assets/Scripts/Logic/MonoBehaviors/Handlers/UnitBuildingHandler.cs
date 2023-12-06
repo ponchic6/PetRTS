@@ -6,7 +6,8 @@ public class UnitBuildingHandler : UnitWorkHandler
     private float _currentCooldown;
 
     private void Update()
-    {
+    {   
+        SetJobProgressData();
         TryWork();
     }
 
@@ -45,5 +46,10 @@ public class UnitBuildingHandler : UnitWorkHandler
         {
             _currentCooldown -= Time.deltaTime;
         }
+    }
+    
+    private void SetJobProgressData()
+    {
+        _jobProgressData = _unitWorkerGiver.GetCurrentJopProgressData();
     }
 }

@@ -9,13 +9,7 @@ public abstract class UnitWorkHandler : MonoBehaviour
     protected virtual void Awake()
     {
         _unitWorkerGiver = GetComponent<IUnitWorkerGiver>();
-        _unitWorkerGiver.OnAvailabilityToProgressData += SetCurrentToProgressData;
     }
 
     protected abstract void TryWork();
-
-    private void SetCurrentToProgressData(JobProgressData jobProgressData)
-    {
-        _jobProgressData = jobProgressData;
-    }
 }
