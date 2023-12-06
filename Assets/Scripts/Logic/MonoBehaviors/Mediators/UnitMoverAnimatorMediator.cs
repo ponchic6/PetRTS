@@ -4,13 +4,13 @@ using UnityEngine;
 public class AnimatorMediator : MonoBehaviour
 {
     [SerializeField] private WorkerAnimator _workerAnimator;
-    private IWorkHandler _workHandler;
+    private IUnitWorkerGiver _unitWorkerGiver;
     private IMoveble _unitMover;
 
     private void Awake()
     {
         _unitMover = GetComponent<IMoveble>();
-        _workHandler = GetComponent<IWorkHandler>();
+        _unitWorkerGiver = GetComponent<IUnitWorkerGiver>();
     }
 
     private void Update()
@@ -21,7 +21,7 @@ public class AnimatorMediator : MonoBehaviour
 
     private void UpdateWorkAnimation()
     {
-        if (_workHandler.IsWorking)
+        if (_unitWorkerGiver.IsWorking)
         {
             _workerAnimator.StartWork();
         }

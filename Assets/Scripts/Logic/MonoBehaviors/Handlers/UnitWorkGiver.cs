@@ -3,18 +3,17 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
 
-public class UnitWorkGiver : MonoBehaviour, IWorkHandler
+public class UnitWorkGiver : MonoBehaviour, IUnitWorkerGiver
 {
-    [SerializeField] private float _distanceForWork;
+    public event Action<ProgressData> OnAvailabilityProgressData;
+
+    [SerializeField] private UnitConfig _unitConfig;
     [SerializeField] private ViewSelectStatusChanger _viewSelectStatusChanger;
-    [SerializeField] private float _cooldown;
-    [SerializeField] private float _efficiency;
-    private float _currentCooldown;
     private IMoveble _unitMover;
     private IInputService _inputService;
     private ProgressData _currentProgressData;
-    
-    public bool IsWorking { get; private set; }
+
+    public bool IsWorking { get; set; }
 
     private void Awake()
     {
@@ -24,7 +23,6 @@ public class UnitWorkGiver : MonoBehaviour, IWorkHandler
     private void Update()
     {
         TryWork();
-        ReduceCooldown();
     }
 
     [Inject]
@@ -32,11 +30,6 @@ public class UnitWorkGiver : MonoBehaviour, IWorkHandler
     {
         _inputService = inputService;
         _inputService.OnRightClickDown += TrySendToWorkPoint;
-    }
-
-    public ProgressData GetProgressData()
-    {
-        return _currentProgressData;
     }
 
     private void TrySendToWorkPoint()
@@ -50,12 +43,7 @@ public class UnitWorkGiver : MonoBehaviour, IWorkHandler
             {
                 _currentProgressData = workableObject;
 
-                Vector3 directionToWorkPoint = (_currentProgressData.GetTransform().position -
-                                                transform.position).normalized;
-                Vector3 destination = _currentProgressData.GetTransform().position - 
-                                      directionToWorkPoint * (_distanceForWork - 0.1f); 
-                
-                _unitMover.MoveToDestination(destination);
+                SetWorkDestination();
             }
 
             else
@@ -67,35 +55,31 @@ public class UnitWorkGiver : MonoBehaviour, IWorkHandler
 
     private void TryWork()
     {
-        if (CanUpdateBuildingProgress())
+        if (CanUpdateWorkProgress())
         {
-            IsWorking = true;
-            
-            if (_currentCooldown <= 0)
-            {
-                _currentProgressData.UpdateProgress(_efficiency);
-                _currentCooldown = _cooldown;
-            }
+            OnAvailabilityProgressData?.Invoke(_currentProgressData);
         }
 
         else
         {
-            IsWorking = false;
+            OnAvailabilityProgressData?.Invoke(null);
         }
     }
-
-    private void ReduceCooldown()
-    {
-        if (_currentCooldown > 0)
-        {
-            _currentCooldown -= Time.deltaTime;
-        }
-    }
-
-    private bool CanUpdateBuildingProgress()
+    
+    private bool CanUpdateWorkProgress()
     {
         return _currentProgressData != null && 
-               Vector3.Distance(transform.position, _currentProgressData.GetTransform().position) <= _distanceForWork &&
+               Vector3.Distance(transform.position, _currentProgressData.GetTransform().position) <= _unitConfig.DistanceForWork &&
                _currentProgressData.HasObjectJob;
+    }
+
+    private void SetWorkDestination()
+    {
+        Vector3 directionToWorkPoint = (_currentProgressData.GetTransform().position -
+                                        transform.position).normalized;
+        Vector3 destination = _currentProgressData.GetTransform().position -
+                              directionToWorkPoint * (_unitConfig.DistanceForWork - 0.1f);
+
+        _unitMover.MoveToDestination(destination);
     }
 }
