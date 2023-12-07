@@ -15,24 +15,24 @@ public class UnitFactory : IUnitFactory
         _diContainer = diContainer;
     }
 
-    public GameObject CreateUnit(Unit unit, Transform building)
+    public GameObject CreateUnit(UnitTypeEnum unit, Transform building)
     {
         GameObject unitGameObject;
         switch (unit)
         {
-            case Knight:
+            case UnitTypeEnum.Knight:
                 unitGameObject = Resources.Load<GameObject>(KnightPath);
                 return _diContainer.InstantiatePrefab(unitGameObject, building.position, Quaternion.identity, null);
                 
-            case Bower:
+            case UnitTypeEnum.Bower:
                 unitGameObject = Resources.Load<GameObject>(BowerPath);
                 return _diContainer.InstantiatePrefab(unitGameObject, building.position, Quaternion.identity, null);
                 
-            case Wizard:
+            case UnitTypeEnum.Wizard:
                 unitGameObject = Resources.Load<GameObject>(WizardPath);
                 return _diContainer.InstantiatePrefab(unitGameObject, building.position, Quaternion.identity, null);
             
-            case Worker:
+            case UnitTypeEnum.Worker:
                 unitGameObject = Resources.Load<GameObject>(WorkerPath);
                 return _diContainer.InstantiatePrefab(unitGameObject, building.position, Quaternion.identity, null);
 
@@ -40,24 +40,24 @@ public class UnitFactory : IUnitFactory
         return null;
     }
 
-    public GameObject CreateUnit(Unit unit)
+    public GameObject CreateUnit(UnitTypeEnum unit)
     {
         GameObject unitGameObject;
         switch (unit)
         {
-            case Knight:
+            case UnitTypeEnum.Knight:
                 unitGameObject = Resources.Load<GameObject>(KnightPath);
                 return _diContainer.InstantiatePrefab(unitGameObject);
                 
-            case Bower:
+            case UnitTypeEnum.Bower:
                 unitGameObject = Resources.Load<GameObject>(BowerPath);
                 return _diContainer.InstantiatePrefab(unitGameObject);
                 
-            case Wizard:
+            case UnitTypeEnum.Wizard:
                 unitGameObject = Resources.Load<GameObject>(WizardPath);
                 return _diContainer.InstantiatePrefab(unitGameObject);
             
-            case Worker:
+            case UnitTypeEnum.Worker:
                 unitGameObject = Resources.Load<GameObject>(WorkerPath);
                 return _diContainer.InstantiatePrefab(unitGameObject);
 

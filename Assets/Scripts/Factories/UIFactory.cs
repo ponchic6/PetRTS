@@ -60,7 +60,7 @@ public class UIFactory : IUIFactory
         _recourceCountPanel = Object.Instantiate(recourceCountPanel, _rootCanvas);
     }
 
-    public List<Transform> CreateUnitCreationButtons(List<UnitConfig> unitList, List<Transform> unitButtonsList,
+    public List<Transform> CreateUnitCreationButtons(List<UnitStaticData> unitList, List<Transform> unitButtonsList,
         Transform building)
     {
         unitButtonsList = new List<Transform>();
@@ -68,7 +68,7 @@ public class UIFactory : IUIFactory
         int i = 0;
         int j = 0;
 
-        foreach (UnitConfig config in unitList)
+        foreach (UnitStaticData config in unitList)
         {
             Transform button = CreateUnitButton(config, building);
             button.position += new Vector3(0, -65, 0) * i + new Vector3(150, 0, 0) * j;
@@ -150,7 +150,7 @@ public class UIFactory : IUIFactory
         return buildingButton;
     }
 
-    private Transform CreateUnitButton(UnitConfig unit, Transform building)
+    private Transform CreateUnitButton(UnitStaticData unit, Transform building)
     {
         if (_unitButtonsRoot == null)
         {
@@ -197,7 +197,7 @@ public class UIFactory : IUIFactory
             .AddListener(() => { _buildButtonsHandler.CreateBuilding(building); });
     }
 
-    private void BindUnitButton(UnitButtonsHandler unitButtonsHandler, UnitConfig unit,
+    private void BindUnitButton(UnitButtonsHandler unitButtonsHandler, UnitStaticData unit,
         Transform unitButton, Transform building)
     {
         unitButton

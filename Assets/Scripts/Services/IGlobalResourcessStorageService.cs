@@ -1,4 +1,4 @@
 ﻿public interface IGlobalResourcessStorageService
 {
-    public void AddResource(float currentResourceCount);
+    public void AddResource(float resourceCount);
 }

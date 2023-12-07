@@ -5,7 +5,7 @@ using Zenject;
 
 public class UnitWorkGiver : MonoBehaviour, IUnitWorkerGiver
 {
-    [SerializeField] private UnitConfig _unitConfig;
+    [SerializeField] private UnitStaticData _unitConfig;
     [SerializeField] private ViewSelectStatusChanger _viewSelectStatusChanger;
     private IMoveble _unitMover;
     private IInputService _inputService;
@@ -14,6 +14,11 @@ public class UnitWorkGiver : MonoBehaviour, IUnitWorkerGiver
 
     public bool IsWorking { get; set; }
 
+    private void Awake()
+    {
+        _unitMover = GetComponent<IMoveble>();
+    }
+
     [Inject]
     public void Constructor(IInputService inputService)
     {
@@ -21,11 +26,6 @@ public class UnitWorkGiver : MonoBehaviour, IUnitWorkerGiver
         _inputService.OnRightClickDown += TrySendToWorkPoint;
     }
 
-    private void Awake()
-    {
-        _unitMover = GetComponent<IMoveble>();
-    }
-    
     public JobProgressData GetCurrentJopProgressData()
     {
         if (HasConditionForWork())

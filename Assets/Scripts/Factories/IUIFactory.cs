@@ -8,7 +8,7 @@ public interface IUIFactory
     public void CreatCreationPanel();
     public void CreatePanelOfSelectedObjects();
     public void CreateResourceCountPanel();
-    public List<Transform> CreateUnitCreationButtons(List<UnitConfig> unitList, List<Transform> buttonsList,
+    public List<Transform> CreateUnitCreationButtons(List<UnitStaticData> unitList, List<Transform> buttonsList,
         Transform building);
     public List<Transform> CreateBuildingCreationButtons(List<Building> buildingList, List<Transform> buttonList);
     public void CreateIconOnSelectPanel(ViewSelectStatusChanger unit);

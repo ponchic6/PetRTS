@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CreationPanelOfBuilding : CreationPanelOfSelectedObject
 {
-    [SerializeField] private List<UnitConfig> _creatableUnits;
+    [SerializeField] private List<UnitStaticData> _creatableUnits;
     private JobProgressData _buildingJobProgressData;
 
     protected override void Awake()

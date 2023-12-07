@@ -10,9 +10,9 @@ public class GlobalResourcessStorageService : IGlobalResourcessStorageService
     {
         _uiFactory = uiFactory;
     }
-    public void AddResource(float currentResourceCount)
+    public void AddResource(float resourceCount)
     {
-        _storageResource += currentResourceCount;
+        _storageResource += resourceCount;
         _uiFactory.ResourceCountPanel.GetComponentInChildren<TMP_Text>().text = _storageResource.ToString();
     }
 }

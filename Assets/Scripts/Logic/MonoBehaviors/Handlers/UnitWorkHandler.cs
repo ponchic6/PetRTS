@@ -2,7 +2,7 @@
 
 public abstract class UnitWorkHandler : MonoBehaviour
 {
-    [SerializeField] protected UnitConfig _unitConfig;
+    [SerializeField] protected UnitStaticData _unitConfig;
     protected IUnitWorkerGiver _unitWorkerGiver;
     protected JobProgressData _jobProgressData;
 
