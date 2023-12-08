@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
@@ -6,24 +7,25 @@ using Zenject;
 public class UnitWorkGiver : MonoBehaviour, IUnitWorkerGiver
 {
     [SerializeField] private UnitStaticData _unitConfig;
-    [SerializeField] private ViewSelectStatusChanger _viewSelectStatusChanger;
-    private IMoveble _unitMover;
+    [SerializeField] private SelectStatusChanger _selectStatusChanger;
+    [SerializeField] private UnitBuildingHandler _unitBuildingHandler;
+    [SerializeField] private UnitResourceHandler _unitResourceHandler;
     private IInputService _inputService;
     private JobProgressData _currentJobProgressData;
     private ResourceCollector _currentResourceCollector;
 
-    public bool IsWorking { get; set; }
-
     private void Awake()
     {
-        _unitMover = GetComponent<IMoveble>();
+        _unitBuildingHandler.OnStopWorking += RemoveUnitFromList;
+        _unitResourceHandler.OnStopWorking += RemoveUnitFromList;
     }
+
 
     [Inject]
     public void Constructor(IInputService inputService)
     {
         _inputService = inputService;
-        _inputService.OnRightClickDown += TrySendToWorkPoint;
+        _inputService.OnRightClickDown += TrySetWorkPoint;
     }
 
     public JobProgressData GetCurrentJopProgressData()
@@ -45,17 +47,15 @@ public class UnitWorkGiver : MonoBehaviour, IUnitWorkerGiver
 
         return null;
     }
-    
-    private void TrySendToWorkPoint()
+
+    private void TrySetWorkPoint()
     {
-        if (_viewSelectStatusChanger.IsSelect())
+        if (_selectStatusChanger.IsSelect())
         {
             Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
             Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity);
 
             TrySetJobProgressData(raycastHit);
-            TrySetDestinationToJob();
-
             TrySetResourceCollector(raycastHit);
         }
     }
@@ -72,19 +72,6 @@ public class UnitWorkGiver : MonoBehaviour, IUnitWorkerGiver
         return _currentResourceCollector != null &&
                Vector3.Distance(transform.position, _currentResourceCollector.GetTransform().position) <=
                _unitConfig.DistanceForWork;
-    }
-
-    private void TrySetDestinationToJob()
-    {
-        if (_currentJobProgressData != null)
-        {
-            Vector3 directionToWorkPoint = (_currentJobProgressData.GetTransform().position -
-                                            transform.position).normalized;
-            Vector3 destination = _currentJobProgressData.GetTransform().position -
-                                  directionToWorkPoint * (_unitConfig.DistanceForWork - 0.1f);
-
-            _unitMover.MoveToDestination(destination);
-        }
     }
 
     private void TrySetJobProgressData(RaycastHit raycastHit)
@@ -110,6 +97,14 @@ public class UnitWorkGiver : MonoBehaviour, IUnitWorkerGiver
         else
         {
             _currentResourceCollector = null;
+        }
+    }
+
+    private void RemoveUnitFromList()
+    {
+        if (_currentJobProgressData != null)
+        {
+            _currentJobProgressData.gameObject.GetComponent<IWorkingWorkersList>().TryRemoveUnit(gameObject.GetComponent<IMoveble>());
         }
     }
 }

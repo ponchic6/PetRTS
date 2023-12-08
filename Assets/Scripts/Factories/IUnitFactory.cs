@@ -2,6 +2,6 @@
 
 public interface IUnitFactory
 {
-    public GameObject CreateUnit(UnitTypeEnum unit, Transform building);
-    public GameObject CreateUnit(UnitTypeEnum unit);
+    public GameObject CreateUnit(UnitStaticData unitStaticData, Transform building);
+    public GameObject CreateUnit(UnitStaticData unitStaticData);
 }

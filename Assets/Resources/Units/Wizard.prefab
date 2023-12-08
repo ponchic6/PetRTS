@@ -12,11 +12,9 @@ GameObject:
   - component: {fileID: 6408628343405347340}
   - component: {fileID: 5562825284234356254}
   - component: {fileID: 758283609086314173}
-  - component: {fileID: -4088403894138906928}
   - component: {fileID: -1361379326512185842}
-  - component: {fileID: 192967411878764909}
+  - component: {fileID: -4088403894138906928}
   - component: {fileID: 8760621091273556466}
-  - component: {fileID: -6158724136478978644}
   - component: {fileID: 5424889994043409518}
   m_Layer: 0
   m_Name: Wizard
@@ -114,18 +112,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-4088403894138906928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5183117628154484906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d971f09fcd8a485c842aae26970e5bcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!195 &-1361379326512185842
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -148,7 +134,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &192967411878764909
+--- !u!114 &-4088403894138906928
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,11 +143,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5183117628154484906}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9a73d2df4ea4092bb903e9eea135118, type: 3}
+  m_Script: {fileID: 11500000, guid: d971f09fcd8a485c842aae26970e5bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _creationIcon: {fileID: 21300000, guid: a0f897454bd02b747914cc6e5d231428, type: 3}
-  _unitType: {fileID: -6158724136478978644}
+  _unitStaticData: {fileID: 11400000, guid: a034a5c865e26194ea3b2897ff579656, type: 2}
 --- !u!114 &8760621091273556466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,19 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9face02567bc4f12a1f3346c33ae87fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _viewSelectStatusChanger: {fileID: 5424889994043409518}
   _creatableBuildings: []
---- !u!114 &-6158724136478978644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5183117628154484906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3115f17353546559f00daf7b9b835d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5424889994043409518
 MonoBehaviour:
   m_ObjectHideFlags: 0

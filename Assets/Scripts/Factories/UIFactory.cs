@@ -16,9 +16,8 @@ public class UIFactory : IUIFactory
 
     private readonly IUIHandlerFactory _uiHandlerFactory;
 
-
-    private Dictionary<ViewSelectStatusChanger, Transform> _currentSelectIconDictionary =
-        new Dictionary<ViewSelectStatusChanger, Transform>();
+    private Dictionary<SelectStatusChanger, Transform> _currentSelectIconDictionary =
+        new Dictionary<SelectStatusChanger, Transform>();
 
     private UnitButtonsHandler _unitButtonsHandler;
     private BuildButtonsHandler _buildButtonsHandler;
@@ -107,7 +106,7 @@ public class UIFactory : IUIFactory
         return buildingButtonsList;
     }
     
-    public void CreateIconOnSelectPanel(ViewSelectStatusChanger unit)
+    public void CreateIconOnSelectPanel(SelectStatusChanger unit)
     {
         if (_panelOfSelected != null && !_currentSelectIconDictionary.ContainsKey(unit))
         {
@@ -117,7 +116,7 @@ public class UIFactory : IUIFactory
         }
     }
 
-    public void DestroyIconOnSelectPanel(ViewSelectStatusChanger unit)
+    public void DestroyIconOnSelectPanel(SelectStatusChanger unit)
     {
         if (_currentSelectIconDictionary.ContainsKey(unit))
         {
@@ -203,7 +202,7 @@ public class UIFactory : IUIFactory
         unitButton
             .GetComponent<Button>()
             .onClick
-            .AddListener(() => { unitButtonsHandler.CreateUnit(unit.UnitType, building); });
+            .AddListener(() => { unitButtonsHandler.CreateUnit(unit, building); });
     }
 
     private Transform CreateBuildingButtonsRoot()

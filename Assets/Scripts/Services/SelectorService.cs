@@ -11,7 +11,6 @@ public class SelectorService : ISelectorService
     private readonly IInputService _inputService;
     private readonly ITickService _tickService;
     private readonly SelectableListService _selectableListService;
-    private readonly IUIFactory _uiFactory;
 
     private Rect _currentSelectorRect;
     private Rect _pastSelectorRect;
@@ -20,7 +19,7 @@ public class SelectorService : ISelectorService
     private bool _isCanDrawRect;
 
     public SelectorService(IInputService inputService, ITickService tickService,
-        SelectableListService selectableListService, IUIFactory uiFactory)
+        SelectableListService selectableListService)
     {
         _inputService = inputService;
         _inputService.OnLeftClickDown += StartDrawRect;
@@ -31,8 +30,6 @@ public class SelectorService : ISelectorService
         _tickService.OnTick += SelectObjectsInRect;
 
         _selectableListService = selectableListService;
-
-        _uiFactory = uiFactory;
     }
 
     private void TrySelectByClick()
@@ -42,10 +39,10 @@ public class SelectorService : ISelectorService
         if (IsCursorOnUI()) return;
 
         if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity) &&
-            raycastHit.collider.gameObject.TryGetComponent(out ViewSelectStatusChanger selectableObject))
+            raycastHit.collider.gameObject.TryGetComponent(out SelectStatusChanger selectableObject))
         {
             DeselectAll();
-            SelectObject(selectableObject);
+            selectableObject.Select();
             return;
         }
 
@@ -77,7 +74,7 @@ public class SelectorService : ISelectorService
         {
             for (int i = 0; i < _selectableListService.AllSelectableObjects.Count; i++)
             {
-                ViewSelectStatusChanger currentSelectableObject = _selectableListService.AllSelectableObjects[i];
+                SelectStatusChanger currentSelectableObject = _selectableListService.AllSelectableObjects[i];
 
                 Vector2 objectPosOnScreen =
                     Camera.main.WorldToScreenPoint(currentSelectableObject.GetTransform().position);
@@ -86,12 +83,12 @@ public class SelectorService : ISelectorService
                 
                 if (_currentSelectorRect.Contains(objectPosOnScreen))
                 {
-                    SelectObject(currentSelectableObject);
-                }
-
+                    currentSelectableObject.Select();
+                } 
+                
                 else
                 {
-                    DeselectObject(currentSelectableObject);
+                    currentSelectableObject.Deselect();
                 }
             }
         }
@@ -113,30 +110,12 @@ public class SelectorService : ISelectorService
         }
     }
 
-    private void SelectObject(ViewSelectStatusChanger currentUnit)
-    {
-        if (!_selectableListService.CurrentSelectObjects.Contains(currentUnit))
-            _selectableListService.CurrentSelectObjects.Add(currentUnit);
-
-        currentUnit.Select();
-        _uiFactory.CreateIconOnSelectPanel(currentUnit);
-    }
-
-    private void DeselectObject(ViewSelectStatusChanger currentUnit)
-    {
-        if (_selectableListService.CurrentSelectObjects.Contains(currentUnit))
-            _selectableListService.CurrentSelectObjects.Remove(currentUnit);
-
-        currentUnit.Deselect();
-        _uiFactory.DestroyIconOnSelectPanel(currentUnit);
-    }
-
     private void DeselectAll()
     {
         for (int i = 0; i < _selectableListService.AllSelectableObjects.Count; i++)
         {
-            ViewSelectStatusChanger currentSelectableObject = _selectableListService.AllSelectableObjects[i];
-            DeselectObject(currentSelectableObject);
+            SelectStatusChanger currentSelectableObject = _selectableListService.AllSelectableObjects[i];
+            currentSelectableObject.Deselect();
         }
     }
 

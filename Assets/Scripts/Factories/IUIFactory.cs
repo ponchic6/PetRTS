@@ -11,6 +11,6 @@ public interface IUIFactory
     public List<Transform> CreateUnitCreationButtons(List<UnitStaticData> unitList, List<Transform> buttonsList,
         Transform building);
     public List<Transform> CreateBuildingCreationButtons(List<Building> buildingList, List<Transform> buttonList);
-    public void CreateIconOnSelectPanel(ViewSelectStatusChanger unit);
-    public void DestroyIconOnSelectPanel(ViewSelectStatusChanger unit);
+    public void CreateIconOnSelectPanel(SelectStatusChanger unit);
+    public void DestroyIconOnSelectPanel(SelectStatusChanger unit);
 }

@@ -97,9 +97,7 @@ GameObject:
   - component: {fileID: 758283609086314173}
   - component: {fileID: 3157874942664481711}
   - component: {fileID: 341385078786976479}
-  - component: {fileID: -6457947254907759526}
   - component: {fileID: -3523665738280189847}
-  - component: {fileID: 540030944861305837}
   - component: {fileID: 6080207326551824186}
   m_Layer: 0
   m_Name: Bower
@@ -209,6 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d971f09fcd8a485c842aae26970e5bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unitStaticData: {fileID: 11400000, guid: 14e36af57c138f54eba2a3b1c412cf6b, type: 2}
 --- !u!195 &341385078786976479
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -231,20 +230,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-6457947254907759526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5183117628154484906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9a73d2df4ea4092bb903e9eea135118, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _creationIcon: {fileID: 21300000, guid: c9d4e0565f859a142b87066c246f1d46, type: 3}
-  _unitType: {fileID: 540030944861305837}
 --- !u!114 &-3523665738280189847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,19 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9face02567bc4f12a1f3346c33ae87fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _viewSelectStatusChanger: {fileID: 6080207326551824186}
   _creatableBuildings: []
---- !u!114 &540030944861305837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5183117628154484906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 288301bf522740eeae4380d21b3d5b80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6080207326551824186
 MonoBehaviour:
   m_ObjectHideFlags: 0

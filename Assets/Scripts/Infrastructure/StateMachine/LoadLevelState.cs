@@ -7,6 +7,7 @@ public class LoadLevelState : IPayLoadState<string>
     [Inject] private IUIFactory _uiFactory;
     [Inject] private IUnitFactory _unitFactory;
     [Inject] private IUIHandlerFactory _uiHandlerFactory;
+    [Inject] private StaticData _staticData;
 
     public LoadLevelState(SceneLoader sceneLoader)
     {
@@ -27,7 +28,9 @@ public class LoadLevelState : IPayLoadState<string>
         _uiFactory.CreatCreationPanel();
         _uiFactory.CreatePanelOfSelectedObjects();
         _uiFactory.CreateResourceCountPanel();
-        _unitFactory.CreateUnit(UnitTypeEnum.Worker);
+        _unitFactory.CreateUnit(_staticData.UnitStaticDataWorker);
+        _unitFactory.CreateUnit(_staticData.UnitStaticDataWorker);
+        _unitFactory.CreateUnit(_staticData.UnitStaticDataWorker);
         _uiHandlerFactory.CreateSelectorView();
     }
 }

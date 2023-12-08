@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 9164029722284370982}
   - component: {fileID: 5311569637171209154}
   - component: {fileID: 6624729263330463664}
+  - component: {fileID: 4420706459095743109}
   m_Layer: 7
   m_Name: Castle
   m_TagString: Untagged
@@ -256,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc250d69de643cbb584371d71aea72e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewSelectStatusChanger: {fileID: 9164029722284370982}
+  selectStatusChanger: {fileID: 9164029722284370982}
   _creatableUnits:
   - {fileID: 11400000, guid: abb8f176a3b62c843b02ce04325afb34, type: 2}
   - {fileID: 11400000, guid: 6236b7b030c329e4287be9fc5ad193c0, type: 2}
@@ -313,6 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxProgress: 100
+  _workingWorkersList: {fileID: 0}
 --- !u!114 &6624729263330463664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,6 +325,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98941b58b3a8439dbdd8751a8bf9aa5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4420706459095743109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626330265637584863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a5d8d23b45bb744a7abbe630c97100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7767569523506983724

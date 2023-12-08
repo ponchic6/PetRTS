@@ -1,19 +1,20 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 public abstract class CreationPanelOfSelectedObject : MonoBehaviour
 {
-    [SerializeField] protected ViewSelectStatusChanger _viewSelectStatusChanger;
+    [SerializeField] protected SelectStatusChanger selectStatusChanger;
     protected List<Transform> _buttonsListOfSelected;
     protected SelectableListService _selectableListService;
     protected IUIFactory _uiFactory;
 
     protected virtual void Awake()
     {
-        _viewSelectStatusChanger.OnSelected += SwitchCreationPanelToCurrentObject;
-        _viewSelectStatusChanger.OnDecelected += SwitchCreationPanelToIdle;
+        selectStatusChanger.OnSelected += SwitchCreationPanelToCurrentObject;
+        selectStatusChanger.OnDecelected += SwitchCreationPanelToIdle;
     }
 
     protected abstract void SwitchCreationPanelToCurrentObject();

@@ -16,9 +16,6 @@ GameObject:
   - component: {fileID: 8261866062597245549}
   - component: {fileID: -8950807119244555909}
   - component: {fileID: 852431360464874540}
-  - component: {fileID: 2484143790323406440}
-  - component: {fileID: 1429433955839263198}
-  - component: {fileID: 680288316021977189}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -149,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d971f09fcd8a485c842aae26970e5bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitConfig: {fileID: 11400000, guid: 6236b7b030c329e4287be9fc5ad193c0, type: 2}
+  _unitStaticData: {fileID: 11400000, guid: 6236b7b030c329e4287be9fc5ad193c0, type: 2}
 --- !u!114 &-8950807119244555909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,46 +175,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selectionIcon: {fileID: 1634085680543166107, guid: 2eaac9a4dc3db82468c59f493f2bb7f5, type: 3}
   _selectRing: {fileID: 9060558114379178071}
---- !u!114 &2484143790323406440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5183117628154484906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b250ea5a93227814983d62e8f3539f8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitConfig: {fileID: 11400000, guid: 6236b7b030c329e4287be9fc5ad193c0, type: 2}
---- !u!114 &1429433955839263198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5183117628154484906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48e6021d79374bfab5a706d4060f94d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitConfig: {fileID: 11400000, guid: 6236b7b030c329e4287be9fc5ad193c0, type: 2}
---- !u!114 &680288316021977189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5183117628154484906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb93499e1bfb16146beeedce1f1e74fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitConfig: {fileID: 11400000, guid: 6236b7b030c329e4287be9fc5ad193c0, type: 2}
-  _viewSelectStatusChanger: {fileID: 852431360464874540}
 --- !u!1 &9060558114379178071
 GameObject:
   m_ObjectHideFlags: 0

@@ -3341,7 +3341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d971f09fcd8a485c842aae26970e5bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitConfig: {fileID: 11400000, guid: abb8f176a3b62c843b02ce04325afb34, type: 2}
+  _unitStaticData: {fileID: 11400000, guid: abb8f176a3b62c843b02ce04325afb34, type: 2}
 --- !u!114 &1025443636790612245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3354,7 +3354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9face02567bc4f12a1f3346c33ae87fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewSelectStatusChanger: {fileID: 2893437162056930838}
+  selectStatusChanger: {fileID: 2893437162056930838}
   _creatableBuildings:
   - {fileID: -8250684003885192182, guid: c0e74009180a32548b0de934913c14b6, type: 3}
   - {fileID: 1281500378307815491, guid: c8de8b071d2f9a044a0473e540438542, type: 3}
@@ -3371,7 +3371,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitConfig: {fileID: 11400000, guid: abb8f176a3b62c843b02ce04325afb34, type: 2}
-  _viewSelectStatusChanger: {fileID: 2893437162056930838}
+  _selectStatusChanger: {fileID: 2893437162056930838}
+  _unitBuildingHandler: {fileID: 7009057090475621145}
+  _unitResourceHandler: {fileID: 7331620529393166314}
 --- !u!114 &1849496600322383387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3398,6 +3400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _workerAnimator: {fileID: 1849496600322383387}
+  _unitBuildingHandler: {fileID: 7009057090475621145}
+  _unitResourceHandler: {fileID: 7331620529393166314}
 --- !u!114 &2893437162056930838
 MonoBehaviour:
   m_ObjectHideFlags: 0

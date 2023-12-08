@@ -4,6 +4,8 @@ using UnityEngine;
 public class AnimatorMediator : MonoBehaviour
 {
     [SerializeField] private WorkerAnimator _workerAnimator;
+    [SerializeField] private UnitBuildingHandler _unitBuildingHandler;
+    [SerializeField] private UnitResourceHandler _unitResourceHandler;
     private IUnitWorkerGiver _unitWorkerGiver;
     private IMoveble _unitMover;
 
@@ -11,25 +13,26 @@ public class AnimatorMediator : MonoBehaviour
     {
         _unitMover = GetComponent<IMoveble>();
         _unitWorkerGiver = GetComponent<IUnitWorkerGiver>();
+
+        _unitBuildingHandler.OnStartWorking += StartWorking;
+        _unitBuildingHandler.OnStopWorking += StopWorking;
+        _unitResourceHandler.OnStartWorking += StartWorking;
+        _unitResourceHandler.OnStopWorking += StopWorking;
     }
 
     private void Update()
     {
         UpdateMoveAnimation();
-        UpdateWorkAnimation();
     }
 
-    private void UpdateWorkAnimation()
+    private void StartWorking()
     {
-        if (_unitWorkerGiver.IsWorking)
-        {
-            _workerAnimator.StartWork();
-        }
+        _workerAnimator.StartWork();
+    }
 
-        else
-        {
-            _workerAnimator.StopWork();
-        }
+    private void StopWorking()
+    {
+        _workerAnimator.StopWork();
     }
 
     private void UpdateMoveAnimation()

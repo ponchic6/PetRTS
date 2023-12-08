@@ -8,7 +8,7 @@ public class UnitResourceHandler : UnitWorkHandler
     private float _currentResourceCount;
     private float _currentCooldown;
     private ResourceCollector _resourceCollector;
-
+    
     private void Update()
     {   
         SetResourceCollector();
@@ -22,21 +22,20 @@ public class UnitResourceHandler : UnitWorkHandler
         if (_jobProgressData != null && _jobProgressData is ResourceJobProgressData)
         {
             if (_currentResourceCount < _unitConfig.MaxResourceOnUnit)
-            {
-                _unitWorkerGiver.IsWorking = true;
-
+            {   
+                InvokeOnStartWorking();
                 UpdateProgress();
             }
 
             else
             {
-                _unitWorkerGiver.IsWorking = false;
+                InvokeOnStopWorking();
             }
         }
         
         if (_jobProgressData == null)
         {
-            _unitWorkerGiver.IsWorking = false;
+            InvokeOnStopWorking();
         }
 
     }
@@ -57,7 +56,8 @@ public class UnitResourceHandler : UnitWorkHandler
         {
 
             if (_currentResourceCount + _unitConfig.Efficiency >= _unitConfig.MaxResourceOnUnit)
-            {
+            {   
+                InvokeOnStopWorking();
                 _jobProgressData.UpdateProgress(_unitConfig.MaxResourceOnUnit - _currentResourceCount);
                 _currentResourceCount = _unitConfig.MaxResourceOnUnit;
             }

@@ -3,8 +3,10 @@ using Zenject;
 
 public class GameplayInstaller : MonoInstaller
 {
+    [SerializeField] private StaticData _staticData;
     public override void InstallBindings()
     {
+        RegisterStaticData();
         RegisterTickService();
         RegisterInputService();
         RegisterCameraMoveService();
@@ -19,6 +21,11 @@ public class GameplayInstaller : MonoInstaller
         RegisterGlobalResourceStorageService();
     }
 
+    private void RegisterStaticData()
+    {
+        Container.Bind<StaticData>().FromInstance(_staticData).AsSingle();
+    }
+
     private void RegisterGlobalResourceStorageService()
     {
         IGlobalResourcessStorageService globalResourcessStorageService =
@@ -28,8 +35,8 @@ public class GameplayInstaller : MonoInstaller
 
     private void RegisterDestinationSetter()
     {
-        IDestinationUnitSetter destinationUnitSetter = Container.Instantiate<DestinationUnitSetter>();
-        Container.Bind<IDestinationUnitSetter>().FromInstance(destinationUnitSetter).AsSingle();
+        DestinationOfGroupUnitsSetter destinationOfGroupUnitsSetter = Container.Instantiate<DestinationOfGroupUnitsSetter>();
+        Container.Bind<DestinationOfGroupUnitsSetter>().FromInstance(destinationOfGroupUnitsSetter).AsSingle();
     }
 
     private void RegisterWarriorFactory()

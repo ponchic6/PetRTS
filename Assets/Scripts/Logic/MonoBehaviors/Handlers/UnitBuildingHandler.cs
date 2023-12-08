@@ -16,21 +16,20 @@ public class UnitBuildingHandler : UnitWorkHandler
         if (_jobProgressData != null && _jobProgressData is BuildingJobProgressData)
         {
             if (_jobProgressData.HasObjectJob)
-            {
-                _unitWorkerGiver.IsWorking = true;
-
+            {   
+                InvokeOnStartWorking();
                 UpdateProgress();
             }
 
             else
             {
-                _unitWorkerGiver.IsWorking = false;
+                InvokeOnStopWorking();
             }
         }
 
         if (_jobProgressData == null)
         {
-            _unitWorkerGiver.IsWorking = false;
+            InvokeOnStopWorking();
         }
     }
 
