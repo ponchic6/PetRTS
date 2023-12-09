@@ -2,8 +2,9 @@
 
 public class BuildingJobProgressData : JobProgressData
 {
-    private void Awake()
-    {
+    protected override void Awake()
+    {   
+        base.Awake();
         _currentProgress = 0;
     }
 

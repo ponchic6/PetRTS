@@ -20,7 +20,8 @@ public class UnitMover : MonoBehaviour, IMoveble
     }
 
     public void MoveToDestination(Vector3 destination, GameObject rotateToObject = null)
-    {
+    {   
+        StopAllCoroutines();
         StartCoroutine(MoveCoroutine(destination, rotateToObject));
     }
     

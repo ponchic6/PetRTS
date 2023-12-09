@@ -2,6 +2,6 @@
 
 public interface IUnitWorkerGiver
 {
-    public JobProgressData GetCurrentJopProgressData();
-    public ResourceCollector GetCurrentResourcesCollector();
+    public event Action<JobProgressData> OnJobProgressClick;
+    public event Action<ResourceCollector> OnResourceCollectorClick;
 }

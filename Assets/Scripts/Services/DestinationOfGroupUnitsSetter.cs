@@ -79,10 +79,10 @@ public class DestinationOfGroupUnitsSetter
         
         foreach (IMoveble unit in currentUnits)
         {
-            workingWorkersList.AddUnit(unit);
+            workingWorkersList.GetList().Add(unit);
         }
 
-        float degreeOnUnit = 360 / workingWorkersList.Count();
+        float degreeOnUnit = 360 / workingWorkersList.GetList().Count;
         Vector3 directionToDestination = jobProgressData.gameObject.transform.forward;
         
         foreach (IMoveble unit in workingWorkersList.GetList())

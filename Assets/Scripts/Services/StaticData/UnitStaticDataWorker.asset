@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: UnitStaticDataWorker
   m_EditorClassIdentifier: 
   _unitPrefabPath: Units/Worker
-  _maxResourceOnUnit: 50
+  _maxResourceOnUnit: 500
   _creationIcon: {fileID: 21300000, guid: d23fadb75a904b34696709b3595ea5d4, type: 3}
   _distanceForWork: 1
   _cooldown: 1

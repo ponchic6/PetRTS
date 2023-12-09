@@ -6,48 +6,61 @@ using Zenject;
 public class UnitResourceHandler : UnitWorkHandler
 {
     private float _currentResourceCount;
-    private float _currentCooldown;
     private ResourceCollector _resourceCollector;
-    
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _unitWorkerGiver.OnResourceCollectorClick += SetResourceCollector;
+    }
+
     private void Update()
-    {   
-        SetResourceCollector();
-        SetJobProgressData();
+    {
         TryWork();
         TryPutResourcesInCollector();
     }
 
     protected override void TryWork()
     {
-        if (_jobProgressData != null && _jobProgressData is ResourceJobProgressData)
+        if (IsDistanceEnoughToWork() && _jobProgressData is ResourceJobProgressData)
         {
             if (_currentResourceCount < _unitConfig.MaxResourceOnUnit)
-            {   
-                InvokeOnStartWorking();
-                UpdateProgress();
+            {
+                if (IsWorking == false)
+                {
+                    InvokeOnStartWorking();
+                    IsWorking = true;
+                }
+                
+                if (_jobProgressData.HasObjectJob)
+                {
+                    UpdateProgress();
+                }
+                
+                if (!_jobProgressData.HasObjectJob && IsWorking)
+                {
+                    IsWorking = false;
+                    _jobProgressData.GetWorkingWorkersList().TryRemoveUnit(gameObject.GetComponent<IMoveble>());
+                    InvokeOnStopWorking();                
+                }
             }
 
             else
-            {
-                InvokeOnStopWorking();
+            {   
+                if (IsWorking)
+                {
+                    IsWorking = false;
+                    _jobProgressData.GetWorkingWorkersList().TryRemoveUnit(gameObject.GetComponent<IMoveble>());
+                    InvokeOnStopWorking();
+                }
             }
         }
         
-        if (_jobProgressData == null)
+        if (_jobProgressData == null && IsWorking)
         {
+            IsWorking = false;
             InvokeOnStopWorking();
         }
-
-    }
-
-    private void SetResourceCollector()
-    {
-        _resourceCollector = _unitWorkerGiver.GetCurrentResourcesCollector();
-    }
-
-    private void SetJobProgressData()
-    {
-        _jobProgressData = _unitWorkerGiver.GetCurrentJopProgressData();
     }
 
     private void UpdateProgress()
@@ -56,8 +69,7 @@ public class UnitResourceHandler : UnitWorkHandler
         {
 
             if (_currentResourceCount + _unitConfig.Efficiency >= _unitConfig.MaxResourceOnUnit)
-            {   
-                InvokeOnStopWorking();
+            {
                 _jobProgressData.UpdateProgress(_unitConfig.MaxResourceOnUnit - _currentResourceCount);
                 _currentResourceCount = _unitConfig.MaxResourceOnUnit;
             }
@@ -77,12 +89,24 @@ public class UnitResourceHandler : UnitWorkHandler
         }
     }
 
+    private void SetResourceCollector(ResourceCollector resourceCollector)
+    {
+        _resourceCollector = resourceCollector;
+    }
+
     private void TryPutResourcesInCollector()
     {
-        if (_resourceCollector != null && _currentResourceCount != 0)
+        if (_resourceCollector != null && _currentResourceCount != 0 && HasConditionForResourceCollecting())
         {
             _resourceCollector.AddResource(_currentResourceCount);
             _currentResourceCount = 0;
         }
+    }
+    
+    private bool HasConditionForResourceCollecting()
+    {
+        return _resourceCollector != null &&
+               Vector3.Distance(transform.position, _resourceCollector.GetTransform().position) <=
+               _unitConfig.DistanceForWork;
     }
 }

@@ -2,8 +2,9 @@
 
 public class ResourceJobProgressData : JobProgressData
 {
-    private void Awake()
-    {
+    protected override void Awake()
+    {   
+        base.Awake();
         _currentProgress = _maxProgress;
     }
 

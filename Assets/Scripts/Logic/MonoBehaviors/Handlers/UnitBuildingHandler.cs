@@ -3,32 +3,37 @@ using UnityEngine;
 
 public class UnitBuildingHandler : UnitWorkHandler
 {
-    private float _currentCooldown;
-
     private void Update()
-    {   
-        SetJobProgressData();
+    {
         TryWork();
     }
 
     protected override void TryWork()
     {
-        if (_jobProgressData != null && _jobProgressData is BuildingJobProgressData)
+        if (IsDistanceEnoughToWork() && _jobProgressData is BuildingJobProgressData)
         {
-            if (_jobProgressData.HasObjectJob)
-            {   
+            if (IsWorking == false)
+            {
                 InvokeOnStartWorking();
+                IsWorking = true;
+            }
+
+            if (_jobProgressData.HasObjectJob)
+            {
                 UpdateProgress();
             }
 
-            else
+            if (!_jobProgressData.HasObjectJob && IsWorking)
             {
-                InvokeOnStopWorking();
+                IsWorking = false;
+                _jobProgressData.GetWorkingWorkersList().TryRemoveUnit(gameObject.GetComponent<IMoveble>());
+                InvokeOnStopWorking();                
             }
         }
 
-        if (_jobProgressData == null)
+        if (_jobProgressData == null && IsWorking)
         {
+            IsWorking = false;
             InvokeOnStopWorking();
         }
     }
@@ -45,10 +50,5 @@ public class UnitBuildingHandler : UnitWorkHandler
         {
             _currentCooldown -= Time.deltaTime;
         }
-    }
-    
-    private void SetJobProgressData()
-    {
-        _jobProgressData = _unitWorkerGiver.GetCurrentJopProgressData();
     }
 }

@@ -31,6 +31,9 @@ public class LoadLevelState : IPayLoadState<string>
         _unitFactory.CreateUnit(_staticData.UnitStaticDataWorker);
         _unitFactory.CreateUnit(_staticData.UnitStaticDataWorker);
         _unitFactory.CreateUnit(_staticData.UnitStaticDataWorker);
+        _unitFactory.CreateUnit(_staticData.UnitStaticDataWorker);
+        _unitFactory.CreateUnit(_staticData.UnitStaticDataWorker);
+        _unitFactory.CreateUnit(_staticData.UnitStaticDataWorker);
         _uiHandlerFactory.CreateSelectorView();
     }
 }
