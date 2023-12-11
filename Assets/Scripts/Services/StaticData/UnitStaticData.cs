@@ -18,5 +18,4 @@ public class UnitStaticData : ScriptableObject
     public float Efficiency => _efficiency;
     public int MaxResourceOnUnit => _maxResourceOnUnit;
     public float RotateDuration => _rotateDuration;
-
 }

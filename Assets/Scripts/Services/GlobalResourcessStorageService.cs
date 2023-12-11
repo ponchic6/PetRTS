@@ -1,18 +1,35 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 
 public class GlobalResourcessStorageService : IGlobalResourcessStorageService
 {
+    public event Action OnChangeResourceCount;
+    
     private float _storageResource;
-    private IUIFactory _uiFactory;
 
-    public GlobalResourcessStorageService(IUIFactory uiFactory)
+    public float StorageResource => _storageResource;
+
+    public GlobalResourcessStorageService()
     {
-        _uiFactory = uiFactory;
+        AddResource(100);
     }
+
     public void AddResource(float resourceCount)
     {
         _storageResource += resourceCount;
-        _uiFactory.ResourceCountPanel.GetComponentInChildren<TMP_Text>().text = _storageResource.ToString();
+        OnChangeResourceCount?.Invoke();
+    }
+
+    public void RemoveResource(float resourceCount)
+    {
+        _storageResource -= resourceCount;
+
+        if (_storageResource <= 0)
+        {
+            _storageResource = 0;
+        }
+        
+        OnChangeResourceCount?.Invoke();
     }
 }

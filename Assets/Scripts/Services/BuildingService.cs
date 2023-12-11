@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class BuildingService : IBuildingService
 {
+    private readonly IGlobalResourceAndBuildingFactoryMediator _buildingMediator;
     private readonly IBuildingFactory _buildingFactory;
     private readonly IInputService _inputService;
     private readonly ITickService _tickService;
@@ -10,13 +11,16 @@ public class BuildingService : IBuildingService
     private GameObject _currentBuilding;
     private Camera _camera;
 
-    public BuildingService(IBuildingFactory buildingFactory, IInputService inputService, ITickService tickService)
+    public BuildingService(IGlobalResourceAndBuildingFactoryMediator buildingMediator, IInputService inputService,
+        ITickService tickService, IBuildingFactory buildingFactory)
     {
         _inputService = inputService;
         _inputService.OnLeftClickDown += SetupBuildingFromCursor;
 
         _buildingFactory = buildingFactory;
         _buildingFactory.OnCreateBuilding += SetCreatedBuilding;
+        
+        _buildingMediator = buildingMediator; ;
 
         _tickService = tickService;
         _tickService.OnTick += SetCurrentBuildingPosToCursor;

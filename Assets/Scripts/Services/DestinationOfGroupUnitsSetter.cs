@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class DestinationOfGroupUnitsSetter
+public class DestinationOfGroupUnitsSetter : IDestinationOfGroupUnitsSetter
 {
     private readonly IInputService _inputService;
     private readonly SelectableListService _selectableListService;
@@ -16,27 +16,7 @@ public class DestinationOfGroupUnitsSetter
         _selectableListService = selectableListService;
     }
 
-    private void SetDestinationForSelectedUnits()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
-        RaycastHit raycastHit;
-        
-        if (Physics.Raycast(ray, out raycastHit))
-        {
-            switch (raycastHit.collider.gameObject.layer)
-            {
-                case 6:
-                    SetDestinationOnGroundClick(raycastHit);
-                    break;
-                
-                case 7:
-                    SetDestinationOnWorkableObject(raycastHit);
-                    break;
-            }
-        }
-    }
-
-    private void SetDestinationOnGroundClick(RaycastHit raycastHit)
+    private void SetDestinationOnGround(RaycastHit raycastHit)
     {
         List<IMoveble> _currentSelectUnits = FillCurrentSelectMovebleUnitList();
 
@@ -49,7 +29,7 @@ public class DestinationOfGroupUnitsSetter
 
         foreach (IMoveble unit in _currentSelectUnits)
         {
-            midlePoint += unit.GetTransform().position / _currentSelectUnits.Count;
+            midlePoint += unit.Transform.position / _currentSelectUnits.Count;
         }
 
         Vector3 verticalDirection = (raycastHit.point - midlePoint).normalized / 1.6f;
@@ -69,29 +49,20 @@ public class DestinationOfGroupUnitsSetter
             }
         }
     }
-
-    private void SetDestinationOnWorkableObject(RaycastHit raycastHit)
+    
+    private void SetDestinationForSelectedUnits()
     {
-        JobProgressData jobProgressData = raycastHit.collider.GetComponent<JobProgressData>();
-        IWorkingWorkersList workingWorkersList = raycastHit.collider.GetComponent<IWorkingWorkersList>();
+        Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
+        RaycastHit raycastHit;
         
-        List<IMoveble> currentUnits = FillCurrentSelectMovebleUnitList();
-        
-        foreach (IMoveble unit in currentUnits)
+        if (Physics.Raycast(ray, out raycastHit))
         {
-            workingWorkersList.GetList().Add(unit);
-        }
-
-        float degreeOnUnit = 360 / workingWorkersList.GetList().Count;
-        Vector3 directionToDestination = jobProgressData.gameObject.transform.forward;
-        
-        foreach (IMoveble unit in workingWorkersList.GetList())
-        {   
-            unit.GetTransform().GetComponent<SelectStatusChanger>().Select();
-            unit.MoveToDestination(directionToDestination * (unit.GetUnitStaticData().DistanceForWork - 0.1f) +
-                                   jobProgressData.gameObject.transform.position, jobProgressData.gameObject);
-            directionToDestination =
-                Quaternion.AngleAxis(degreeOnUnit, Vector3.up) * directionToDestination;
+            switch (raycastHit.collider.gameObject.layer)
+            {
+                case 6:
+                    SetDestinationOnGround(raycastHit);
+                    break;
+            }
         }
     }
 

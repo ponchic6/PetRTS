@@ -13,6 +13,10 @@ public class UnitMover : MonoBehaviour, IMoveble
     private NavMeshAgent _navMeshAgent;
     private SelectStatusChanger _selectStatusChanger;
 
+    public Vector3 CurrentSpeed => _navMeshAgent.velocity; 
+    public Transform Transform => transform;
+    public UnitStaticData UnitStaticData => _unitStaticData;
+
     private void Awake()
     {
         _selectStatusChanger = GetComponent<SelectStatusChanger>();
@@ -23,21 +27,6 @@ public class UnitMover : MonoBehaviour, IMoveble
     {   
         StopAllCoroutines();
         StartCoroutine(MoveCoroutine(destination, rotateToObject));
-    }
-    
-    public Vector3 GetCurrentSpeed()
-    {
-        return _navMeshAgent.velocity;
-    }
-
-    public Transform GetTransform()
-    {
-        return transform;
-    }
-
-    public UnitStaticData GetUnitStaticData()
-    {
-        return _unitStaticData;
     }
 
     private IEnumerator MoveCoroutine(Vector3 destination, GameObject rotateToObject = null)

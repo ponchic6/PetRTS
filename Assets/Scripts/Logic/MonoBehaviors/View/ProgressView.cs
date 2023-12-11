@@ -14,6 +14,6 @@ public class ProgressView : MonoBehaviour
     
     private void ShowConstructionProgress()
     {
-        _progressBar.fillAmount = _jobProgressData.GetCurrentProgress() / _jobProgressData.GetMaxProgress();
+        _progressBar.fillAmount = _jobProgressData.CurrentProgress / _jobProgressData.MaxProgress;
     }
 }

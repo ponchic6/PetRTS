@@ -19,12 +19,23 @@ public abstract class UnitWorkHandler : MonoBehaviour
         _unitWorkerGiver.OnJobProgressClick += SetJobProgress;
     }
 
+    public void SetJobProgress(JobProgressData jobProgressData)
+    {   
+        RemoveUnitsFromWorkingWorkersList(jobProgressData);
+        
+        if (jobProgressData != null)
+        {
+            _jobProgressData = jobProgressData;
+            _jobProgressData.WorkingWorkersListService.SetDestination(GetComponent<IMoveble>());
+        }
+    }
+
     protected abstract void TryWork();
-    
+
     protected bool IsDistanceEnoughToWork()
     {
         return _jobProgressData != null &&
-               Vector3.Distance(transform.position, _jobProgressData.GetPosition()) <=
+               Vector3.Distance(transform.position, _jobProgressData.Position) <=
                _unitConfig.DistanceForWork;
     }
 
@@ -38,13 +49,11 @@ public abstract class UnitWorkHandler : MonoBehaviour
         OnStopWorking?.Invoke();
     }
 
-    private void SetJobProgress(JobProgressData jobProgressData)
+    private void RemoveUnitsFromWorkingWorkersList(JobProgressData jobProgressData)
     {
-        if (_jobProgressData != null && jobProgressData == null)
+        if (_jobProgressData != null && (jobProgressData == null || _jobProgressData != jobProgressData))
         {
-            _jobProgressData.GetWorkingWorkersList().TryRemoveUnit(gameObject.GetComponent<IMoveble>());
+            _jobProgressData.WorkingWorkersListService.TryRemoveUnit(gameObject.GetComponent<IMoveble>());
         }
-        
-        _jobProgressData = jobProgressData;
     }
 }

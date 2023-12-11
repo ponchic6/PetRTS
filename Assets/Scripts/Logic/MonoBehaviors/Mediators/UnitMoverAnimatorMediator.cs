@@ -36,7 +36,7 @@ public class AnimatorMediator : MonoBehaviour
 
     private void UpdateMoveAnimation()
     {
-        if (_unitMover.GetCurrentSpeed().magnitude > 0)
+        if (_unitMover.CurrentSpeed.magnitude > 0)
         {
             _workerAnimator.Move();
         }

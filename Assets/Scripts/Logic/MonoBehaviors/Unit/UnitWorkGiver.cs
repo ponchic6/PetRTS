@@ -8,8 +8,9 @@ public class UnitWorkGiver : MonoBehaviour, IUnitWorkerGiver
 {
     public event Action<JobProgressData> OnJobProgressClick;
     public event Action<ResourceCollector> OnResourceCollectorClick;
-    
+
     [SerializeField] private SelectStatusChanger _selectStatusChanger;
+
     private IInputService _inputService;
 
     [Inject]
@@ -18,7 +19,7 @@ public class UnitWorkGiver : MonoBehaviour, IUnitWorkerGiver
         _inputService = inputService;
         _inputService.OnRightClickDown += TrySetWorkPoint;
     }
-
+    
     private void TrySetWorkPoint()
     {
         if (_selectStatusChanger.IsSelect())

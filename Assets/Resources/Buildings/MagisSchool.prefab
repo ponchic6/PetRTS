@@ -207,9 +207,9 @@ GameObject:
   - component: {fileID: 6939692956366484658}
   - component: {fileID: -3026968208976336333}
   - component: {fileID: -8358468188011152812}
-  - component: {fileID: 1281500378307815491}
   - component: {fileID: 4431364182000888017}
   - component: {fileID: -8913682274676549463}
+  - component: {fileID: -7927680701281013403}
   m_Layer: 7
   m_Name: MagisSchool
   m_TagString: Untagged
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc250d69de643cbb584371d71aea72e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewSelectStatusChanger: {fileID: 4431364182000888017}
+  selectStatusChanger: {fileID: 4431364182000888017}
   _creatableUnits: []
 --- !u!114 &-3026968208976336333
 MonoBehaviour:
@@ -346,19 +346,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 1254539904866326203}
---- !u!114 &1281500378307815491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7626330265637584863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71a8e818c16146a9a56ebe78f53ccd9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _buildingName: Magic School
 --- !u!114 &4431364182000888017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,6 +373,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxProgress: 100
+--- !u!114 &-7927680701281013403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626330265637584863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a5d8d23b45bb744a7abbe630c97100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8364819013749418517
 GameObject:
   m_ObjectHideFlags: 0

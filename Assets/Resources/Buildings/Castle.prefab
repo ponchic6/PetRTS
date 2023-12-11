@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 4362132084332674893}
   - component: {fileID: 2102383845362751647}
   - component: {fileID: -4960035551876098754}
-  - component: {fileID: -8250684003885192182}
   - component: {fileID: 9164029722284370982}
   - component: {fileID: 5311569637171209154}
   - component: {fileID: 6624729263330463664}
@@ -260,7 +259,6 @@ MonoBehaviour:
   selectStatusChanger: {fileID: 9164029722284370982}
   _creatableUnits:
   - {fileID: 11400000, guid: abb8f176a3b62c843b02ce04325afb34, type: 2}
-  - {fileID: 11400000, guid: 6236b7b030c329e4287be9fc5ad193c0, type: 2}
 --- !u!114 &-4960035551876098754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,19 +272,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 1254539904866326203}
---- !u!114 &-8250684003885192182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7626330265637584863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd9692cea2744aeb8e9b5c07bf7b834c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _buildingName: Castle
 --- !u!114 &9164029722284370982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,7 +299,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxProgress: 100
-  _workingWorkersList: {fileID: 0}
 --- !u!114 &6624729263330463664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,9 +425,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8516726600477087478}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.02, z: 0}
-  m_LocalScale: {x: 0.8523, y: 0.00474, z: 0.8523}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.5, y: 0.0139035545, z: 2.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 370749838554595404}
   m_RootOrder: -1

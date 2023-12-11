@@ -8,6 +8,8 @@ public class UnitResourceHandler : UnitWorkHandler
     private float _currentResourceCount;
     private ResourceCollector _resourceCollector;
 
+    public float CurrentResourceCount => _currentResourceCount;
+
     protected override void Awake()
     {
         base.Awake();
@@ -17,7 +19,12 @@ public class UnitResourceHandler : UnitWorkHandler
     private void Update()
     {
         TryWork();
-        TryPutResourcesInCollector();
+        TryAutoPutResourcesInCollector();
+    }
+
+    public void SetResourceCollector(ResourceCollector resourceCollector)
+    {
+        _resourceCollector = resourceCollector;
     }
 
     protected override void TryWork()
@@ -40,7 +47,7 @@ public class UnitResourceHandler : UnitWorkHandler
                 if (!_jobProgressData.HasObjectJob && IsWorking)
                 {
                     IsWorking = false;
-                    _jobProgressData.GetWorkingWorkersList().TryRemoveUnit(gameObject.GetComponent<IMoveble>());
+                    _jobProgressData.WorkingWorkersListService.TryRemoveUnit(gameObject.GetComponent<IMoveble>());
                     InvokeOnStopWorking();                
                 }
             }
@@ -50,13 +57,13 @@ public class UnitResourceHandler : UnitWorkHandler
                 if (IsWorking)
                 {
                     IsWorking = false;
-                    _jobProgressData.GetWorkingWorkersList().TryRemoveUnit(gameObject.GetComponent<IMoveble>());
+                    _jobProgressData.WorkingWorkersListService.TryRemoveUnit(gameObject.GetComponent<IMoveble>());
                     InvokeOnStopWorking();
                 }
             }
         }
         
-        if (_jobProgressData == null && IsWorking)
+        if (IsWorking && (_jobProgressData == null || !IsDistanceEnoughToWork()))
         {
             IsWorking = false;
             InvokeOnStopWorking();
@@ -89,24 +96,19 @@ public class UnitResourceHandler : UnitWorkHandler
         }
     }
 
-    private void SetResourceCollector(ResourceCollector resourceCollector)
+    private void TryAutoPutResourcesInCollector()
     {
-        _resourceCollector = resourceCollector;
-    }
-
-    private void TryPutResourcesInCollector()
-    {
-        if (_resourceCollector != null && _currentResourceCount != 0 && HasConditionForResourceCollecting())
+        if (IsDistanceEnoughToCollecting() && !_jobProgressData.HasObjectJob)
         {
             _resourceCollector.AddResource(_currentResourceCount);
             _currentResourceCount = 0;
         }
     }
     
-    private bool HasConditionForResourceCollecting()
+    private bool IsDistanceEnoughToCollecting()
     {
         return _resourceCollector != null &&
-               Vector3.Distance(transform.position, _resourceCollector.GetTransform().position) <=
+               Vector3.Distance(transform.position, _resourceCollector.transform.position) <=
                _unitConfig.DistanceForWork;
     }
 }

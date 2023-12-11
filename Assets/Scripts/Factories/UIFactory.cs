@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class UIFactory : IUIFactory
 {
@@ -15,6 +16,7 @@ public class UIFactory : IUIFactory
     private const string UnitButtonsRootPath = "UIEllements/UIPrefasbs/UnitButtonsRoot";
 
     private readonly IUIHandlerFactory _uiHandlerFactory;
+    private readonly DiContainer _diContainer;
 
     private Dictionary<SelectStatusChanger, Transform> _currentSelectIconDictionary =
         new Dictionary<SelectStatusChanger, Transform>();
@@ -30,9 +32,10 @@ public class UIFactory : IUIFactory
 
     public Transform ResourceCountPanel => _recourceCountPanel; 
 
-    public UIFactory(IUIHandlerFactory uiHandlerFactory)
+    public UIFactory(IUIHandlerFactory uiHandlerFactory, DiContainer diContainer)
     {
         _uiHandlerFactory = uiHandlerFactory;
+        _diContainer = diContainer;
     }
 
     public void CreatCanvas()
@@ -55,8 +58,8 @@ public class UIFactory : IUIFactory
 
     public void CreateResourceCountPanel()
     {
-        Transform recourceCountPanel = Resources.Load<Transform>(ResourceCountPanelPath);
-        _recourceCountPanel = Object.Instantiate(recourceCountPanel, _rootCanvas);
+        GameObject recourceCountPanel = _diContainer.InstantiatePrefabResource(ResourceCountPanelPath, _rootCanvas);
+        _recourceCountPanel = recourceCountPanel.transform;
     }
 
     public List<Transform> CreateUnitCreationButtons(List<UnitStaticData> unitList, List<Transform> unitButtonsList,
@@ -83,14 +86,14 @@ public class UIFactory : IUIFactory
         return unitButtonsList;
     }
 
-    public List<Transform> CreateBuildingCreationButtons(List<Building> buildingList, List<Transform> buildingButtonsList)
+    public List<Transform> CreateBuildingCreationButtons(List<BuildingStaticData> buildingList, List<Transform> buildingButtonsList)
     {
         buildingButtonsList = new List<Transform>();
 
         int i = 0;
         int j = 0;
 
-        foreach (Building building in buildingList)
+        foreach (BuildingStaticData building in buildingList)
         {
             Transform button = CreateBuildingButton(building);
             button.position += new Vector3(0, -65, 0) * i + new Vector3(150, 0, 0) * j;
@@ -127,7 +130,7 @@ public class UIFactory : IUIFactory
         UpdateSelectIconPos();
     }
 
-    private Transform CreateBuildingButton(Building building)
+    private Transform CreateBuildingButton(BuildingStaticData building)
     {
         if (_buildingButtonsRoot == null)
         {
@@ -137,7 +140,7 @@ public class UIFactory : IUIFactory
         Transform buildingButtonPrefab = Resources.Load<Transform>(BuildingButtonPath);
         
         Transform buildingButton = Object.Instantiate(buildingButtonPrefab, _buildingButtonsRoot);
-        buildingButton.GetChild(0).GetComponent<TMP_Text>().text = building.GetBuildingName();
+        buildingButton.GetChild(0).GetComponent<TMP_Text>().text = building.BuildingName;
 
         if (_buildButtonsHandler == null)
         {
@@ -188,7 +191,7 @@ public class UIFactory : IUIFactory
         }
     }
 
-    private void BindBuildingButton(Transform buildButton, Building building)
+    private void BindBuildingButton(Transform buildButton, BuildingStaticData building)
     {
         buildButton
             .GetComponent<Button>()

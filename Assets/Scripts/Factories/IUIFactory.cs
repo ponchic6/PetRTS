@@ -10,7 +10,7 @@ public interface IUIFactory
     public void CreateResourceCountPanel();
     public List<Transform> CreateUnitCreationButtons(List<UnitStaticData> unitList, List<Transform> buttonsList,
         Transform building);
-    public List<Transform> CreateBuildingCreationButtons(List<Building> buildingList, List<Transform> buttonList);
+    public List<Transform> CreateBuildingCreationButtons(List<BuildingStaticData> buildingList, List<Transform> buttonList);
     public void CreateIconOnSelectPanel(SelectStatusChanger unit);
     public void DestroyIconOnSelectPanel(SelectStatusChanger unit);
 }

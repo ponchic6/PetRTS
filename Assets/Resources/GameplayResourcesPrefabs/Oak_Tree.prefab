@@ -124,8 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa74c5b799e147179486c9f875c447b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxProgress: 500
-  _workingWorkersList: {fileID: -6345958563129465250}
+  _maxProgress: 5000
 --- !u!114 &6154000709803494267
 MonoBehaviour:
   m_ObjectHideFlags: 0

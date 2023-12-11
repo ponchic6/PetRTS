@@ -26,12 +26,12 @@ public class UnitBuildingHandler : UnitWorkHandler
             if (!_jobProgressData.HasObjectJob && IsWorking)
             {
                 IsWorking = false;
-                _jobProgressData.GetWorkingWorkersList().TryRemoveUnit(gameObject.GetComponent<IMoveble>());
+                _jobProgressData.WorkingWorkersListService.TryRemoveUnit(gameObject.GetComponent<IMoveble>());
                 InvokeOnStopWorking();                
             }
         }
 
-        if (_jobProgressData == null && IsWorking)
+        if (IsWorking && (_jobProgressData == null || !IsDistanceEnoughToWork()))
         {
             IsWorking = false;
             InvokeOnStopWorking();

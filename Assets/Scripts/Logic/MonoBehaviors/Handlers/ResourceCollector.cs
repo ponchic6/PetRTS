@@ -16,9 +16,4 @@ public class ResourceCollector : MonoBehaviour
     {
         _globalResourcessStorageService.AddResource(currentResourceCount);
     }
-
-    public Transform GetTransform()
-    {
-        return transform;
-    }
 }

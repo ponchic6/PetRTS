@@ -16,9 +16,17 @@ public class GameplayInstaller : MonoInstaller
         RegisterDestinationSetter();
         RegisterWarriorFactory();
         RegisterBuildingFactory();
-        RegisterBuildingService();
         RegisterSelectorService();
         RegisterGlobalResourceStorageService();
+        RegisterGlobalResourceAndBuildingFactoryMediator();
+        RegisterBuildingService();
+    }
+
+    private void RegisterGlobalResourceAndBuildingFactoryMediator()
+    {
+        IGlobalResourceAndBuildingFactoryMediator mediator =
+            Container.Instantiate<GlobalResourceAndBuildingFactoryMediator>();
+        Container.Bind<IGlobalResourceAndBuildingFactoryMediator>().FromInstance(mediator).AsSingle();
     }
 
     private void RegisterStaticData()
@@ -35,8 +43,8 @@ public class GameplayInstaller : MonoInstaller
 
     private void RegisterDestinationSetter()
     {
-        DestinationOfGroupUnitsSetter destinationOfGroupUnitsSetter = Container.Instantiate<DestinationOfGroupUnitsSetter>();
-        Container.Bind<DestinationOfGroupUnitsSetter>().FromInstance(destinationOfGroupUnitsSetter).AsSingle();
+        IDestinationOfGroupUnitsSetter destinationOfGroupUnitsSetter = Container.Instantiate<DestinationOfGroupUnitsSetter>();
+        Container.Bind<IDestinationOfGroupUnitsSetter>().FromInstance(destinationOfGroupUnitsSetter).AsSingle();
     }
 
     private void RegisterWarriorFactory()

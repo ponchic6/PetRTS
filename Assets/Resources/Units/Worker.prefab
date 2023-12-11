@@ -3216,6 +3216,7 @@ GameObject:
   - component: {fileID: 2893437162056930838}
   - component: {fileID: 7331620529393166314}
   - component: {fileID: 7009057090475621145}
+  - component: {fileID: -3693790952613649306}
   m_Layer: 0
   m_Name: Worker
   m_TagString: Untagged
@@ -3356,8 +3357,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectStatusChanger: {fileID: 2893437162056930838}
   _creatableBuildings:
-  - {fileID: -8250684003885192182, guid: c0e74009180a32548b0de934913c14b6, type: 3}
-  - {fileID: 1281500378307815491, guid: c8de8b071d2f9a044a0473e540438542, type: 3}
+  - {fileID: 11400000, guid: 3df25ecabd5f0d14d92ab64d74960316, type: 2}
+  - {fileID: 11400000, guid: 3df25ecabd5f0d14d92ab64d74960316, type: 2}
 --- !u!114 &-4259196110113953167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3370,10 +3371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb93499e1bfb16146beeedce1f1e74fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitConfig: {fileID: 11400000, guid: abb8f176a3b62c843b02ce04325afb34, type: 2}
   _selectStatusChanger: {fileID: 2893437162056930838}
-  _unitBuildingHandler: {fileID: 7009057090475621145}
-  _unitResourceHandler: {fileID: 7331620529393166314}
 --- !u!114 &1849496600322383387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3442,6 +3440,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitConfig: {fileID: 11400000, guid: abb8f176a3b62c843b02ce04325afb34, type: 2}
+--- !u!114 &-3693790952613649306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e233632ebb05f094e9f14e58014838d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitStaticData: {fileID: 11400000, guid: abb8f176a3b62c843b02ce04325afb34, type: 2}
+  _unitResourceHandler: {fileID: 7331620529393166314}
 --- !u!1 &169966
 GameObject:
   m_ObjectHideFlags: 0

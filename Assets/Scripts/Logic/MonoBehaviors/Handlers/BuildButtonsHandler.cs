@@ -3,16 +3,16 @@ using Zenject;
 
 public class BuildButtonsHandler : MonoBehaviour
 {
-    private IBuildingFactory _buildingFactory;
+    private IGlobalResourceAndBuildingFactoryMediator _buildingMediator;
 
     [Inject]
-    public void Constructor(IBuildingFactory buildingFactory)
+    public void Constructor(IGlobalResourceAndBuildingFactoryMediator buildingMediator)
     {
-        _buildingFactory = buildingFactory;
+        _buildingMediator = buildingMediator;
     }
 
-    public void CreateBuilding(Building building)
+    public void CreateBuilding(BuildingStaticData building)
     {
-        _buildingFactory.CreateBuilding(building);
+        _buildingMediator.CreateBuilding(building);
     }
 }

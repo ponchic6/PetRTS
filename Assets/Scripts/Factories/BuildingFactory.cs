@@ -6,10 +6,6 @@ public class BuildingFactory : IBuildingFactory
 {
     public event Action<GameObject> OnCreateBuilding;
     
-    private const string CastlePath = "Buildings/Castle";
-    private const string TowerPath = "Buildings/Tower";
-    private const string MagicSchoolPath = "Buildings/MagisSchool";
-
     private readonly DiContainer _diContainer;
 
     public BuildingFactory(DiContainer diContainer)
@@ -17,31 +13,10 @@ public class BuildingFactory : IBuildingFactory
         _diContainer = diContainer;
     }
 
-    public GameObject CreateBuilding(Building building)
+    public GameObject CreateBuilding(BuildingStaticData buildingData)
     {
-        GameObject currentBuilding;
-        GameObject builingPrefab;
-        
-        switch (building)
-        {
-            case Castle:
-                builingPrefab = Resources.Load<GameObject>(CastlePath);
-                currentBuilding = _diContainer.InstantiatePrefab(builingPrefab);
-                OnCreateBuilding?.Invoke(currentBuilding);
-                return currentBuilding;
-                
-            case Tower:
-                builingPrefab = Resources.Load<GameObject>(TowerPath);
-                currentBuilding = _diContainer.InstantiatePrefab(builingPrefab);
-                OnCreateBuilding?.Invoke(currentBuilding);
-                return currentBuilding;
-                
-            case WizardSchool:
-                builingPrefab = Resources.Load<GameObject>(MagicSchoolPath);
-                currentBuilding = _diContainer.InstantiatePrefab(builingPrefab);
-                OnCreateBuilding?.Invoke(currentBuilding);
-                return currentBuilding;
-        }
-        return null;
+        GameObject building = _diContainer.InstantiatePrefabResource(buildingData.BuildingPrefabPath);
+        OnCreateBuilding?.Invoke(building);
+        return building;
     }
 }

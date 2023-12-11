@@ -9,39 +9,23 @@ public abstract class JobProgressData : MonoBehaviour
 
     [SerializeField] protected float _maxProgress;
     protected float _currentProgress;
-    private IWorkingWorkersList _workingWorkersList;
+    private IWorkingWorkersListService _workingWorkersListService;
     
     public bool HasObjectJob { get; set; } = true;
+    public float CurrentProgress => _currentProgress;
+    public float MaxProgress => _maxProgress;
+    public Vector3 Position => transform.position;
+    public IWorkingWorkersListService WorkingWorkersListService => _workingWorkersListService;
 
     protected virtual void Awake()
     {
-        _workingWorkersList = GetComponent<IWorkingWorkersList>();
-    }
-
-    protected void InvokeOnFinishedWorking()
-    {
-        OnFinishedWorking?.Invoke();
+        _workingWorkersListService = GetComponent<IWorkingWorkersListService>();
     }
 
     public abstract void UpdateProgress(float delta);
 
-    public float GetCurrentProgress()
+    protected void InvokeOnFinishedWorking()
     {
-        return _currentProgress;
-    }
-
-    public float GetMaxProgress()
-    {
-        return _maxProgress;
-    }
-
-    public Vector3 GetPosition()
-    {
-        return transform.position;
-    }
-
-    public IWorkingWorkersList GetWorkingWorkersList()
-    {
-        return _workingWorkersList;
+        OnFinishedWorking?.Invoke();
     }
 }
