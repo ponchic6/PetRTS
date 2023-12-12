@@ -1,114 +1,116 @@
-using System;
+using Logic.MonoBehaviors.Handlers;
+using Logic.MonoBehaviors.View;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using Zenject;
 
-public class UnitResourceHandler : UnitWorkHandler
+namespace Logic.MonoBehaviors.Unit
 {
-    private float _currentResourceCount;
-    private ResourceCollector _resourceCollector;
-
-    public float CurrentResourceCount => _currentResourceCount;
-
-    protected override void Awake()
+    public class UnitResourceHandler : UnitWorkHandler
     {
-        base.Awake();
-        _unitWorkerGiver.OnResourceCollectorClick += SetResourceCollector;
-    }
+        private float _currentResourceCount;
+        private ResourceCollector _resourceCollector;
 
-    private void Update()
-    {
-        TryWork();
-        TryAutoPutResourcesInCollector();
-    }
+        public float CurrentResourceCount => _currentResourceCount;
 
-    public void SetResourceCollector(ResourceCollector resourceCollector)
-    {
-        _resourceCollector = resourceCollector;
-    }
-
-    protected override void TryWork()
-    {
-        if (IsDistanceEnoughToWork() && _jobProgressData is ResourceJobProgressData)
+        protected override void Awake()
         {
-            if (_currentResourceCount < _unitConfig.MaxResourceOnUnit)
+            base.Awake();
+            _unitWorkerGiver.OnResourceCollectorClick += SetResourceCollector;
+        }
+
+        private void Update()
+        {
+            TryWork();
+            TryAutoPutResourcesInCollector();
+        }
+
+        public void SetResourceCollector(ResourceCollector resourceCollector)
+        {
+            _resourceCollector = resourceCollector;
+        }
+
+        protected override void TryWork()
+        {
+            if (IsDistanceEnoughToWork() && _jobProgressData is ResourceJobProgressData)
             {
-                if (IsWorking == false)
+                if (_currentResourceCount < _unitConfig.MaxResourceOnUnit)
                 {
-                    InvokeOnStartWorking();
-                    IsWorking = true;
+                    if (IsWorking == false)
+                    {
+                        InvokeOnStartWorking();
+                        IsWorking = true;
+                    }
+
+                    if (_jobProgressData.HasObjectJob)
+                    {
+                        UpdateProgress();
+                    }
+
+                    if (!_jobProgressData.HasObjectJob && IsWorking)
+                    {
+                        IsWorking = false;
+                        _jobProgressData.WorkingWorkersListService.TryRemoveUnit(gameObject.GetComponent<IMoveble>());
+                        InvokeOnStopWorking();
+                    }
                 }
-                
-                if (_jobProgressData.HasObjectJob)
+
+                else
                 {
-                    UpdateProgress();
+                    if (IsWorking)
+                    {
+                        IsWorking = false;
+                        _jobProgressData.WorkingWorkersListService.TryRemoveUnit(gameObject.GetComponent<IMoveble>());
+                        InvokeOnStopWorking();
+                    }
                 }
-                
-                if (!_jobProgressData.HasObjectJob && IsWorking)
+            }
+
+            if (IsWorking && (_jobProgressData == null || !IsDistanceEnoughToWork()))
+            {
+                IsWorking = false;
+                InvokeOnStopWorking();
+            }
+        }
+
+        private void UpdateProgress()
+        {
+            if (_currentCooldown <= 0)
+            {
+
+                if (_currentResourceCount + _unitConfig.Efficiency >= _unitConfig.MaxResourceOnUnit)
                 {
-                    IsWorking = false;
-                    _jobProgressData.WorkingWorkersListService.TryRemoveUnit(gameObject.GetComponent<IMoveble>());
-                    InvokeOnStopWorking();                
+                    _jobProgressData.UpdateProgress(_unitConfig.MaxResourceOnUnit - _currentResourceCount);
+                    _currentResourceCount = _unitConfig.MaxResourceOnUnit;
                 }
+
+                else
+                {
+                    _jobProgressData.UpdateProgress(_unitConfig.Efficiency);
+                    _currentResourceCount += _unitConfig.Efficiency;
+                }
+
+                _currentCooldown = _unitConfig.Cooldown;
             }
 
             else
-            {   
-                if (IsWorking)
-                {
-                    IsWorking = false;
-                    _jobProgressData.WorkingWorkersListService.TryRemoveUnit(gameObject.GetComponent<IMoveble>());
-                    InvokeOnStopWorking();
-                }
-            }
-        }
-        
-        if (IsWorking && (_jobProgressData == null || !IsDistanceEnoughToWork()))
-        {
-            IsWorking = false;
-            InvokeOnStopWorking();
-        }
-    }
-
-    private void UpdateProgress()
-    {
-        if (_currentCooldown <= 0)
-        {
-
-            if (_currentResourceCount + _unitConfig.Efficiency >= _unitConfig.MaxResourceOnUnit)
             {
-                _jobProgressData.UpdateProgress(_unitConfig.MaxResourceOnUnit - _currentResourceCount);
-                _currentResourceCount = _unitConfig.MaxResourceOnUnit;
+                _currentCooldown -= Time.deltaTime;
             }
+        }
 
-            else
+        private void TryAutoPutResourcesInCollector()
+        {
+            if (IsDistanceEnoughToCollecting() && !_jobProgressData.HasObjectJob)
             {
-                _jobProgressData.UpdateProgress(_unitConfig.Efficiency);
-                _currentResourceCount += _unitConfig.Efficiency;
+                _resourceCollector.AddResource(_currentResourceCount);
+                _currentResourceCount = 0;
             }
-            
-            _currentCooldown = _unitConfig.Cooldown;
         }
 
-        else
+        private bool IsDistanceEnoughToCollecting()
         {
-            _currentCooldown -= Time.deltaTime;
+            return _resourceCollector != null &&
+                   Vector3.Distance(transform.position, _resourceCollector.transform.position) <=
+                   _unitConfig.DistanceForWork;
         }
-    }
-
-    private void TryAutoPutResourcesInCollector()
-    {
-        if (IsDistanceEnoughToCollecting() && !_jobProgressData.HasObjectJob)
-        {
-            _resourceCollector.AddResource(_currentResourceCount);
-            _currentResourceCount = 0;
-        }
-    }
-    
-    private bool IsDistanceEnoughToCollecting()
-    {
-        return _resourceCollector != null &&
-               Vector3.Distance(transform.position, _resourceCollector.transform.position) <=
-               _unitConfig.DistanceForWork;
     }
 }

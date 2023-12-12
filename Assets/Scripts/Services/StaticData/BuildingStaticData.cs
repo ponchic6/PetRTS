@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Static Data/Building Static Data", fileName = "BuildingStaticData")]
 public class BuildingStaticData : ScriptableObject

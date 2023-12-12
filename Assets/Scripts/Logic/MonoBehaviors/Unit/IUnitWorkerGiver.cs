@@ -1,7 +1,12 @@
 ﻿using System;
+using Logic.MonoBehaviors.Handlers;
+using Logic.MonoBehaviors.View;
 
-public interface IUnitWorkerGiver
+namespace Logic.MonoBehaviors.Unit
 {
-    public event Action<JobProgressData> OnJobProgressClick;
-    public event Action<ResourceCollector> OnResourceCollectorClick;
+    public interface IUnitWorkerGiver
+    {
+        public event Action<JobProgressData> OnJobProgressClick;
+        public event Action<ResourceCollector> OnResourceCollectorClick;
+    }
 }

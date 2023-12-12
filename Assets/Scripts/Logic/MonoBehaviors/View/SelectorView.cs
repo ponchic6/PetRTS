@@ -1,34 +1,37 @@
-﻿using System;
+﻿using Services;
 using UnityEngine;
 using Zenject;
 
-public class SelectorView : MonoBehaviour
+namespace Logic.MonoBehaviors.View
 {
-    private ISelectorService _selectorService;
-    private Rect _rect;
-    private bool _isCanDraw;
-
-    [Inject]
-    public void Constructor(ISelectorService selectorService)
+    public class SelectorView : MonoBehaviour
     {
-        _selectorService = selectorService;
-        _selectorService.OnChangeRect += SetSelectRect;
-        _selectorService.OnChangeDrawStatus += SetCanDrawStatus;
-    }
+        private ISelectorService _selectorService;
+        private Rect _rect;
+        private bool _isCanDraw;
 
-    private void OnGUI()
-    {
-        if (_isCanDraw)
-            GUI.Box(_rect, "");
-    }
+        [Inject]
+        public void Constructor(ISelectorService selectorService)
+        {
+            _selectorService = selectorService;
+            _selectorService.OnChangeRect += SetSelectRect;
+            _selectorService.OnChangeDrawStatus += SetCanDrawStatus;
+        }
 
-    private void SetSelectRect(Rect rect)
-    {
-        _rect = rect;
-    }
+        private void OnGUI()
+        {
+            if (_isCanDraw)
+                GUI.Box(_rect, "");
+        }
 
-    private void SetCanDrawStatus(bool isCanDraw)
-    {
-        _isCanDraw = isCanDraw;
+        private void SetSelectRect(Rect rect)
+        {
+            _rect = rect;
+        }
+
+        private void SetCanDrawStatus(bool isCanDraw)
+        {
+            _isCanDraw = isCanDraw;
+        }
     }
 }

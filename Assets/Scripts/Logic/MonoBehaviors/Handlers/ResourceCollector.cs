@@ -1,19 +1,22 @@
-﻿using System;
+﻿using Services;
 using UnityEngine;
 using Zenject;
 
-public class ResourceCollector : MonoBehaviour
+namespace Logic.MonoBehaviors.Handlers
 {
-    private IGlobalResourcessStorageService _globalResourcessStorageService;
+    public class ResourceCollector : MonoBehaviour
+    {
+        private IGlobalResourcessStorageService _globalResourcessStorageService;
 
-    [Inject]
-    public void Constructor(IGlobalResourcessStorageService globalResourcessStorageService)
-    {
-        _globalResourcessStorageService = globalResourcessStorageService;
-    }
+        [Inject]
+        public void Constructor(IGlobalResourcessStorageService globalResourcessStorageService)
+        {
+            _globalResourcessStorageService = globalResourcessStorageService;
+        }
     
-    public void AddResource(float currentResourceCount)
-    {
-        _globalResourcessStorageService.AddResource(currentResourceCount);
+        public void AddResource(float currentResourceCount)
+        {
+            _globalResourcessStorageService.AddResource(currentResourceCount);
+        }
     }
 }

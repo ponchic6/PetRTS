@@ -1,25 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
+using Services;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
-public class ResourceCountView : MonoBehaviour
+namespace Logic.MonoBehaviors.View
 {
-    [SerializeField] private TMP_Text _text;
-    private IGlobalResourcessStorageService _globalResourcessStorageService;
-
-    [Inject]
-    public void Constructor(IGlobalResourcessStorageService globalResourcessStorageService)
+    public class ResourceCountView : MonoBehaviour
     {
-        _globalResourcessStorageService = globalResourcessStorageService;
-        _globalResourcessStorageService.OnChangeResourceCount += UpdateView;
-        UpdateView();
-    }
+        [SerializeField] private TMP_Text _text;
+        private IGlobalResourcessStorageService _globalResourcessStorageService;
 
-    private void UpdateView()
-    {
-        _text.text =
-            _globalResourcessStorageService.StorageResource.ToString();
+        [Inject]
+        public void Constructor(IGlobalResourcessStorageService globalResourcessStorageService)
+        {
+            _globalResourcessStorageService = globalResourcessStorageService;
+            _globalResourcessStorageService.OnChangeResourceCount += UpdateView;
+            UpdateView();
+        }
+
+        private void UpdateView()
+        {
+            _text.text =
+                _globalResourcessStorageService.StorageResource.ToString();
+        }
     }
 }

@@ -3343,6 +3343,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitStaticData: {fileID: 11400000, guid: abb8f176a3b62c843b02ce04325afb34, type: 2}
+  _selectStatusChanger: {fileID: 2893437162056930838}
+  _navMeshAgent: {fileID: 8132663781054141235}
 --- !u!114 &1025443636790612245
 MonoBehaviour:
   m_ObjectHideFlags: 0

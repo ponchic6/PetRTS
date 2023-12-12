@@ -1,8 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
-public interface ISelectorService
+namespace Services
 {
-    public event Action<Rect> OnChangeRect;
-    public event Action<bool> OnChangeDrawStatus;
+    public interface ISelectorService
+    {
+        public event Action<Rect> OnChangeRect;
+        public event Action<bool> OnChangeDrawStatus;
+    }
 }

@@ -1,24 +1,27 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class UnitFactory : IUnitFactory
+namespace Factories
 {
-    private readonly DiContainer _diContainer;
-
-    public UnitFactory(DiContainer diContainer)
+    public class UnitFactory : IUnitFactory
     {
-        _diContainer = diContainer;
-    }
+        private readonly DiContainer _diContainer;
+
+        public UnitFactory(DiContainer diContainer)
+        {
+            _diContainer = diContainer;
+        }
     
-    public GameObject CreateUnit(UnitStaticData unitStaticData, Transform building)
-    {
-        GameObject unitGameObject = Resources.Load<GameObject>(unitStaticData.UnitPrefabPath);
-        return _diContainer.InstantiatePrefab(unitGameObject, building.position, Quaternion.identity, null);
-    }
+        public GameObject CreateUnit(UnitStaticData unitStaticData, Transform building)
+        {
+            GameObject unitGameObject = Resources.Load<GameObject>(unitStaticData.UnitPrefabPath);
+            return _diContainer.InstantiatePrefab(unitGameObject, building.position, Quaternion.identity, null);
+        }
 
-    public GameObject CreateUnit(UnitStaticData unitStaticData)
-    {
-        GameObject unitGameObject = Resources.Load<GameObject>(unitStaticData.UnitPrefabPath);
-        return _diContainer.InstantiatePrefab(unitGameObject);
+        public GameObject CreateUnit(UnitStaticData unitStaticData)
+        {
+            GameObject unitGameObject = Resources.Load<GameObject>(unitStaticData.UnitPrefabPath);
+            return _diContainer.InstantiatePrefab(unitGameObject);
+        }
     }
 }

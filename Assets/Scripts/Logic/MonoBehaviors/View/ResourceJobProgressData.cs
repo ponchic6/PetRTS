@@ -1,26 +1,27 @@
-﻿using System;
-
-public class ResourceJobProgressData : JobProgressData
+﻿namespace Logic.MonoBehaviors.View
 {
-    protected override void Awake()
-    {   
-        base.Awake();
-        _currentProgress = _maxProgress;
-    }
-
-    public override void UpdateProgress(float delta)
+    public class ResourceJobProgressData : JobProgressData
     {
-        if (_currentProgress - delta > 0)
-        {
-            _currentProgress -= delta;
-        }
-        
-        else
-        {
-            _currentProgress = 0;
-            HasObjectJob = false;
-            InvokeOnFinishedWorking();
+        protected override void Awake()
+        {   
+            base.Awake();
+            _currentProgress = _maxProgress;
         }
 
+        public override void UpdateProgress(float delta)
+        {
+            if (_currentProgress - delta > 0)
+            {
+                _currentProgress -= delta;
+            }
+        
+            else
+            {
+                _currentProgress = 0;
+                HasObjectJob = false;
+                InvokeOnFinishedWorking();
+            }
+
+        }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
-public interface ICameraMoverService
+namespace Services
 {
-    public event Action<Vector3> OnReachCursorScreenBoundary;
-    public event Action<Vector3> OnChangeCursorPosWithHoldDownMiddleButton;
+    public interface ICameraMoverService
+    {
+        public event Action<Vector3> OnReachCursorScreenBoundary;
+        public event Action<Vector3> OnChangeCursorPosWithHoldDownMiddleButton;
+    }
 }

@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class BuildingColiderActivator : MonoBehaviour
+namespace Logic.MonoBehaviors.View
 {
-    [SerializeField] private Collider _collider;
-
-    private void Awake()
+    public class BuildingColiderActivator : MonoBehaviour
     {
-        _collider.enabled = false;
-    }
+        [SerializeField] private Collider _collider;
 
-    public void ActiveCollider()
-    {
-        _collider.enabled = true;
+        private void Awake()
+        {
+            _collider.enabled = false;
+        }
+
+        public void ActiveCollider()
+        {
+            _collider.enabled = true;
+        }
     }
 }

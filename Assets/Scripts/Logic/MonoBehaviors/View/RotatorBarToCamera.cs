@@ -1,16 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RotatorBarToCamera : MonoBehaviour
+namespace Logic.MonoBehaviors.View
 {
-    private Camera _mainCamera;
-    private void Update()
+    public class RotatorBarToCamera : MonoBehaviour
     {
-        _mainCamera = Camera.main;
-        
-        transform.LookAt(transform.position + _mainCamera.transform.rotation * Vector3.back,
-            _mainCamera.transform.rotation * Vector3.down);
+        private Camera _mainCamera;
+
+        private void Awake()
+        {
+            _mainCamera = Camera.main;
+        }
+
+        private void Update()
+        {
+            transform.LookAt(transform.position + _mainCamera.transform.rotation * Vector3.back,
+                _mainCamera.transform.rotation * Vector3.down);
+        }
     }
 }

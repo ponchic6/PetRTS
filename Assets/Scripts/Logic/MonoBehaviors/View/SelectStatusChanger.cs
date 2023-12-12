@@ -1,74 +1,78 @@
 ﻿using System;
+using Factories;
+using Services;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
-public class SelectStatusChanger : MonoBehaviour
+namespace Logic.MonoBehaviors.View
 {
-    public event Action OnSelected;
-    public event Action OnDecelected;
+    public class SelectStatusChanger : MonoBehaviour
+    {
+        public event Action OnSelected;
+        public event Action OnDecelected;
 
-    [SerializeField] private Image _selectionIcon;
-    [SerializeField] private GameObject _selectRing;
+        [SerializeField] private Image _selectionIcon;
+        [SerializeField] private GameObject _selectRing;
     
-    private SelectableListService _selectableListService;
-    private IUIFactory _uiFactory;
-    private bool _isSelect;
+        private SelectableListService _selectableListService;
+        private IUIFactory _uiFactory;
+        private bool _isSelect;
 
-    [Inject]
-    public void Constructor(SelectableListService selectableListService, IUIFactory uiFactory)
-    {
-        _selectableListService = selectableListService;
-        _selectableListService.AllSelectableObjects.Add(this);
-
-        _uiFactory = uiFactory;
-    }
-
-    public void Select()
-    {
-        if (!_isSelect)
+        [Inject]
+        public void Constructor(SelectableListService selectableListService, IUIFactory uiFactory)
         {
-            _isSelect = true;
-            
-            if (!_selectableListService.CurrentSelectObjects.Contains(this))
+            _selectableListService = selectableListService;
+            _selectableListService.AllSelectableObjects.Add(this);
+
+            _uiFactory = uiFactory;
+        }
+
+        public void Select()
+        {
+            if (!_isSelect)
             {
-                _selectableListService.CurrentSelectObjects.Add(this);                
+                _isSelect = true;
+            
+                if (!_selectableListService.CurrentSelectObjects.Contains(this))
+                {
+                    _selectableListService.CurrentSelectObjects.Add(this);                
+                }
+
+                _uiFactory.CreateIconOnSelectPanel(this);
+                OnSelected?.Invoke();
             }
-
-            _uiFactory.CreateIconOnSelectPanel(this);
-            OnSelected?.Invoke();
+            _selectRing.SetActive(true);
         }
-        _selectRing.SetActive(true);
-    }
 
-    public void Deselect()
-    {
-        if (_isSelect)
+        public void Deselect()
         {
-            _isSelect = false;
+            if (_isSelect)
+            {
+                _isSelect = false;
             
-            if (_selectableListService.CurrentSelectObjects.Contains(this))
-                _selectableListService.CurrentSelectObjects.Remove(this);
+                if (_selectableListService.CurrentSelectObjects.Contains(this))
+                    _selectableListService.CurrentSelectObjects.Remove(this);
             
-            _uiFactory.DestroyIconOnSelectPanel(this);
-            OnDecelected?.Invoke();
+                _uiFactory.DestroyIconOnSelectPanel(this);
+                OnDecelected?.Invoke();
+            }
+            _selectRing.SetActive(false);
         }
-        _selectRing.SetActive(false);
-    }
 
-    public Transform GetTransform()
-    {
-        return transform;
-    }
+        public Vector3 GetPosition()
+        {
+            return transform.position;
+        }
 
-    public Image GetSelectionIcon()
-    {
-        return _selectionIcon;
-    }
+        public Image GetSelectionIcon()
+        {
+            return _selectionIcon;
+        }
 
-    public bool IsSelect()
-    {
-        return _isSelect;
+        public bool IsSelect()
+        {
+            return _isSelect;
+        }
     }
 }

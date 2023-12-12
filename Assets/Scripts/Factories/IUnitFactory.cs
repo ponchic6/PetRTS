@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
-public interface IUnitFactory
+namespace Factories
 {
-    public GameObject CreateUnit(UnitStaticData unitStaticData, Transform building);
-    public GameObject CreateUnit(UnitStaticData unitStaticData);
+    public interface IUnitFactory
+    {
+        public GameObject CreateUnit(UnitStaticData unitStaticData, Transform building);
+        public GameObject CreateUnit(UnitStaticData unitStaticData);
+    }
 }

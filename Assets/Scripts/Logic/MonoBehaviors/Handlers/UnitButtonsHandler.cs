@@ -1,18 +1,22 @@
-﻿using UnityEngine;
+﻿using Factories;
+using UnityEngine;
 using Zenject;
 
-public class UnitButtonsHandler : MonoBehaviour
+namespace Logic.MonoBehaviors.Handlers
 {
-    private IUnitFactory _unitFactory;
-
-    [Inject]
-    public void Constructor(IUnitFactory unitFactory)
+    public class UnitButtonsHandler : MonoBehaviour
     {
-        _unitFactory = unitFactory;
-    }
+        private IUnitFactory _unitFactory;
 
-    public void CreateUnit(UnitStaticData unit, Transform building)
-    {
-        _unitFactory.CreateUnit(unit, building);
+        [Inject]
+        public void Constructor(IUnitFactory unitFactory)
+        {
+            _unitFactory = unitFactory;
+        }
+
+        public void CreateUnit(UnitStaticData unit, Transform building)
+        {
+            _unitFactory.CreateUnit(unit, building);
+        }
     }
 }

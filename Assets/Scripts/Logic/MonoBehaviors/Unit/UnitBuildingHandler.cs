@@ -1,54 +1,57 @@
-﻿using System;
+﻿using Logic.MonoBehaviors.View;
 using UnityEngine;
 
-public class UnitBuildingHandler : UnitWorkHandler
+namespace Logic.MonoBehaviors.Unit
 {
-    private void Update()
+    public class UnitBuildingHandler : UnitWorkHandler
     {
-        TryWork();
-    }
-
-    protected override void TryWork()
-    {
-        if (IsDistanceEnoughToWork() && _jobProgressData is BuildingJobProgressData)
+        private void Update()
         {
-            if (IsWorking == false)
+            TryWork();
+        }
+
+        protected override void TryWork()
+        {
+            if (IsDistanceEnoughToWork() && _jobProgressData is BuildingJobProgressData)
             {
-                InvokeOnStartWorking();
-                IsWorking = true;
+                if (IsWorking == false)
+                {
+                    InvokeOnStartWorking();
+                    IsWorking = true;
+                }
+
+                if (_jobProgressData.HasObjectJob)
+                {
+                    UpdateProgress();
+                }
+
+                if (!_jobProgressData.HasObjectJob && IsWorking)
+                {
+                    IsWorking = false;
+                    _jobProgressData.WorkingWorkersListService.TryRemoveUnit(gameObject.GetComponent<IMoveble>());
+                    InvokeOnStopWorking();                
+                }
             }
 
-            if (_jobProgressData.HasObjectJob)
-            {
-                UpdateProgress();
-            }
-
-            if (!_jobProgressData.HasObjectJob && IsWorking)
+            if (IsWorking && (_jobProgressData == null || !IsDistanceEnoughToWork()))
             {
                 IsWorking = false;
-                _jobProgressData.WorkingWorkersListService.TryRemoveUnit(gameObject.GetComponent<IMoveble>());
-                InvokeOnStopWorking();                
+                InvokeOnStopWorking();
             }
         }
 
-        if (IsWorking && (_jobProgressData == null || !IsDistanceEnoughToWork()))
+        private void UpdateProgress()
         {
-            IsWorking = false;
-            InvokeOnStopWorking();
-        }
-    }
+            if (_currentCooldown <= 0)
+            {
+                _jobProgressData.UpdateProgress(_unitConfig.Efficiency);
+                _currentCooldown = _unitConfig.Cooldown;
+            }
 
-    private void UpdateProgress()
-    {
-        if (_currentCooldown <= 0)
-        {
-            _jobProgressData.UpdateProgress(_unitConfig.Efficiency);
-            _currentCooldown = _unitConfig.Cooldown;
-        }
-
-        else
-        {
-            _currentCooldown -= Time.deltaTime;
+            else
+            {
+                _currentCooldown -= Time.deltaTime;
+            }
         }
     }
 }

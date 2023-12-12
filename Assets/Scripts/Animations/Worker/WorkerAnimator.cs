@@ -1,27 +1,29 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class WorkerAnimator : MonoBehaviour
+namespace Animations.Worker
 {
-    [SerializeField] private Animator _animator;
-
-    private static readonly int IsMoving = Animator.StringToHash("IsMoving");
-    private static readonly int Work = Animator.StringToHash("Work");
-
-    public void StartWork()
+    public class WorkerAnimator : MonoBehaviour
     {
-        _animator.SetBool(IsMoving, false);
-        _animator.SetBool(Work, true);
-    }
+        [SerializeField] private Animator _animator;
 
-    public void StopWork()
-    {
-        _animator.SetBool(Work, false);
-    }
-    public void Move() 
-        => _animator.SetBool(IsMoving, true);
+        private static readonly int IsMoving = Animator.StringToHash("IsMoving");
+        private static readonly int Work = Animator.StringToHash("Work");
 
-    public void StopMove() 
-        => _animator.SetBool(IsMoving, false);
+        public void StartWork()
+        {
+            _animator.SetBool(IsMoving, false);
+            _animator.SetBool(Work, true);
+        }
+
+        public void StopWork()
+        {
+            _animator.SetBool(Work, false);
+        }
+        public void Move() 
+            => _animator.SetBool(IsMoving, true);
+
+        public void StopMove() 
+            => _animator.SetBool(IsMoving, false);
+    }
 }
         

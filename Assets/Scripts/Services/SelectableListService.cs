@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
+using Logic.MonoBehaviors.View;
 
-public class SelectableListService
+namespace Services
 {
-    public List<SelectStatusChanger> AllSelectableObjects = new List<SelectStatusChanger>();
-    public List<SelectStatusChanger> CurrentSelectObjects = new List<SelectStatusChanger>();
+    public class SelectableListService
+    {
+        public List<SelectStatusChanger> AllSelectableObjects = new List<SelectStatusChanger>();
+        public List<SelectStatusChanger> CurrentSelectObjects = new List<SelectStatusChanger>();
+    }
 }

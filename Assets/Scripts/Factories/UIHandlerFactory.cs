@@ -1,39 +1,40 @@
-﻿using UnityEngine;
+﻿using Logic.MonoBehaviors.Handlers;
+using Logic.MonoBehaviors.View;
+using UnityEngine;
 using Zenject;
 
-public class UIHandlerFactory : IUIHandlerFactory
+namespace Factories
 {
-    private const string BuildingButtonsHandlerPath = "UIEllements/UIHandlers/BuildingButtonsHandler";
-    private const string SelectorViewPath = "UIEllements/UIHandlers/SelectorView";
-    private const string UnitbuttonsHandlerPath = "UIEllements/UIHandlers/UnitButtonsHandler";
-
-    private DiContainer _diContainer;
-
-    public UIHandlerFactory(DiContainer diContainer)
+    public class UIHandlerFactory : IUIHandlerFactory
     {
-        _diContainer = diContainer;
-    }
+        private readonly DiContainer _diContainer;
+        private readonly UIHandlerStaticData _uiHandlerStaticData;
+    
+        public UIHandlerFactory(DiContainer diContainer, UIHandlerStaticData uiHandlerStaticData)
+        {
+            _diContainer = diContainer;
+            _uiHandlerStaticData = uiHandlerStaticData;
+        }
 
-    public BuildButtonsHandler CreateBuildingButtonsHandler(Transform parent)
-    {
-        BuildButtonsHandler buildButtonsHandler =
-            _diContainer.InstantiatePrefabResourceForComponent<BuildButtonsHandler>(BuildingButtonsHandlerPath, parent);
+        public BuildingButtonsHandler CreateBuildingButtonsHandler(Transform parent)
+        {
+            BuildingButtonsHandler buildingButtonsHandler =
+                _diContainer.InstantiatePrefabResourceForComponent<BuildingButtonsHandler>(_uiHandlerStaticData.BuildingButtonsHandlerPath, parent);
 
-        return buildButtonsHandler;
-    }
+            return buildingButtonsHandler;
+        }
 
-    public UnitButtonsHandler CreateUnitButtonsHandler(Transform parent)
-    {
-        UnitButtonsHandler unitButtonsHandler =
-            _diContainer.InstantiatePrefabResourceForComponent<UnitButtonsHandler>(UnitbuttonsHandlerPath, parent);
+        public UnitButtonsHandler CreateUnitButtonsHandler(Transform parent)
+        {
+            UnitButtonsHandler unitButtonsHandler =
+                _diContainer.InstantiatePrefabResourceForComponent<UnitButtonsHandler>(_uiHandlerStaticData.UnitbuttonsHandlerPath, parent);
 
-        return unitButtonsHandler;
-    }
+            return unitButtonsHandler;
+        }
 
-    public SelectorView CreateSelectorView()
-    {
-        SelectorView selectorView = _diContainer.InstantiatePrefabResourceForComponent<SelectorView>(SelectorViewPath);
-
-        return selectorView;
+        public void CreateSelectorView()
+        {
+            SelectorView selectorView = _diContainer.InstantiatePrefabResourceForComponent<SelectorView>(_uiHandlerStaticData.SelectorViewPath);
+        }
     }
 }

@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CreationPanelOfUnit : CreationPanelOfSelectedObject
+namespace Logic.MonoBehaviors.View
 {
-    [SerializeField] private List<BuildingStaticData> _creatableBuildings;
-
-    protected override void SwitchCreationPanelToCurrentObject()
+    public class CreationPanelOfUnit : CreationPanelOfSelectedObject
     {
-        if (_buttonsListOfSelected == null && _selectableListService.CurrentSelectObjects.Count == 1)
+        [SerializeField] private List<BuildingStaticData> _creatableBuildings;
+
+        protected override void SwitchCreationPanelToCurrentObject()
         {
-            _buttonsListOfSelected = _uiFactory.CreateBuildingCreationButtons(_creatableBuildings, _buttonsListOfSelected);
+            if (_buttonsListOfSelected == null && _selectableListService.CurrentSelectObjects.Count == 1)
+            {
+                _buttonsListOfSelected = _uiFactory.CreateBuildingCreationButtonsOfUnit(_creatableBuildings);
+            }
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
-public interface IBuildingFactory
+namespace Factories
 {
-    public event Action<GameObject> OnCreateBuilding;
-    public GameObject CreateBuilding(BuildingStaticData building);
+    public interface IBuildingFactory
+    {
+        public event Action<GameObject> OnCreatedBuilding;
+        public GameObject CreateBuilding(BuildingStaticData building);
+    }
 }

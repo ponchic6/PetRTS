@@ -1,83 +1,75 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using Logic.MonoBehaviors.Unit;
+using Logic.MonoBehaviors.View;
 using UnityEngine;
 
-public class DestinationOfGroupUnitsSetter : IDestinationOfGroupUnitsSetter
+namespace Services
 {
-    private readonly IInputService _inputService;
-    private readonly SelectableListService _selectableListService;
-
-    public DestinationOfGroupUnitsSetter(IInputService inputService, SelectableListService selectableListService)
+    public class DestinationOfGroupUnitsSetter
     {
-        _inputService = inputService;
-        _inputService.OnRightClickDown += SetDestinationForSelectedUnits;
+        private readonly IInputService _inputService;
+        private readonly SelectableListService _selectableListService;
+
+        public DestinationOfGroupUnitsSetter(IInputService inputService, SelectableListService selectableListService)
+        {
+            _inputService = inputService;
+            _inputService.OnRightClickDown += SetDestinationOnGround;
         
-        _selectableListService = selectableListService;
-    }
-
-    private void SetDestinationOnGround(RaycastHit raycastHit)
-    {
-        List<IMoveble> _currentSelectUnits = FillCurrentSelectMovebleUnitList();
-
-        int numberInColumn = Mathf.RoundToInt(Mathf.Sqrt(_currentSelectUnits.Count));
-
-        int i = 0;
-        int j = 0;
-
-        Vector3 midlePoint = new Vector3();
-
-        foreach (IMoveble unit in _currentSelectUnits)
-        {
-            midlePoint += unit.Transform.position / _currentSelectUnits.Count;
+            _selectableListService = selectableListService;
         }
 
-        Vector3 verticalDirection = (raycastHit.point - midlePoint).normalized / 1.6f;
-        Vector3 horizontalDirecton = new Vector3(1, 0, -(verticalDirection.x / verticalDirection.z)).normalized / 1.6f;
+        private void SetDestinationOnGround()
+        {   
+            Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
+            RaycastHit raycastHit;
 
-        foreach (IMoveble unit in _currentSelectUnits)
-        {
-            unit.MoveToDestination(raycastHit.point +
-                                   (i - Mathf.RoundToInt(numberInColumn / 2)) * verticalDirection +
-                                   (j - Mathf.RoundToInt(numberInColumn / 2)) * horizontalDirecton);
-            i++;
+            Physics.Raycast(ray, out raycastHit, Mathf.Infinity, 1 << 6);
 
-            if (i == numberInColumn)
+            List<IMoveble> _currentSelectUnits = FillCurrentSelectMovebleUnitList();
+
+            int numberInColumn = Mathf.RoundToInt(Mathf.Sqrt(_currentSelectUnits.Count));
+
+            int i = 0;
+            int j = 0;
+
+            Vector3 midlePoint = new Vector3();
+
+            foreach (IMoveble unit in _currentSelectUnits)
             {
-                i = 0;
-                j += 1;
+                midlePoint += unit.Transform.position / _currentSelectUnits.Count;
             }
-        }
-    }
-    
-    private void SetDestinationForSelectedUnits()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
-        RaycastHit raycastHit;
-        
-        if (Physics.Raycast(ray, out raycastHit))
-        {
-            switch (raycastHit.collider.gameObject.layer)
-            {
-                case 6:
-                    SetDestinationOnGround(raycastHit);
-                    break;
-            }
-        }
-    }
 
-    private List<IMoveble> FillCurrentSelectMovebleUnitList()
-    {
-        List<IMoveble> currentUnits = new List<IMoveble>();
+            Vector3 verticalDirection = (raycastHit.point - midlePoint).normalized / 1.6f;
+            Vector3 horizontalDirecton = new Vector3(1, 0, -(verticalDirection.x / verticalDirection.z)).normalized / 1.6f;
 
-        foreach (SelectStatusChanger unit in _selectableListService.CurrentSelectObjects)
-        {
-            if (unit.TryGetComponent(out IMoveble unitMover))
+            foreach (IMoveble unit in _currentSelectUnits)
             {
-                currentUnits.Add(unitMover);
+                unit.MoveToDestination(raycastHit.point +
+                                       (i - Mathf.RoundToInt(numberInColumn / 2)) * verticalDirection +
+                                       (j - Mathf.RoundToInt(numberInColumn / 2)) * horizontalDirecton);
+                i++;
+
+                if (i == numberInColumn)
+                {
+                    i = 0;
+                    j += 1;
+                }
             }
         }
 
-        return currentUnits;
+        private List<IMoveble> FillCurrentSelectMovebleUnitList()
+        {
+            List<IMoveble> currentUnits = new List<IMoveble>();
+
+            foreach (SelectStatusChanger unit in _selectableListService.CurrentSelectObjects)
+            {
+                if (unit.TryGetComponent(out IMoveble unitMover))
+                {
+                    currentUnits.Add(unitMover);
+                }
+            }
+
+            return currentUnits;
+        }
     }
 }

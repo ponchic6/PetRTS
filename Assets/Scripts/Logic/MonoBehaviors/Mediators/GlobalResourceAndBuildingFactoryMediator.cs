@@ -1,28 +1,30 @@
-﻿using UnityEngine;
-using Zenject;
+﻿using Factories;
+using Services;
+using UnityEngine;
 
-public class GlobalResourceAndBuildingFactoryMediator : IGlobalResourceAndBuildingFactoryMediator
+namespace Logic.MonoBehaviors.Mediators
 {
-    private IBuildingFactory _buildingFactory;
-    private IGlobalResourcessStorageService _globalResourcessStorageService;
-
-    private float _resourcePrice = 50;
-    
-    public GlobalResourceAndBuildingFactoryMediator(IBuildingFactory buildingFactory,
-        IGlobalResourcessStorageService globalResourcessStorageService)
+    public class GlobalResourceAndBuildingFactoryMediator : IGlobalResourceAndBuildingFactoryMediator
     {
-        _buildingFactory = buildingFactory;
-        _globalResourcessStorageService = globalResourcessStorageService;
-    }
+        private readonly IBuildingFactory _buildingFactory;
+        private readonly IGlobalResourcessStorageService _globalResourcessStorageService;
 
-    public GameObject CreateBuilding(BuildingStaticData building)
-    {
-        if (_globalResourcessStorageService.StorageResource >= _resourcePrice)
+        public GlobalResourceAndBuildingFactoryMediator(IBuildingFactory buildingFactory,
+            IGlobalResourcessStorageService globalResourcessStorageService)
         {
-            _globalResourcessStorageService.RemoveResource(_resourcePrice);
-            return _buildingFactory.CreateBuilding(building);
+            _buildingFactory = buildingFactory;
+            _globalResourcessStorageService = globalResourcessStorageService;
         }
 
-        return null;
+        public GameObject CreateBuilding(BuildingStaticData building)
+        {
+            if (_globalResourcessStorageService.StorageResource >= building.ResourcePrice)
+            {
+                _globalResourcessStorageService.RemoveResource(building.ResourcePrice);
+                return _buildingFactory.CreateBuilding(building);
+            }
+
+            return null;
+        }
     }
 }

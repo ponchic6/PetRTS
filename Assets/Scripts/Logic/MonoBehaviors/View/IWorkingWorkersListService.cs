@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using Logic.MonoBehaviors.Unit;
 
-public interface IWorkingWorkersListService
+namespace Logic.MonoBehaviors.View
 {
-    public List<IMoveble> GetList();
-    public void TryAdd(IMoveble unit);
-    public void TryRemoveUnit(IMoveble unit);
-    public void SetDestination(IMoveble unitMover);
+    public interface IWorkingWorkersListService
+    {
+        public List<IMoveble> GetList();
+        public void TryAdd(IMoveble unit);
+        public void TryRemoveUnit(IMoveble unit);
+        public void SetDestination(IMoveble unitMover);
 
+    }
 }

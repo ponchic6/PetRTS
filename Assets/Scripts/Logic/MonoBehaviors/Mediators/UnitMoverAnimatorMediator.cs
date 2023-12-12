@@ -1,49 +1,53 @@
-﻿using System;
+﻿using Animations.Worker;
+using Logic.MonoBehaviors.Unit;
 using UnityEngine;
 
-public class AnimatorMediator : MonoBehaviour
+namespace Logic.MonoBehaviors.Mediators
 {
-    [SerializeField] private WorkerAnimator _workerAnimator;
-    [SerializeField] private UnitBuildingHandler _unitBuildingHandler;
-    [SerializeField] private UnitResourceHandler _unitResourceHandler;
-    private IMoveble _unitMover;
-
-    private void Awake()
+    public class AnimatorMediator : MonoBehaviour
     {
-        _unitMover = GetComponent<IMoveble>();
+        [SerializeField] private WorkerAnimator _workerAnimator;
+        [SerializeField] private UnitBuildingHandler _unitBuildingHandler;
+        [SerializeField] private UnitResourceHandler _unitResourceHandler;
+        private IMoveble _unitMover;
 
-        _unitBuildingHandler.OnStartWorking += StartWorking;
-        _unitBuildingHandler.OnStopWorking += StopWorking;
-        
-        _unitResourceHandler.OnStartWorking += StartWorking;
-        _unitResourceHandler.OnStopWorking += StopWorking;
-    }
-
-    private void Update()
-    {
-        UpdateMoveAnimation();
-    }
-
-    private void StartWorking()
-    {
-        _workerAnimator.StartWork();
-    }
-
-    private void StopWorking()
-    {
-        _workerAnimator.StopWork();
-    }
-
-    private void UpdateMoveAnimation()
-    {
-        if (_unitMover.CurrentSpeed.magnitude > 0)
+        private void Awake()
         {
-            _workerAnimator.Move();
+            _unitMover = GetComponent<IMoveble>();
+
+            _unitBuildingHandler.OnStartWorking += StartWorking;
+            _unitBuildingHandler.OnStopWorking += StopWorking;
+        
+            _unitResourceHandler.OnStartWorking += StartWorking;
+            _unitResourceHandler.OnStopWorking += StopWorking;
         }
 
-        else
+        private void Update()
         {
-            _workerAnimator.StopMove();
+            UpdateMoveAnimation();
+        }
+
+        private void StartWorking()
+        {
+            _workerAnimator.StartWork();
+        }
+
+        private void StopWorking()
+        {
+            _workerAnimator.StopWork();
+        }
+
+        private void UpdateMoveAnimation()
+        {
+            if (_unitMover.CurrentSpeed.magnitude > 0)
+            {
+                _workerAnimator.Move();
+            }
+
+            else
+            {
+                _workerAnimator.StopMove();
+            }
         }
     }
 }

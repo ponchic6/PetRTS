@@ -1,12 +1,21 @@
+using Factories;
+using Logic.MonoBehaviors.Mediators;
+using Services;
 using UnityEngine;
 using Zenject;
 
 public class GameplayInstaller : MonoInstaller
 {
     [SerializeField] private StaticData _staticData;
+    [SerializeField] private UIStaticData _uiStaticData;
+    [SerializeField] private UIHandlerStaticData _uiHandlerStaticData;
+    [SerializeField] private AllBuildingsStaticData _allBuildingsStaticData;
     public override void InstallBindings()
     {
         RegisterStaticData();
+        RegisterUIStaticData();
+        RegisterUIHandlerStaticData();
+        RegisterAllBuildingStaticData();
         RegisterTickService();
         RegisterInputService();
         RegisterCameraMoveService();
@@ -20,6 +29,21 @@ public class GameplayInstaller : MonoInstaller
         RegisterGlobalResourceStorageService();
         RegisterGlobalResourceAndBuildingFactoryMediator();
         RegisterBuildingService();
+    }
+
+    private void RegisterAllBuildingStaticData()
+    {
+        Container.Bind<AllBuildingsStaticData>().FromInstance(_allBuildingsStaticData).AsSingle();
+    }
+
+    private void RegisterUIHandlerStaticData()
+    {
+        Container.Bind<UIHandlerStaticData>().FromInstance(_uiHandlerStaticData).AsSingle();
+    }
+
+    private void RegisterUIStaticData()
+    {
+        Container.Bind<UIStaticData>().FromInstance(_uiStaticData).AsSingle();
     }
 
     private void RegisterGlobalResourceAndBuildingFactoryMediator()
@@ -43,8 +67,8 @@ public class GameplayInstaller : MonoInstaller
 
     private void RegisterDestinationSetter()
     {
-        IDestinationOfGroupUnitsSetter destinationOfGroupUnitsSetter = Container.Instantiate<DestinationOfGroupUnitsSetter>();
-        Container.Bind<IDestinationOfGroupUnitsSetter>().FromInstance(destinationOfGroupUnitsSetter).AsSingle();
+        DestinationOfGroupUnitsSetter destinationOfGroupUnitsSetter = Container.Instantiate<DestinationOfGroupUnitsSetter>();
+        Container.Bind<DestinationOfGroupUnitsSetter>().FromInstance(destinationOfGroupUnitsSetter).AsSingle();
     }
 
     private void RegisterWarriorFactory()
@@ -79,8 +103,8 @@ public class GameplayInstaller : MonoInstaller
 
     private void RegisterBuildingService()
     {
-        IBuildingService buildingService = Container.Instantiate<BuildingService>();
-        Container.Bind<IBuildingService>().FromInstance(buildingService).AsSingle();
+        BuildingService buildingService = Container.Instantiate<BuildingService>();
+        Container.Bind<BuildingService>().FromInstance(buildingService).AsSingle();
     }
 
     private void RegisterBuildingFactory()

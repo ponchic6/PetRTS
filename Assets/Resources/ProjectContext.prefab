@@ -75,3 +75,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _staticData: {fileID: 11400000, guid: afeb685b4f079374db623da57f449c9a, type: 2}
+  _uiStaticData: {fileID: 11400000, guid: 9982c9aed501e2d41b6185226c6aa9ee, type: 2}
+  _uiHandlerStaticData: {fileID: 11400000, guid: 3969db7e74285d94c81c739e9a5f95c6, type: 2}
+  _allBuildingsStaticData: {fileID: 11400000, guid: 34c3878517ec1344a9c55077301dcebe, type: 2}

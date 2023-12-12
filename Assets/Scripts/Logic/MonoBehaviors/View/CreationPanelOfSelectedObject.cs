@@ -1,43 +1,46 @@
-using System;
 using System.Collections.Generic;
+using Factories;
+using Services;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
-public abstract class CreationPanelOfSelectedObject : MonoBehaviour
+namespace Logic.MonoBehaviors.View
 {
-    [SerializeField] protected SelectStatusChanger selectStatusChanger;
-    protected List<Transform> _buttonsListOfSelected;
-    protected SelectableListService _selectableListService;
-    protected IUIFactory _uiFactory;
-
-    protected virtual void Awake()
+    public abstract class CreationPanelOfSelectedObject : MonoBehaviour
     {
-        selectStatusChanger.OnSelected += SwitchCreationPanelToCurrentObject;
-        selectStatusChanger.OnDecelected += SwitchCreationPanelToIdle;
-    }
+        [SerializeField] protected SelectStatusChanger selectStatusChanger;
+        protected List<Transform> _buttonsListOfSelected;
+        protected SelectableListService _selectableListService;
+        protected IUIFactory _uiFactory;
 
-    protected abstract void SwitchCreationPanelToCurrentObject();
-
-    [Inject]
-    public void Constructor(IUIFactory uiFactory, SelectableListService selectableListService)
-    {
-        _uiFactory = uiFactory;
-        _selectableListService = selectableListService;
-    }
-
-    private void SwitchCreationPanelToIdle()
-    {
-        if (_buttonsListOfSelected == null)
+        protected virtual void Awake()
         {
-            return;
+            selectStatusChanger.OnSelected += SwitchCreationPanelToCurrentObject;
+            selectStatusChanger.OnDecelected += SwitchCreationPanelToIdle;
         }
 
-        foreach (Transform button in _buttonsListOfSelected)
+        protected abstract void SwitchCreationPanelToCurrentObject();
+
+        [Inject]
+        public void Constructor(IUIFactory uiFactory, SelectableListService selectableListService)
         {
-            Destroy(button.gameObject);
+            _uiFactory = uiFactory;
+            _selectableListService = selectableListService;
         }
 
-        _buttonsListOfSelected = null;
+        private void SwitchCreationPanelToIdle()
+        {
+            if (_buttonsListOfSelected == null)
+            {
+                return;
+            }
+
+            foreach (Transform button in _buttonsListOfSelected)
+            {
+                Destroy(button.gameObject);
+            }
+
+            _buttonsListOfSelected = null;
+        }
     }
 }

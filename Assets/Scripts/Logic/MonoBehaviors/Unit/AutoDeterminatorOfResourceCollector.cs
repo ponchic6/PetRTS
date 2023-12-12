@@ -1,66 +1,72 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
+using Logic.MonoBehaviors.Handlers;
+using Logic.MonoBehaviors.Unit;
+using Logic.MonoBehaviors.View;
 using UnityEngine;
 
-public class AutoDeterminatorOfResourceCollector : MonoBehaviour
+namespace Logic.MonoBehaviors.Mediators
 {
-    [SerializeField] private UnitStaticData _unitStaticData;
-    [SerializeField] private UnitResourceHandler _unitResourceHandler;
-    private IMoveble _unitMover;
-    private IUnitWorkerGiver _unitWorkerGiver;
-
-    private JobProgressData _currentJobProgressData;
-    private ResourceCollector _currentResourceCollector;
-    
-    private void Awake()
+    public class AutoDeterminatorOfResourceCollector : MonoBehaviour
     {
-        _unitMover = GetComponent<IMoveble>();
-        
-        _unitWorkerGiver = GetComponent<IUnitWorkerGiver>();
-        _unitWorkerGiver.OnJobProgressClick += StartToTransportResourcesToCollector;
-    }
+        [SerializeField] private UnitStaticData _unitStaticData;
+        [SerializeField] private UnitResourceHandler _unitResourceHandler;
+        private IMoveble _unitMover;
+        private IUnitWorkerGiver _unitWorkerGiver;
 
-    private void StartToTransportResourcesToCollector(JobProgressData jobProgressData)
-    {
-        if (jobProgressData != null && jobProgressData is ResourceJobProgressData)
+        private JobProgressData _currentJobProgressData;
+        private ResourceCollector _currentResourceCollector;
+
+        private void Awake()
         {
-            _currentJobProgressData = jobProgressData;
-            FindResourceCollector();
-            StartCoroutine(StartToTransportCoroutine());
+            _unitMover = GetComponent<IMoveble>();
+
+            _unitWorkerGiver = GetComponent<IUnitWorkerGiver>();
+            _unitWorkerGiver.OnJobProgressClick += StartToTransportResourcesToCollector;
         }
 
-        else
+        private void StartToTransportResourcesToCollector(JobProgressData jobProgressData)
         {
-            StopAllCoroutines();
-        }
-    }
-
-    private void FindResourceCollector()
-    {
-        _currentResourceCollector = FindObjectOfType<ResourceCollector>();
-    }
-
-    private IEnumerator StartToTransportCoroutine()
-    {
-        while (true)
-        {
-            _currentJobProgressData.WorkingWorkersListService.SetDestination(_unitMover);
-            _unitResourceHandler.SetJobProgress(_currentJobProgressData);
-            
-            while (_unitResourceHandler.CurrentResourceCount < _unitStaticData.MaxResourceOnUnit)
+            if (jobProgressData != null && jobProgressData is ResourceJobProgressData)
             {
-                yield return null;
+                _currentJobProgressData = jobProgressData;
+                FindResourceCollector();
+                StartCoroutine(StartToTransportCoroutine());
             }
-            
-            _unitMover.MoveToDestination(_currentResourceCollector.transform.position);
-            _unitResourceHandler.SetResourceCollector(_currentResourceCollector);
-            _unitResourceHandler.SetJobProgress(_currentResourceCollector.transform.GetComponent<JobProgressData>());
-            
-            while (_unitResourceHandler.CurrentResourceCount != 0f)
+
+            else
             {
-                yield return null;
+                StopAllCoroutines();
             }
         }
-    } 
+
+        private void FindResourceCollector()
+        {
+            _currentResourceCollector = FindObjectOfType<ResourceCollector>();
+        }
+
+        private IEnumerator StartToTransportCoroutine()
+        {
+            while (true)
+            {
+                _currentJobProgressData.WorkingWorkersListService.SetDestination(_unitMover);
+                _unitResourceHandler.SetJobProgress(_currentJobProgressData);
+                _unitResourceHandler.SetResourceCollector(_currentResourceCollector);
+
+                while (_unitResourceHandler.CurrentResourceCount < _unitStaticData.MaxResourceOnUnit)
+                {
+                    yield return null;
+                }
+
+                _unitResourceHandler.SetJobProgress(_currentResourceCollector.transform
+                    .GetComponent<JobProgressData>());
+                _unitResourceHandler.SetResourceCollector(_currentResourceCollector);
+
+                while (_unitResourceHandler.CurrentResourceCount != 0f)
+                {
+                    yield return null;
+                }
+            }
+        }
+    }
+
 }

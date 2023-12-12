@@ -1,19 +1,20 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class ProgressView : MonoBehaviour
+namespace Logic.MonoBehaviors.View
 {
-    [SerializeField] private JobProgressData _jobProgressData;
-    [SerializeField] private Image _progressBar;
-    private void Update()
-    {   
-        ShowConstructionProgress();
-    }
-    
-    private void ShowConstructionProgress()
+    public class ProgressView : MonoBehaviour
     {
-        _progressBar.fillAmount = _jobProgressData.CurrentProgress / _jobProgressData.MaxProgress;
+        [SerializeField] private JobProgressData _jobProgressData;
+        [SerializeField] private Image _progressBar;
+        private void Update()
+        {   
+            ShowConstructionProgress();
+        }
+    
+        private void ShowConstructionProgress()
+        {
+            _progressBar.fillAmount = _jobProgressData.CurrentProgress / _jobProgressData.MaxProgress;
+        }
     }
 }

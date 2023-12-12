@@ -1,7 +1,9 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public interface IGlobalResourceAndBuildingFactoryMediator
+namespace Logic.MonoBehaviors.Mediators
 {
-    public GameObject CreateBuilding(BuildingStaticData building);
+    public interface IGlobalResourceAndBuildingFactoryMediator
+    {
+        public GameObject CreateBuilding(BuildingStaticData building);
+    }
 }

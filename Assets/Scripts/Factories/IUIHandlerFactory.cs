@@ -1,8 +1,12 @@
-﻿using UnityEngine;
+﻿using Logic.MonoBehaviors.Handlers;
+using UnityEngine;
 
-public interface IUIHandlerFactory
+namespace Factories
 {
-    public BuildButtonsHandler CreateBuildingButtonsHandler(Transform parent);
-    public UnitButtonsHandler CreateUnitButtonsHandler(Transform parent);
-    public SelectorView CreateSelectorView();
+    public interface IUIHandlerFactory
+    {
+        public BuildingButtonsHandler CreateBuildingButtonsHandler(Transform parent);
+        public UnitButtonsHandler CreateUnitButtonsHandler(Transform parent);
+        public void CreateSelectorView();
+    }
 }

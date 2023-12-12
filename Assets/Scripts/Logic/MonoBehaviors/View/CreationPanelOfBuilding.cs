@@ -1,27 +1,31 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CreationPanelOfBuilding : CreationPanelOfSelectedObject
+namespace Logic.MonoBehaviors.View
 {
-    [SerializeField] private List<UnitStaticData> _creatableUnits;
-    private JobProgressData _buildingJobProgressData;
-
-    protected override void Awake()
+    public class CreationPanelOfBuilding : CreationPanelOfSelectedObject
     {
-        base.Awake();
+        [SerializeField] private List<UnitStaticData> _creatableUnits;
         
-        _buildingJobProgressData = GetComponent<JobProgressData>();
-        _buildingJobProgressData.OnFinishedWorking += SwitchCreationPanelToCurrentObject;
-    }
+        private JobProgressData _buildingJobProgressData;
 
-    protected override void SwitchCreationPanelToCurrentObject()
-    {
-        if (_buttonsListOfSelected == null &&
-            _selectableListService.CurrentSelectObjects.Count == 1 &&
-            !_buildingJobProgressData.HasObjectJob &&
-            selectStatusChanger.IsSelect())
+        protected override void Awake()
         {
-            _buttonsListOfSelected = _uiFactory.CreateUnitCreationButtons(_creatableUnits, _buttonsListOfSelected, transform);
+            base.Awake();
+        
+            _buildingJobProgressData = GetComponent<JobProgressData>();
+            _buildingJobProgressData.OnFinishedWorking += SwitchCreationPanelToCurrentObject;
+        }
+
+        protected override void SwitchCreationPanelToCurrentObject()
+        {
+            if (_buttonsListOfSelected == null &&
+                _selectableListService.CurrentSelectObjects.Count == 1 &&
+                !_buildingJobProgressData.HasObjectJob &&
+                selectStatusChanger.IsSelect())
+            {
+                _buttonsListOfSelected = _uiFactory.CreateUnitCreationButtonsOfBuilding(_creatableUnits, transform);
+            }
         }
     }
 }

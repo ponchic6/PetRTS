@@ -1,53 +1,53 @@
-﻿using System;
+﻿using Factories;
+using Logic.MonoBehaviors.View;
 using UnityEngine;
 
-public class BuildingService : IBuildingService
+namespace Services
 {
-    private readonly IGlobalResourceAndBuildingFactoryMediator _buildingMediator;
-    private readonly IBuildingFactory _buildingFactory;
-    private readonly IInputService _inputService;
-    private readonly ITickService _tickService;
-
-    private GameObject _currentBuilding;
-    private Camera _camera;
-
-    public BuildingService(IGlobalResourceAndBuildingFactoryMediator buildingMediator, IInputService inputService,
-        ITickService tickService, IBuildingFactory buildingFactory)
+    public class BuildingService
     {
-        _inputService = inputService;
-        _inputService.OnLeftClickDown += SetupBuildingFromCursor;
+        private readonly IBuildingFactory _buildingFactory;
+        private readonly IInputService _inputService;
+        private readonly ITickService _tickService;
 
-        _buildingFactory = buildingFactory;
-        _buildingFactory.OnCreateBuilding += SetCreatedBuilding;
-        
-        _buildingMediator = buildingMediator; ;
+        private GameObject _currentBuilding;
+        private Camera _camera;
 
-        _tickService = tickService;
-        _tickService.OnTick += SetCurrentBuildingPosToCursor;
-    }
-
-    private void SetCreatedBuilding(GameObject building)
-    {
-        _currentBuilding = building;
-    }
-
-    private void SetCurrentBuildingPosToCursor()
-    {
-        if (_currentBuilding != null)
+        public BuildingService(IInputService inputService, ITickService tickService, IBuildingFactory buildingFactory)
         {
-            Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
+            _inputService = inputService;
+            _inputService.OnLeftClickDown += SetupBuildingFromCursor;
 
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity, 1 << 6))
-                _currentBuilding.transform.position = raycastHit.point;
+            _buildingFactory = buildingFactory;
+            _buildingFactory.OnCreatedBuilding += SetCreatedBuilding;
+
+            _tickService = tickService;
+            _tickService.OnTick += SetCurrentBuildingPosToCursor;
         }
-    }
 
-    private void SetupBuildingFromCursor()
-    {
-        if (_currentBuilding != null)
-        {   
-            _currentBuilding.GetComponent<BuildingColiderActivator>().ActiveCollider();
-            _currentBuilding = null;
+        private void SetCreatedBuilding(GameObject building)
+        {
+            _currentBuilding = building;
+        }
+
+        private void SetCurrentBuildingPosToCursor()
+        {
+            if (_currentBuilding != null)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(_inputService.GetCursorPos());
+
+                if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity, 1 << 6))
+                    _currentBuilding.transform.position = raycastHit.point;
+            }
+        }
+
+        private void SetupBuildingFromCursor()
+        {
+            if (_currentBuilding != null)
+            {   
+                _currentBuilding.GetComponent<BuildingColiderActivator>().ActiveCollider();
+                _currentBuilding = null;
+            }
         }
     }
 }

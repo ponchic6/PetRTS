@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using Factories;
+using Zenject;
 
 public class LoadLevelState : IPayLoadState<string>
 {
