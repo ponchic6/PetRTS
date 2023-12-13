@@ -16,3 +16,5 @@ MonoBehaviour:
   _unitStaticDataKnight: {fileID: 11400000, guid: 6236b7b030c329e4287be9fc5ad193c0, type: 2}
   _unitStaticDataBower: {fileID: 11400000, guid: 14e36af57c138f54eba2a3b1c412cf6b, type: 2}
   _unitStaticDataWizard: {fileID: 11400000, guid: a034a5c865e26194ea3b2897ff579656, type: 2}
+  _uiStaticData: {fileID: 11400000, guid: 9982c9aed501e2d41b6185226c6aa9ee, type: 2}
+  _allBuildingsStaticData: {fileID: 0}

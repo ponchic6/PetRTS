@@ -30,6 +30,11 @@ namespace Logic.MonoBehaviors.Mediators
             {
                 _currentJobProgressData = jobProgressData;
                 FindResourceCollector();
+                
+                if (_currentResourceCollector == null)
+                {
+                    return;    
+                }
                 StartCoroutine(StartToTransportCoroutine());
             }
 

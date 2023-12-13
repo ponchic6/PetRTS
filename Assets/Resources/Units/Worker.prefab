@@ -3360,7 +3360,7 @@ MonoBehaviour:
   selectStatusChanger: {fileID: 2893437162056930838}
   _creatableBuildings:
   - {fileID: 11400000, guid: 3df25ecabd5f0d14d92ab64d74960316, type: 2}
-  - {fileID: 11400000, guid: 3df25ecabd5f0d14d92ab64d74960316, type: 2}
+  - {fileID: 11400000, guid: 8e3c5a7df49c1b1438765211a9dcd52b, type: 2}
 --- !u!114 &-4259196110113953167
 MonoBehaviour:
   m_ObjectHideFlags: 0

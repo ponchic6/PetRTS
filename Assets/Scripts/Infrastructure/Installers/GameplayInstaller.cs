@@ -27,8 +27,16 @@ public class GameplayInstaller : MonoInstaller
         RegisterBuildingFactory();
         RegisterSelectorService();
         RegisterGlobalResourceStorageService();
+        RegisterGlobalResourceAndUnitFactoryMediator();
         RegisterGlobalResourceAndBuildingFactoryMediator();
         RegisterBuildingService();
+    }
+
+    private void RegisterGlobalResourceAndUnitFactoryMediator()
+    {
+        IGlobalResourceAndUnitFactoryMediator unitMediator =
+            Container.Instantiate<GlobalResourceAndUnitFactoryMediator>();
+        Container.Bind<IGlobalResourceAndUnitFactoryMediator>().FromInstance(unitMediator).AsSingle();
     }
 
     private void RegisterAllBuildingStaticData()

@@ -4,6 +4,8 @@
 public class AllBuildingsStaticData : ScriptableObject
 {
     [SerializeReference] private BuildingStaticData _castleStaticData;
+    [SerializeReference] private BuildingStaticData _towerStaticData;
 
     public BuildingStaticData CastleStaticData => _castleStaticData;
+    public BuildingStaticData TowerStaticData => _towerStaticData;
 }

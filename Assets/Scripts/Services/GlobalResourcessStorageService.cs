@@ -12,7 +12,7 @@ namespace Services
 
         public GlobalResourcessStorageService()
         {
-            AddResource(100);
+            AddResource(20);
         }
 
         public void AddResource(float resourceCount)

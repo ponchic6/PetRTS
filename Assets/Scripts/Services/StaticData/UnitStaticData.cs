@@ -10,6 +10,7 @@ public class UnitStaticData : ScriptableObject
     [SerializeField] private float _cooldown;
     [SerializeField] private float _efficiency;
     [SerializeField] private float _rotateDuration;
+    [SerializeField] private float _price;
 
     public string UnitPrefabPath => _unitPrefabPath;
     public Sprite CreationIcon => _creationIcon;
@@ -18,4 +19,5 @@ public class UnitStaticData : ScriptableObject
     public float Efficiency => _efficiency;
     public int MaxResourceOnUnit => _maxResourceOnUnit;
     public float RotateDuration => _rotateDuration;
+    public float Price => _price;
 }

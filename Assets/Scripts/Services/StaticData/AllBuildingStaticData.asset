@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e695e353ebab4507a42074e3f825ceba, type: 3}
   m_Name: AllBuildingStaticData
   m_EditorClassIdentifier: 
-  _castleStaticData: {fileID: 0}
+  _castleStaticData: {fileID: 11400000, guid: 3df25ecabd5f0d14d92ab64d74960316, type: 2}
+  _towerStaticData: {fileID: 11400000, guid: 8e3c5a7df49c1b1438765211a9dcd52b, type: 2}

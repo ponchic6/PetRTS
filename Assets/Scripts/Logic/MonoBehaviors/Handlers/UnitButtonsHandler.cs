@@ -1,4 +1,4 @@
-﻿using Factories;
+﻿using Logic.MonoBehaviors.Mediators;
 using UnityEngine;
 using Zenject;
 
@@ -6,17 +6,17 @@ namespace Logic.MonoBehaviors.Handlers
 {
     public class UnitButtonsHandler : MonoBehaviour
     {
-        private IUnitFactory _unitFactory;
+        private IGlobalResourceAndUnitFactoryMediator _unitMediator;
 
         [Inject]
-        public void Constructor(IUnitFactory unitFactory)
+        public void Constructor(IGlobalResourceAndUnitFactoryMediator unitMediator)
         {
-            _unitFactory = unitFactory;
+            _unitMediator = unitMediator;
         }
 
         public void CreateUnit(UnitStaticData unit, Transform building)
         {
-            _unitFactory.CreateUnit(unit, building);
+            _unitMediator.CreateUnit(unit, building);
         }
     }
 }
